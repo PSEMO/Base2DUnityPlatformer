@@ -24,8 +24,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject SettingsMenu;
     [SerializeField] GameObject CreditsMenu;
 
-    [SerializeField] string gameSceneName = "Game";
-
     private void Start()
     {
         SwitchToMainMenuUI();
@@ -77,7 +75,7 @@ public class UIManager : MonoBehaviour
 
         GameManager.Instance.gameState = GameState.Playing;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(1);
     }
 
     public void QuitBtn()

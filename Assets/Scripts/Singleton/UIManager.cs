@@ -28,7 +28,14 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        SwitchToMainMenuUI();
+        if (GameManager.Instance.currentGameState == GameState.MainMenu)
+        {
+            SwitchToMainMenuUI();
+        }
+        else if (GameManager.Instance.currentGameState == GameState.Playing)
+        {
+            SwitchToInGameMenuUI();
+        }
     }
 
     public void SwitchToMainMenuUI()

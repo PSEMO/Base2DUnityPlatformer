@@ -16,8 +16,13 @@ MonoBehaviour:
   speed: 8
   jumpForce: 14
   variableJump: 1
+  sprintMultiplier: 1.8
   coyoteTime: 0.08
   jumpBufferTime: 0.12
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  interactionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 0.02

@@ -39,7 +39,7 @@ public class CameraManager : MonoBehaviour
 
             endPosition /= targets.Count;
 
-            transform.position = endPosition;
+            transform.position = new Vector3 (endPosition.x, endPosition.y, -10);
         }
     }
 

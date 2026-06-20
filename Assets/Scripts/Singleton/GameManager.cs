@@ -18,10 +18,5 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameState currentGameState;
-
-    void Start()
-    {
-        currentGameState = GameState.MainMenu;
-    }
+    public GameState currentGameState = GameState.MainMenu;
 }

@@ -12,10 +12,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     InputSystem_Actions inputActions;
 
     float moveInput = 0;
-    bool upInput = false;
-    bool downInput = false;
     bool sprintInput = false;
-    bool interactInput = false;
+    bool downInput = false; //unused rn
+    bool interactInput = false; //unused rn
 
     Rigidbody2D rb;
 
@@ -72,8 +71,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     public void OnUp(InputAction.CallbackContext context)
     {
-        upInput = context.performed;
-
         if (context.performed)
         {
             jumpBufferCounter = data.jumpBufferTime;

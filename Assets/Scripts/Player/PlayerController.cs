@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     float coyoteTimeCounter = 0;
     float jumpBufferCounter = 0;
     bool hasJumped = false;
+    int jumpsLeft;
 
     void Awake()
     {
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         {
             jumpBufferCounter = data.jumpBufferTime;
 
-            if (coyoteTimeCounter > 0f && !hasJumped)
+            if (jumpsLeft > 0)
             {
                 ExecuteJump();
             }
@@ -117,11 +118,17 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
             if (rb.linearVelocity.y <= 0f)
             {
                 hasJumped = false;
+                jumpsLeft = data.jumpCount;
             }
         }
         else
         {
             coyoteTimeCounter -= Time.deltaTime;
+
+            if (coyoteTimeCounter <= 0f && !hasJumped && jumpsLeft == data.jumpCount)
+            {
+                jumpsLeft--;
+            }
         }
 
         if (jumpBufferCounter > 0f)
@@ -129,7 +136,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f && !hasJumped)
+        if (jumpBufferCounter > 0f && jumpsLeft > 0)
         {
             ExecuteJump();
         }
@@ -158,5 +165,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         coyoteTimeCounter = 0f;
         jumpBufferCounter = 0f;
         hasJumped = true;
+        jumpsLeft--;
     }
 }

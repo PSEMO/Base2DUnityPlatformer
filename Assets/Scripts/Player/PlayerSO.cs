@@ -11,6 +11,7 @@ public class PlayerSO : ScriptableObject
     public float sprintMultiplier = 1.2f;
 
     [Header("Jump")]
+    public int jumpCount = 1;
     public float jumpForce = 14f;
     public bool variableJump = true;
     [Range(0, 1)] public float variableJumpMult = 0;

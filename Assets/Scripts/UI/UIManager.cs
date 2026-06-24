@@ -70,6 +70,7 @@ public class UIManager : MonoBehaviour
         menuDict[MenuType.InGameUI].Show();
     }
 
+//#region Helper
     private void DisableAllUI()
     {
         foreach (Panel menuScreen in menuDict.Values)
@@ -83,6 +84,7 @@ public class UIManager : MonoBehaviour
         if (GameManager.Instance.currentGameState == GameState.MainMenu)
             menuDict[MenuType.MainBg].Show();
     }
+//#endregion
 
 //#region Buttons
 

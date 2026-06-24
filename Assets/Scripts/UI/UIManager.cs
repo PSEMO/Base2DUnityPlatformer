@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance { get; private set; }
+
+    [SerializeField] private List<MenuScreen> menuScreens; 
+    private Dictionary<MenuType, MenuScreen> menuDict;
 
     private void Awake()
     {
@@ -19,17 +23,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    [SerializeField] GameObject MainMenu;
-    [SerializeField] GameObject InGameMenu;
-    [SerializeField] GameObject SettingsMenu;
-    [SerializeField] GameObject CreditsMenu;
-    
-    [SerializeField] GameObject BackGround;
-
     private void Start()
     {
+        menuDict = new Dictionary<MenuType, MenuScreen>();
+
+        foreach (var menu in menuScreens)
+        {
+            if (menu != null && !menuDict.ContainsKey(menu.Type))
+            {
+                menu.Hide();
+                menuDict.Add(menu.Type, menu);
+            }
+        }
+
         HandleGameStateChanged(GameManager.Instance.currentGameState);
-        
+
         GameManager.OnGameStateChanged += HandleGameStateChanged;
     }
 
@@ -41,58 +49,28 @@ public class UIManager : MonoBehaviour
     private void HandleGameStateChanged(GameState state)
     {
         if (state == GameState.MainMenu)
-        {
             SwitchToMainMenuUI();
-        }
         else if (state == GameState.Playing)
-        {
             SwitchToInGameMenuUI();
-        }
     }
 
     public void SwitchToMainMenuUI()
     {
         DisableAllUI();
-        SetBackgroundUI();
+        SetBg();
 
-        MainMenu.SetActive(true);
+        menuDict[MenuType.MainUI].Show();
     }
 
     public void SwitchToInGameMenuUI()
     {
         DisableAllUI();
-        SetBackgroundUI();
+        SetBg();
 
-        InGameMenu.SetActive(true);
+        menuDict[MenuType.InGameUI].Show();
     }
 
-    public void SettingsBtn()
-    {
-        DisableAllUI();
-        SetBackgroundUI();
-
-        SettingsMenu.SetActive(true);
-    }
-
-    public void CreditsBtn()
-    {
-        DisableAllUI();
-        SetBackgroundUI();
-
-        CreditsMenu.SetActive(true);
-    }
-
-    public void BackBtn()
-    {
-        if (GameManager.Instance.currentGameState == GameState.MainMenu)
-        {
-            SwitchToMainMenuUI();
-        }
-        else if (GameManager.Instance.currentGameState == GameState.Playing)
-        {
-            SwitchToInGameMenuUI();
-        }
-    }
+//#region Buttons
 
     public void PlayBtn()
     {
@@ -108,24 +86,45 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    private void DisableAllUI()
+    public void SettingsBtn()
     {
-        MainMenu.SetActive(false);
-        InGameMenu.SetActive(false);
-        SettingsMenu.SetActive(false);
-        CreditsMenu.SetActive(false);
-        BackGround.SetActive(false);
+        DisableAllUI();
+        SetBg();
+
+        if (GameManager.Instance.currentGameState == GameState.MainMenu)
+            menuDict[MenuType.MainSettings].Show();
+        else if (GameManager.Instance.currentGameState == GameState.Playing)
+            menuDict[MenuType.InGameSettings].Show();
     }
 
-    private void SetBackgroundUI()
+    public void CreditsBtn()
+    {
+        DisableAllUI();
+        SetBg();
+
+        menuDict[MenuType.CreditsMenu].Show();
+    }
+
+    public void BackBtn()
     {
         if (GameManager.Instance.currentGameState == GameState.MainMenu)
-        {
-            BackGround.SetActive(true);
-        }
+            SwitchToMainMenuUI();
         else if (GameManager.Instance.currentGameState == GameState.Playing)
+            SwitchToInGameMenuUI();
+    }
+
+    private void DisableAllUI()
+    {
+        foreach (MenuScreen menuScreen in menuDict.Values)
         {
-            BackGround.SetActive(false);
+            menuScreen.Hide();
         }
     }
+
+    private void SetBg()
+    {
+        if (GameManager.Instance.currentGameState == GameState.MainMenu)
+            menuDict[MenuType.MainBg].Show();
+    }
+//#endregion
 }

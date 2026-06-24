@@ -1,8 +1,13 @@
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    public static event Action<GameState> OnGameStateChanged;
+
+    public GameState currentGameState { get; private set; } = GameState.MainMenu;
 
     private void Awake()
     {
@@ -18,5 +23,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameState currentGameState = GameState.MainMenu;
+    public void UpdateGameState(GameState newState)
+    {
+        if (currentGameState != newState)
+        {
+            currentGameState = newState;
+            OnGameStateChanged?.Invoke(newState);
+        }
+    }
 }

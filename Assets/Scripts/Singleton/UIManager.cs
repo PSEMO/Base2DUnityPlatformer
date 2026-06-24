@@ -28,11 +28,23 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.Instance.currentGameState == GameState.MainMenu)
+        HandleGameStateChanged(GameManager.Instance.currentGameState);
+        
+        GameManager.OnGameStateChanged += HandleGameStateChanged;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= HandleGameStateChanged;
+    }
+
+    private void HandleGameStateChanged(GameState state)
+    {
+        if (state == GameState.MainMenu)
         {
             SwitchToMainMenuUI();
         }
-        else if (GameManager.Instance.currentGameState == GameState.Playing)
+        else if (state == GameState.Playing)
         {
             SwitchToInGameMenuUI();
         }
@@ -40,28 +52,32 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToMainMenuUI()
     {
-        SetAllUI();
+        DisableAllUI();
+        SetBackgroundUI();
 
         MainMenu.SetActive(true);
     }
 
     public void SwitchToInGameMenuUI()
     {
-        SetAllUI();
+        DisableAllUI();
+        SetBackgroundUI();
 
         InGameMenu.SetActive(true);
     }
 
     public void SettingsBtn()
     {
-        SetAllUI();
+        DisableAllUI();
+        SetBackgroundUI();
 
         SettingsMenu.SetActive(true);
     }
 
     public void CreditsBtn()
     {
-        SetAllUI();
+        DisableAllUI();
+        SetBackgroundUI();
 
         CreditsMenu.SetActive(true);
     }
@@ -80,29 +96,29 @@ public class UIManager : MonoBehaviour
 
     public void PlayBtn()
     {
-        SwitchToInGameMenuUI();
-
-        GameManager.Instance.currentGameState = GameState.Playing;
+        GameManager.Instance.UpdateGameState(GameState.Playing);
 
         SceneManager.LoadScene(1);
     }
 
     public void QuitBtn()
     {
-        SwitchToMainMenuUI();
-
-        GameManager.Instance.currentGameState = GameState.MainMenu;
+        GameManager.Instance.UpdateGameState(GameState.MainMenu);
         
         SceneManager.LoadScene(0);
     }
 
-    private void SetAllUI()
+    private void DisableAllUI()
     {
         MainMenu.SetActive(false);
         InGameMenu.SetActive(false);
         SettingsMenu.SetActive(false);
         CreditsMenu.SetActive(false);
+        BackGround.SetActive(false);
+    }
 
+    private void SetBackgroundUI()
+    {
         if (GameManager.Instance.currentGameState == GameState.MainMenu)
         {
             BackGround.SetActive(true);

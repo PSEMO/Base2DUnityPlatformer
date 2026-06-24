@@ -70,6 +70,20 @@ public class UIManager : MonoBehaviour
         menuDict[MenuType.InGameUI].Show();
     }
 
+    private void DisableAllUI()
+    {
+        foreach (MenuScreen menuScreen in menuDict.Values)
+        {
+            menuScreen.Hide();
+        }
+    }
+
+    private void SetBg()
+    {
+        if (GameManager.Instance.currentGameState == GameState.MainMenu)
+            menuDict[MenuType.MainBg].Show();
+    }
+
 //#region Buttons
 
     public void PlayBtn()
@@ -111,20 +125,6 @@ public class UIManager : MonoBehaviour
             SwitchToMainMenuUI();
         else if (GameManager.Instance.currentGameState == GameState.Playing)
             SwitchToInGameMenuUI();
-    }
-
-    private void DisableAllUI()
-    {
-        foreach (MenuScreen menuScreen in menuDict.Values)
-        {
-            menuScreen.Hide();
-        }
-    }
-
-    private void SetBg()
-    {
-        if (GameManager.Instance.currentGameState == GameState.MainMenu)
-            menuDict[MenuType.MainBg].Show();
     }
 //#endregion
 }

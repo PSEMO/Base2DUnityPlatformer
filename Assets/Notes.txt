@@ -1,0 +1,6 @@
+Add animations
+Make the Camera better
+Make everything toggleable
+Make everything activateable
+Add Tutorial
+Kill box

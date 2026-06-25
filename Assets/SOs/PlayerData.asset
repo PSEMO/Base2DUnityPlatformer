@@ -15,10 +15,12 @@ MonoBehaviour:
   camDivisor: 1
   speed: 8
   sprintMultiplier: 1.8
-  JumpCount: 1
+  jumpCount: 1
   jumpForce: 14
   variableJump: 1
   variableJumpMult: 0
+  dashForce: 40
+  dashDuration: 0.12
   coyoteTime: 0.08
   jumpBufferTime: 0.12
   groundLayer:

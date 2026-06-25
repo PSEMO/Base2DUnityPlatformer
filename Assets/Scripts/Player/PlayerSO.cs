@@ -16,6 +16,10 @@ public class PlayerSO : ScriptableObject
     public bool variableJump = true;
     [Range(0, 1)] public float variableJumpMult = 0;
 
+    [Header("Dash")]
+    public float dashForce = 24f;
+    public float dashDuration = 0.15f;
+
     [Header("Config")]
     public float coyoteTime = 0.08f;
     public float jumpBufferTime = 0.12f;

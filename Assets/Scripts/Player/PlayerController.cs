@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,9 +12,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     InputSystem_Actions inputActions;
 
     float moveInput = 0;
+    int facingDirection = 1;
     bool sprintInput = false;
     bool downInput = false; //unused rn
     bool interactInput = false; //unused rn
+
+    bool isDashing = false;
+    bool canDash = true;
 
     Rigidbody2D rb;
 
@@ -22,6 +27,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     float jumpBufferCounter = 0;
     bool hasJumped = false;
     int jumpsLeft;
+
+    public PlayerState CurrentState { get; private set; }
 
     void Awake()
     {
@@ -55,11 +62,46 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     void Update()
     {
         isGrounded = IsOnGround();
+        UpdateState();
+    }
+
+    private void UpdateState()
+    {
+        if (isDashing)
+        {
+            CurrentState = PlayerState.Dashing;
+        }
+        else if (!isGrounded)
+        {
+            if (rb.linearVelocity.y > 0)
+            {
+                CurrentState = PlayerState.Jumping;
+            }
+            else
+            {
+                CurrentState = PlayerState.Falling;
+            }
+        }
+        else if (moveInput != 0)
+        {
+            CurrentState = sprintInput ? PlayerState.Running : PlayerState.Walking;
+        }
+        else
+        {
+            CurrentState = PlayerState.Idle;
+        }
     }
 
     void FixedUpdate()
     {
         JumpCheckers();
+        
+        if (isDashing) return;
+
+        if (jumpBufferCounter > 0f && jumpsLeft > 0)
+        {
+            ExecuteJump();
+        }
 
         float velocityX = moveInput * data.speed * (sprintInput? data.sprintMultiplier : 1.0f);
         rb.linearVelocity = new Vector2(velocityX, rb.linearVelocity.y);
@@ -68,6 +110,17 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<float>();
+        if (moveInput != 0)
+        {
+            int newFacingDirection = moveInput >= 0 ? 1 : -1;
+            if (newFacingDirection != facingDirection)
+            {
+                facingDirection = newFacingDirection;
+                Vector3 scale = transform.localScale;
+                scale.x *= -1;
+                transform.localScale = scale;
+            }
+        }
     }
 
     public void OnUp(InputAction.CallbackContext context)
@@ -110,6 +163,30 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         interactInput = context.performed;
     }
 
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.performed && canDash)
+        {
+            StartCoroutine(DashRoutine());
+        }
+    }
+
+    private IEnumerator DashRoutine()
+    {
+        canDash = false;
+        isDashing = true;
+        
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+        
+        rb.linearVelocity = new Vector2(facingDirection * data.dashForce, 0f);
+        
+        yield return new WaitForSeconds(data.dashDuration);
+        
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+    }
+
     private void JumpCheckers()
     {
         if (isGrounded)
@@ -119,6 +196,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
             {
                 hasJumped = false;
                 jumpsLeft = data.jumpCount;
+                canDash = true;
             }
         }
         else
@@ -134,11 +212,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         if (jumpBufferCounter > 0f)
         {
             jumpBufferCounter -= Time.deltaTime;
-        }
-
-        if (jumpBufferCounter > 0f && jumpsLeft > 0)
-        {
-            ExecuteJump();
         }
     }
 

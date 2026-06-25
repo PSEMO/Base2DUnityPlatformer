@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3361262947553298834}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LGroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7586973253244786210}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RGroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1691290031990977654}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MGroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 2018240993954701890}
   - component: {fileID: 9208908686564330161}
   - component: {fileID: 6519271528329440469}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

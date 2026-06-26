@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
         CurrentGameState = initialGameState;
     }
 
-    public static event Action<GameState> OnGameStateChanged;
 
     [HideInInspector] public GameState CurrentGameState { get; private set; }
 
@@ -32,7 +31,7 @@ public class GameManager : MonoBehaviour
         if (CurrentGameState != newState)
         {
             CurrentGameState = newState;
-            OnGameStateChanged?.Invoke(newState);
+            Events.InvokeGameStateChanged(newState);
         }
     }
 }

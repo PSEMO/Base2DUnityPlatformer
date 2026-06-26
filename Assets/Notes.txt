@@ -1,7 +1,7 @@
-Add animations
-Make the Camera better
+Add Tutorial
+
+/*after refactoring the PlayerController*/
+State Machine
 Make everything toggleable
 Make everything activateable
-Add Tutorial
-Kill box
-State Machine
+Add animations

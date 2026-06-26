@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        GameManager.OnGameStateChanged += HandleGameStateChanged;
+        Events.OnGameStateChanged += HandleGameStateChanged;
     }
 
     [SerializeField] private List<Panel> panels; 
@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.OnGameStateChanged -= HandleGameStateChanged;
+        Events.OnGameStateChanged -= HandleGameStateChanged;
     }
 
     private void HandleGameStateChanged(GameState state)

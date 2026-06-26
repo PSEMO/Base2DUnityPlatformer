@@ -21,9 +21,30 @@ public class CameraManager : MonoBehaviour
         targets = new Dictionary<Transform, float>();
     }
 
-    private Dictionary<Transform, float> targets;
+    [SerializeField] CameraSO data;
 
-    void Update()
+    private Dictionary<Transform, float> targets;
+    private Vector3 velocity = Vector3.zero;
+
+    void FixedUpdate()
+    {
+        MoveTowardsTheTarget(GetTargetPos());
+    }
+
+    private void MoveTowardsTheTarget(Vector3 targetPos)
+    {
+        Vector3 nextPos = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, data.smoothTime, data.maxSpeed);
+
+        if (data.useBounds)
+        {
+            nextPos.x = Mathf.Clamp(nextPos.x, data.minBounds.x, data.maxBounds.x);
+            nextPos.y = Mathf.Clamp(nextPos.y, data.minBounds.y, data.maxBounds.y);
+        }
+
+        transform.position = nextPos;
+    }
+
+    private Vector3 GetTargetPos()
     {
         if (targets.Count > 0)
         {
@@ -36,8 +57,10 @@ public class CameraManager : MonoBehaviour
 
             endPosition /= targets.Count;
 
-            transform.position = new Vector3 (endPosition.x, endPosition.y, -10);
+            return new Vector3 (endPosition.x, endPosition.y, transform.position.z);
         }
+
+        return transform.position;
     }
 
     public void AddTarget(Transform _transform, float divisor)

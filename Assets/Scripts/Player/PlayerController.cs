@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     [SerializeField] PlayerSO data;
     [SerializeField] List<Transform> groundChecks;
 
+    private Vector3 respawnPos;
+
     InputSystem_Actions inputActions;
 
     float moveInput = 0;
@@ -40,16 +42,22 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     {
         rb = GetComponent<Rigidbody2D>();
         CameraManager.Instance.AddTarget(transform, data.camDivisor);
+
+        respawnPos = transform.position;
     }
 
     void OnEnable()
     {
         inputActions.Player.Enable();
+        Events.OnPlayerDeath += Die;
+        Events.OnCheckPointReached += SetRespawnPos;
     }
 
     void OnDisable()
     {
         inputActions.Player.Disable();
+        Events.OnPlayerDeath -= Die;
+        Events.OnCheckPointReached -= SetRespawnPos;
     }
 
     void OnDestroy()
@@ -239,5 +247,16 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         jumpBufferCounter = 0f;
         hasJumped = true;
         jumpsLeft--;
+    }
+
+    private void Die()
+    {
+        transform.position = respawnPos;
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    private void SetRespawnPos(Vector3 pos)
+    {
+        respawnPos = pos;
     }
 }

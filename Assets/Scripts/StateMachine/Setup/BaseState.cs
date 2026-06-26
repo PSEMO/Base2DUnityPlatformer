@@ -18,22 +18,22 @@ public abstract class BaseState : IState
         animator = _animator;
     }
 
-    public virtual void FixedUpdate()
-    {
-        // noop
-    }
-
     public virtual void OnEnter()
     {
         // noop
     }
 
-    public virtual void OnExit()
+    public virtual void Update()
     {
         // noop
     }
 
-    public virtual void Update()
+    public virtual void FixedUpdate()
+    {
+        // noop
+    }
+
+    public virtual void OnExit()
     {
         // noop
     }

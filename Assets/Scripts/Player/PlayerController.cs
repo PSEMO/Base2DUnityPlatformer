@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
             {
                 facingDirection = newFacingDirection;
                 Vector3 scale = transform.localScale;
-                scale.x *= -1;
+                scale.x *= -1 * scale.x;
                 transform.localScale = scale;
             }
         }

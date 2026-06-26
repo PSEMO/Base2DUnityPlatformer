@@ -32,8 +32,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     bool hasJumped = false;
     int jumpsLeft;
 
-    public PlayerState CurrentState { get; private set; }
-
     void Awake()
     {
         inputActions = new InputSystem_Actions();
@@ -74,34 +72,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     void Update()
     {
         isGrounded = IsOnGround();
-        UpdateState();
-    }
-
-    private void UpdateState()
-    {
-        if (isDashing)
-        {
-            CurrentState = PlayerState.Dashing;
-        }
-        else if (!isGrounded)
-        {
-            if (rb.linearVelocity.y > 0)
-            {
-                CurrentState = PlayerState.Jumping;
-            }
-            else
-            {
-                CurrentState = PlayerState.Falling;
-            }
-        }
-        else if (moveInput != 0)
-        {
-            CurrentState = sprintInput ? PlayerState.Running : PlayerState.Walking;
-        }
-        else
-        {
-            CurrentState = PlayerState.Idle;
-        }
     }
 
     void FixedUpdate()

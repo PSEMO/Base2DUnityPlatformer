@@ -195,12 +195,15 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     //***INPUTS***
     public void OnMove(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<float>();
+        if (data.ableToRun)
+        {
+            moveInput = context.ReadValue<float>();
+        }
     }
 
     public void OnUp(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && data.ableToJump)
         {
             upInput = true;
             jumpBufferCounter = data.jumpBufferTime;
@@ -213,7 +216,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && data.ableToDash)
         {
             dashInput = true;
         }
@@ -225,7 +228,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && data.ableToInteract)
         {
             interactInput = true;
         }

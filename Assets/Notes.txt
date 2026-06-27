@@ -1,4 +1,3 @@
-State Machine
 Make everything toggleable
 Make everything activateable
 Add animations

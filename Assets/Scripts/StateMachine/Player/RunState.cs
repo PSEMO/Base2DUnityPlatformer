@@ -6,11 +6,11 @@ public class RunState : BaseState
 
     public override void OnEnter()
     {
-        //Change Anim
+        //animator.Play(RunAnimHash);
     }
 
     public override void FixedUpdate()
     {
-        //move
+        Run();
     }
 }

@@ -1,38 +1,43 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerActions
 {
-    [SerializeField] private PlayerSO data;
+    public PlayerSO data;
     [SerializeField] private List<Transform> groundChecks;
 
     private InputSystem_Actions inputActions;
 
-    public Rigidbody2D rb;
-    public Animator animator;
+    [HideInInspector] public Rigidbody2D rb;
+    [HideInInspector] public Animator animator;
+
+    [HideInInspector] public StateMachine stateMachine;
 
     private Vector3 respawnPos;
 
     //Inputs
-    public float moveInput = 0;
-    public bool upInput = false;
-    public bool dashInput = false;
-    public bool interactInput = false;
+    [HideInInspector] public float moveInput = 0;
+    [HideInInspector] public bool upInput = false;
+    [HideInInspector] public bool dashInput = false;
+    [HideInInspector] public bool interactInput = false;
+
+    //Move
+    [HideInInspector] public Vector3 initialScale;
+    [HideInInspector] public int facing = 1;
 
     //Jump
-    public bool isGrounded = true;
-    public float coyoteTimeCounter = 0;
-    public float jumpBufferCounter = 0;
-    public int jumpsLeft = 0;
-    public bool hasJumped = false;
+    [HideInInspector] public bool isGrounded = true;
+    [HideInInspector] public float coyoteTimeCounter = 0;
+    [HideInInspector] public float jumpBufferCounter = 0;
+    [HideInInspector] public int jumpsLeft = 0;
+    [HideInInspector] public bool hasJumped = false;
 
     //Dash
-    public bool canDash = true;
+    [HideInInspector] public bool canDash = true;
     
     void Awake()
     {
@@ -41,6 +46,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        InitializeStateMachine();
     }
 
     void Start()
@@ -48,8 +55,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         CameraManager.Instance.AddTarget(transform, data.camDivisor);
 
         respawnPos = transform.position;
-
         jumpsLeft = data.jumpCount;
+        initialScale = transform.localScale;
     }
 
     void OnEnable()
@@ -76,15 +83,22 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     void Update()
     {
         isGrounded = IsOnGround();
-        UpdateJumpTimers();
+        UpdateTimers();
+
+        stateMachine.Update();
     }
 
-    private void UpdateJumpTimers()
+    void FixedUpdate()
+    {
+        stateMachine.FixedUpdate();
+    }
+
+    private void UpdateTimers()
     {
         if (isGrounded)
         {
             coyoteTimeCounter = data.coyoteTime;
-            if (rb.linearVelocity.y <= 0f)
+            if (rb.linearVelocity.y <= 0.1f)
             {
                 hasJumped = false;
                 jumpsLeft = data.jumpCount;
@@ -128,6 +142,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     {
         transform.position = respawnPos;
         rb.linearVelocity = Vector2.zero;
+
+        moveInput = 0;
+        dashInput = false;
+        upInput = false;
+        interactInput = false;
+        
+        stateMachine.SetState(new IdleState(this, animator)); 
     }
 
     private void SetRespawnPos(Vector3 pos)
@@ -135,11 +156,46 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         respawnPos = pos;
     }
 
+    void InitializeStateMachine()
+    {
+        stateMachine = new StateMachine();
+
+        var idleState = new IdleState(this, animator);
+        var runState = new RunState(this, animator);
+        var jumpState = new JumpState(this, animator);
+        var fallState = new FallState(this, animator);
+        var dashState = new DashState(this, animator);
+
+        void At(BaseState from, BaseState to, Func<bool> condition) =>
+            stateMachine.AddTransition(from, to, new FuncPredicate(condition));
+
+        void Any(BaseState to, Func<bool> condition) =>
+            stateMachine.AddAnyTransition(to, new FuncPredicate(condition));
+
+        At(idleState, runState, () => Mathf.Abs(moveInput) >= 0.1f);
+
+        At(runState, idleState, () => Mathf.Abs(moveInput) < 0.1f);
+
+        At(fallState, idleState, () => isGrounded && Mathf.Abs(moveInput) < 0.1f);
+        At(fallState, runState, () => isGrounded && Mathf.Abs(moveInput) >= 0.1f);
+        
+        At(dashState, idleState, () => !dashState.IsDashing() && isGrounded && Mathf.Abs(moveInput) < 0.1f);
+        At(dashState, runState, () => !dashState.IsDashing() && isGrounded && Mathf.Abs(moveInput) >= 0.1f);
+        At(dashState, fallState, () => !dashState.IsDashing() && !isGrounded);
+
+        Any(jumpState, () => jumpBufferCounter > 0f && (coyoteTimeCounter > 0f || jumpsLeft > 0));
+
+        Any(dashState, () => dashInput && canDash);
+
+        Any(fallState, () => rb.linearVelocityY < -0.1f);
+
+        stateMachine.SetState(idleState);
+    }
+
     //***INPUTS***
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<float>();
-        Debug.Log(moveInput);
     }
 
     public void OnUp(InputAction.CallbackContext context)
@@ -147,6 +203,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         if (context.performed)
         {
             upInput = true;
+            jumpBufferCounter = data.jumpBufferTime;
         }
         else if (context.canceled)
         {

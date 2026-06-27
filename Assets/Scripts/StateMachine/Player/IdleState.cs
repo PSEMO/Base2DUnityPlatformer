@@ -6,7 +6,11 @@ public class IdleState : BaseState
 
     public override void OnEnter()
     {
-        //Change Anim
-        //Remove horizontal velocity
+        //animator.Play(IdleAnimHash);
+    }
+
+    public override void FixedUpdate()
+    {
+        ctx.rb.linearVelocity = new Vector2(0f, ctx.rb.linearVelocity.y);
     }
 }

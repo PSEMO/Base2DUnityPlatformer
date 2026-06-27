@@ -7,31 +7,34 @@ public class StateMachine
     Dictionary<Type, StateNode> Nodes = new();
     HashSet<ITransition> AnyTransition = new();
 
+    public IState CurrentState => current?.State;
+
     public void Update()
     {
         var transition = GetTransition();
         if (transition != null)
             ChangeState(transition.To);
 
-        current.State?.Update();
+        current?.State?.Update();
     }
 
     public void FixedUpdate()
     {
-        current.State?.FixedUpdate();
+        current?.State?.FixedUpdate();
     }
 
     public void SetState(IState state)
     {
+        current?.State?.OnExit();
         current = Nodes[state.GetType()];
-        current.State?.OnEnter();
+        current?.State?.OnEnter();
     }
 
     private void ChangeState(IState state)
     {
-        if (state == current.State) return;
+        if (state == current?.State) return;
 
-        var previousState = current.State;
+        var previousState = current?.State;
         var nextState = Nodes[state.GetType()].State;
 
         previousState?.OnExit();
@@ -45,9 +48,12 @@ public class StateMachine
             if (transition.Condition.Evaluate())
                 return transition;
 
-        foreach (var transition in current.Transitions)
-            if (transition.Condition.Evaluate())
-                return transition;
+        if (current != null)
+        {
+            foreach (var transition in current.Transitions)
+                if (transition.Condition.Evaluate())
+                    return transition;
+        }
 
         return null;
     }

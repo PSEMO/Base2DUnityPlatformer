@@ -6,11 +6,16 @@ public class FallState : BaseState
 
     public override void OnEnter()
     {
-        //Change Anim
+        //animator.Play(FallAnimHash);
+
+        if(ctx.jumpsLeft == ctx.data.jumpCount)
+        {
+            ctx.jumpsLeft--;
+        }
     }
 
     public override void FixedUpdate()
     {
-        //move
+        Run();
     }
 }

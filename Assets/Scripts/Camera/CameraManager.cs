@@ -26,7 +26,7 @@ public class CameraManager : MonoBehaviour
     private Dictionary<Transform, float> targets;
     private Vector3 velocity = Vector3.zero;
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         MoveTowardsTheTarget(GetTargetPos());
     }

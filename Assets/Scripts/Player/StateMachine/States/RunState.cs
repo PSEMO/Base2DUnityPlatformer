@@ -11,6 +11,6 @@ public class RunState : BaseState
 
     public override void FixedUpdate()
     {
-        Run();
+        ctx.Run();
     }
 }

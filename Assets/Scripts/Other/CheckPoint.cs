@@ -3,9 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class CheckPoint : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D _)
+    [SerializeField] private Transform spawnPoint;
+    public Vector3 SpawnPos => spawnPoint.position;
+
+    private void OnTriggerEnter2D(Collider2D _)
     {
-        Events.InvokeCheckPointReached(transform.position);
+        Events.InvokeCheckPointReached(SpawnPos);
     }
 
     private void OnDrawGizmos()

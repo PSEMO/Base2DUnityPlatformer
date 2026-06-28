@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -137,6 +136,22 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         return false;
     }
 
+    public virtual void Run()
+    {
+        float targetSpeed = moveInput * data.speed;
+        rb.linearVelocity = new Vector2(targetSpeed, rb.linearVelocity.y);
+
+        if (moveInput != 0)
+        {
+            facing = moveInput >= 0? 1 : -1;
+
+            transform.localScale = new Vector3(
+                initialScale.x * facing,
+                initialScale.y,
+                initialScale.z);
+        }
+    }
+
     private void Die()
     {
         transform.position = respawnPos;
@@ -154,6 +169,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         respawnPos = pos;
     }
 
+    //===== STATE MACHINE =====
     void InitializeStateMachine()
     {
         stateMachine = new StateMachine();
@@ -189,8 +205,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
         stateMachine.SetState(idleState);
     }
+    //=========================
 
-    //***INPUTS***
+    //======== INPUTS =========
     public void OnMove(InputAction.CallbackContext context)
     {
         if (data.ableToRun)
@@ -236,4 +253,5 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
             }
         }
     }
+    //=========================
 }

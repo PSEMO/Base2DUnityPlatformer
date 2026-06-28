@@ -36,20 +36,4 @@ public abstract class BaseState : IState
     {
         // noop
     }
-
-    public virtual void Run()
-    {
-        float targetSpeed = ctx.moveInput * ctx.data.speed;
-        ctx.rb.linearVelocity = new Vector2(targetSpeed, ctx.rb.linearVelocity.y);
-
-        if (ctx.moveInput != 0)
-        {
-            ctx.facing = ctx.moveInput >= 0? 1 : -1;
-
-            ctx.transform.localScale = new Vector3(
-                ctx.initialScale.x * ctx.facing,
-                ctx.initialScale.y,
-                ctx.initialScale.z);
-        }
-    }
 }

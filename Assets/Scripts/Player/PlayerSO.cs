@@ -8,7 +8,6 @@ public class PlayerSO : ScriptableObject
 
     [Header("Movement")]
     public float speed = 8f;
-    public float sprintMultiplier = 1.2f;
 
     [Header("Jump")]
     public int jumpCount = 1;
@@ -31,6 +30,7 @@ public class PlayerSO : ScriptableObject
     public float jumpBufferTime = 0.12f;
     public float groundCheckDistance = 0.2f;
     public LayerMask groundLayer;
+    
     [Space]
     public float interactionRadius = 4f;
     public LayerMask interactionLayer;

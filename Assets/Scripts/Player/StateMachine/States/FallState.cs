@@ -16,6 +16,6 @@ public class FallState : BaseState
 
     public override void FixedUpdate()
     {
-        Run();
+        ctx.Run();
     }
 }

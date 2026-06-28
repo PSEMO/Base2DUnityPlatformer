@@ -17,7 +17,7 @@ public class JumpState : BaseState
 
     public override void FixedUpdate()
     {
-        Run();
+        ctx.Run();
 
         if (!ctx.upInput && ctx.rb.linearVelocity.y > 0f && ctx.data.variableJump)
         {

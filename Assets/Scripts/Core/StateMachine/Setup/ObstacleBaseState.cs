@@ -1,16 +1,8 @@
 using UnityEngine;
 
-public class ObstacleBase : MonoBehaviour
+public abstract class ObstacleBaseState : BaseState<ObstacleController>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected ObstacleBaseState(ObstacleController _ctx) : base(_ctx)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

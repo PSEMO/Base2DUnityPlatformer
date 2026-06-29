@@ -1,12 +1,11 @@
 using System.Collections;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class KillSelf : MonoBehaviour
 {
     [SerializeField] float secondsToDieAfter = 2;
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(KillSelfAfterSeconds(secondsToDieAfter));
     }
@@ -14,6 +13,7 @@ public class KillSelf : MonoBehaviour
     IEnumerator KillSelfAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(secondsToDieAfter);
-        Destroy(gameObject);
+
+        Instantiator.Instance.DeSpawnObject(gameObject);
     }
 }

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a3d45c64b47cc4cb2c6e90c7fbd396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rotater
+  <ID>k__BackingField: RotatingObstacle
   rotationSpeed: 90
   rotationAxis: {x: 0, y: 0, z: 1}
 --- !u!114 &5356975817450304239

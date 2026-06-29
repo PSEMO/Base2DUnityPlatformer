@@ -31,6 +31,6 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        Instantiate(prefabToSpawn, transform.position, transform.rotation);
+        Instantiator.Instance.SpawnObject(prefabToSpawn, transform.position, Quaternion.identity);
     }
 }

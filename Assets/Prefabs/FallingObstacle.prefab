@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d2fce22dc160634a50808e31134216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallerController
+  <ID>k__BackingField: FallingObstacle
   maxSpeed: 20
   gravity: 9.8
 --- !u!114 &3215229438007053258

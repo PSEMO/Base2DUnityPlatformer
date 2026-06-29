@@ -1,7 +1,11 @@
 using UnityEngine;
 
-public class Rotater : MonoBehaviour, IResettable
+public class Rotater : MonoBehaviour, IPoolable
 {
+    [field: SerializeField] public string ID { get; set; }
+
+    [Space]
+
     [SerializeField] private float rotationSpeed = 90f;
     [SerializeField] private Vector3 rotationAxis = Vector3.forward;
 

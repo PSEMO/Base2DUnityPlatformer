@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a5888ee12c1c3218e3a42c448c2fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PathFollowerController
+  <ID>k__BackingField: PathFollowerObstacle
   speed: 5
   distanceToleranceSqr: 0.01
   waypoints:

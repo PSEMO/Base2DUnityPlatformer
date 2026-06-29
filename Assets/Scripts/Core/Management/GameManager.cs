@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
         CurrentGameState = initialGameState;
     }
 
-
     [HideInInspector] public GameState CurrentGameState { get; private set; }
 
     [SerializeField] private GameState initialGameState = GameState.MainMenu;

@@ -45,7 +45,7 @@ The `CameraManager` doesn't just blindly follow a target—it supports **weighte
 3. Check the `PlayerSO` in the `Assets/SOs` folder to tune the player controller to your liking.
 4. Press Play and enjoy the smooth movement!
 
-## 🛠 Project Structure
+## Project Structure
 - **Core**: Contains the foundational systems (State Machine, Object Pooling, Game Manager, Predicates).
 - **Player**: The player controller and configuration.
 - **Audio**: Audio Manager and Scriptable Object definitions for sound effects and music.

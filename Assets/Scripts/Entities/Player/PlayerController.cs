@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
-public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Actions.IPlayerActions
+public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Actions.IPlayerActions, IVelocityOffsettable
 {
     public PlayerSO data;
     [SerializeField] private List<Transform> groundChecks;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Ac
     //Move
     [HideInInspector] public Vector3 initialScale;
     [HideInInspector] public int facing = 1;
+    [HideInInspector] public List<IMover> additionalVelocities = new();
 
     //Jump
     [HideInInspector] public bool isGrounded = true;
@@ -89,6 +90,16 @@ public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Ac
     void FixedUpdate()
     {
         stateMachine.FixedUpdate();
+
+        if (additionalVelocities.Count > 0)
+        {
+            Vector2 totalExtraVelocity = Vector2.zero;
+            foreach (IMover vel in additionalVelocities)
+            {
+                totalExtraVelocity += vel.GetVelocity();
+            }
+            rb.linearVelocity += totalExtraVelocity;
+        }
     }
 
     private void UpdateTimers()
@@ -168,6 +179,18 @@ public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Ac
     {
         respawnPos = pos;
     }
+
+    //==== VELOCITY OFFSET ====
+    public void AddVelocityOffset(IMover source)
+    {
+        additionalVelocities.Add(source);
+    }
+
+    public void RemoveVelocityOffset(IMover source)
+    {
+        additionalVelocities.Remove(source);
+    }
+    //=========================
 
     //===== STATE MACHINE =====
     void InitializeStateMachine()

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 588487435366844556}
   - component: {fileID: 3215229438007053258}
   - component: {fileID: 6263657836173283300}
+  - component: {fileID: 8351655813838353413}
   m_Layer: 9
   m_Name: FallingObstacle
   m_TagString: Untagged
@@ -153,7 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d2fce22dc160634a50808e31134216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallerController
-  data: {fileID: 11400000, guid: db3281ffaceb54b7cbf10c37d62f6768, type: 2}
+  maxSpeed: 20
+  gravity: 9.8
 --- !u!114 &3215229438007053258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +181,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KillSelf
   secondsToDieAfter: 1.2
+--- !u!50 &8351655813838353413
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6464453770252932767}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

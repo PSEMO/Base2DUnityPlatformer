@@ -1,6 +1,6 @@
 > [!NOTE]
 > ### Okay, **listen**... 
-> Yes, the 'README' was written by AI but just check the project out, it really is cool. It's highly scalable and highly configurable. Has like cool systems in it. I am particularly in love with the StateMachine. The stuff that are pre-made and not exactly 'base' are highly modular. And although the 'README' smells AI, it actually summarized the project pretty good.
+> Yes, the 'README' was written by AI but just check the project out, it really is cool. It's highly scalable and highly configurable. Has like cool systems in it. I am particularly in love with the StateMachine. The stuff that are not exactly 'base' are highly modular. And although the 'README' smells AI, it actually summarized the project pretty good.
 
 # Base 2D Unity Platformer
 

@@ -1,4 +1,4 @@
 public interface IInteractable
 {
-    public void OnInteracted() { }
+    public abstract void OnInteracted();
 }

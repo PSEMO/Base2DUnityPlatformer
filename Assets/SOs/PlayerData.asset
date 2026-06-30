@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSO
   camDivisor: 1
   speed: 8
-  sprintMultiplier: 1.8
   jumpCount: 3
   jumpForce: 14
   variableJump: 1
@@ -27,10 +26,11 @@ MonoBehaviour:
   ableToInteract: 1
   coyoteTime: 0.08
   jumpBufferTime: 0.12
+  groundCheckDistance: 0.02
   groundLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 133
+  interactionRadius: 4
   interactionLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundCheckDistance: 0.02

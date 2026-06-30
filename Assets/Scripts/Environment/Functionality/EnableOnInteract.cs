@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class EnableOnContact : MonoBehaviour
-{
+public class EnableOnInteract : MonoBehaviour, IInteractable
+{    
     [Header("Object to enable")]
     [SerializeField] private GameObject objectToEnable;
 
@@ -12,17 +11,7 @@ public class EnableOnContact : MonoBehaviour
 
     private Coroutine EnablingRoutine = null;
 
-    void OnTriggerEnter2D(Collider2D _)
-    {
-        OnContact();
-    }
-
-    void OnCollisionEnter2D(Collision2D _)
-    {
-        OnContact();
-    }
-
-    void OnContact()
+    public void OnInteracted()
     {
         if (duration <= 0)
         {
@@ -35,7 +24,6 @@ public class EnableOnContact : MonoBehaviour
             
             EnablingRoutine = StartCoroutine(EnableObject(duration));
         }
-        
     }
 
     IEnumerator EnableObject(float duration)

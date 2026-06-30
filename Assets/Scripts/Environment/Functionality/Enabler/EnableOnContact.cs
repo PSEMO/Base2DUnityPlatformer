@@ -1,48 +1,51 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class EnableOnContact : MonoBehaviour
+namespace PSEMO.Environment.Functionality.Enabler
 {
-    [Header("Object to enable")]
-    [SerializeField] private GameObject objectToEnable;
-
-    [Header("How long should the object be enabled for? (0 or less is infinite)")]
-    [SerializeField] private float duration;
-
-    private Coroutine EnablingRoutine = null;
-
-    void OnTriggerEnter2D(Collider2D _)
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class EnableOnContact : MonoBehaviour
     {
-        HandleEnter();
-    }
+        [Header("Object to enable")]
+        [SerializeField] private GameObject objectToEnable;
 
-    void OnCollisionEnter2D(Collision2D _)
-    {
-        HandleEnter();
-    }
+        [Header("How long should the object be enabled for? (0 or less is infinite)")]
+        [SerializeField] private float duration;
 
-    void HandleEnter()
-    {
-        if (duration <= 0)
+        private Coroutine EnablingRoutine = null;
+
+        void OnTriggerEnter2D(Collider2D _)
+        {
+            HandleEnter();
+        }
+
+        void OnCollisionEnter2D(Collision2D _)
+        {
+            HandleEnter();
+        }
+
+        void HandleEnter()
+        {
+            if (duration <= 0)
+            {
+                objectToEnable.SetActive(true);
+            }
+            else
+            {
+                if (EnablingRoutine != null)
+                    StopCoroutine(EnablingRoutine);
+            
+                EnablingRoutine = StartCoroutine(EnableObject(duration));
+            }
+        }
+
+        IEnumerator EnableObject(float duration)
         {
             objectToEnable.SetActive(true);
+
+            yield return new WaitForSeconds(duration);
+
+            objectToEnable.SetActive(false);
         }
-        else
-        {
-            if (EnablingRoutine != null)
-                StopCoroutine(EnablingRoutine);
-            
-            EnablingRoutine = StartCoroutine(EnableObject(duration));
-        }
-    }
-
-    IEnumerator EnableObject(float duration)
-    {
-        objectToEnable.SetActive(true);
-
-        yield return new WaitForSeconds(duration);
-
-        objectToEnable.SetActive(false);
     }
 }

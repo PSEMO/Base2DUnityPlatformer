@@ -1,69 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PSEMO.Environment.Functionality.Collectible;
 
-public class CollectibleTracker : MonoBehaviour
+namespace PSEMO.Core.Management
 {
-    [SerializeField] private AllCollectibleSOs allCollectibles;
-    public AllCollectibleSOs AllCollectibles => allCollectibles;
+    public class CollectibleTracker : MonoBehaviour
+    {
+        [SerializeField] private AllCollectibleSOs allCollectibles;
+        public AllCollectibleSOs AllCollectibles => allCollectibles;
 
-    public Dictionary<string, int> CollectedCounts { get; private set; } = new();
-    public Dictionary<string, CollectibleSO> GroupData { get; private set; } = new();
+        public Dictionary<string, int> CollectedCounts { get; private set; } = new();
+        public Dictionary<string, CollectibleSO> GroupData { get; private set; } = new();
     
-    private void Awake()
-    {
-        InitializeCollectibles();
-    }
-
-    private void InitializeCollectibles()
-    {
-        foreach (var collectible in allCollectibles.collectibles)
+        private void Awake()
         {
-            if (!GroupData.ContainsKey(collectible.group))
+            InitializeCollectibles();
+        }
+
+        private void InitializeCollectibles()
+        {
+            foreach (var collectible in allCollectibles.collectibles)
             {
-                GroupData[collectible.group] = collectible;
+                if (!GroupData.ContainsKey(collectible.group))
+                {
+                    GroupData[collectible.group] = collectible;
+                }
             }
         }
-    }
 
-    private void Start()
-    {
-        StartCoroutine(LateStart());
-    }
-
-    IEnumerator LateStart()
-    {
-        yield return null;
-
-        Events.InvokeCollectibleCountsUpdated(CollectedCounts, GroupData);
-    }
-
-    private void OnEnable()
-    {
-        Events.OnCollectibleCollected += HandleCollectibleCollected;
-    }
-
-    private void OnDisable()
-    {
-        Events.OnCollectibleCollected -= HandleCollectibleCollected;
-    }
-
-    private void HandleCollectibleCollected(string group)
-    {
-        if (CollectedCounts.ContainsKey(group))
+        private void Start()
         {
-            CollectedCounts[group]++;
-        }
-        else
-        {
-            CollectedCounts[group] = 1;
+            StartCoroutine(LateStart());
         }
 
-        Events.InvokeCollectibleCountsUpdated(CollectedCounts, GroupData);
-    }
+        IEnumerator LateStart()
+        {
+            yield return null;
 
-    public int GetCount(string group)
-    {
-        return CollectedCounts.TryGetValue(group, out int count) ? count : 0;
+            Events.InvokeCollectibleCountsUpdated(CollectedCounts, GroupData);
+        }
+
+        private void OnEnable()
+        {
+            Events.OnCollectibleCollected += HandleCollectibleCollected;
+        }
+
+        private void OnDisable()
+        {
+            Events.OnCollectibleCollected -= HandleCollectibleCollected;
+        }
+
+        private void HandleCollectibleCollected(string group)
+        {
+            if (CollectedCounts.ContainsKey(group))
+            {
+                CollectedCounts[group]++;
+            }
+            else
+            {
+                CollectedCounts[group] = 1;
+            }
+
+            Events.InvokeCollectibleCountsUpdated(CollectedCounts, GroupData);
+        }
+
+        public int GetCount(string group)
+        {
+            return CollectedCounts.TryGetValue(group, out int count) ? count : 0;
+        }
     }
 }

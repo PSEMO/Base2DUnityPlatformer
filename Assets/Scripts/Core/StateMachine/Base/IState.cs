@@ -1,10 +1,13 @@
-public interface IState
+namespace PSEMO.Core.StateMachine
 {
-    void OnEnter();
+    public interface IState
+    {
+        void OnEnter();
 
-    void Update();
+        void Update();
 
-    void FixedUpdate();
+        void FixedUpdate();
 
-    void OnExit();
+        void OnExit();
+    }
 }

@@ -1,21 +1,24 @@
 using UnityEngine;
 
-public class FallState : PlayerBaseState
+namespace PSEMO.Player
 {
-    public FallState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
-
-    public override void OnEnter()
+    public class FallState : PlayerBaseState
     {
-        //animator.Play(FallAnimHash);
+        public FallState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
 
-        if(ctx.jumpsLeft == ctx.data.jumpCount)
+        public override void OnEnter()
         {
-            ctx.jumpsLeft--;
-        }
-    }
+            //animator.Play(FallAnimHash);
 
-    public override void FixedUpdate()
-    {
-        ctx.Run();
+            if(ctx.jumpsLeft == ctx.data.jumpCount)
+            {
+                ctx.jumpsLeft--;
+            }
+        }
+
+        public override void FixedUpdate()
+        {
+            ctx.Run();
+        }
     }
 }

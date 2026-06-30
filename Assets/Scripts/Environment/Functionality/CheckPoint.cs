@@ -1,13 +1,17 @@
 using UnityEngine;
+using PSEMO.Core.Management;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class CheckPoint : MonoBehaviour
+namespace PSEMO.Environment.Functionality
 {
-    [SerializeField] private Transform spawnPoint;
-    public Vector3 SpawnPos => spawnPoint.position;
-
-    private void OnTriggerEnter2D(Collider2D _)
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class CheckPoint : MonoBehaviour
     {
-        Events.InvokeCheckPointReached(SpawnPos);
+        [SerializeField] private Transform spawnPoint;
+        public Vector3 SpawnPos => spawnPoint.position;
+
+        private void OnTriggerEnter2D(Collider2D _)
+        {
+            Events.InvokeCheckPointReached(SpawnPos);
+        }
     }
 }

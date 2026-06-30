@@ -1,10 +1,13 @@
-public enum PanelType
+namespace PSEMO.UI
 {
-    MainUI,
-    InGameUI,
-    MainSettings,
-    InGameSettings,
-    CreditsMenu,
-    MainBg,
-    InGameUnPausingMenu
+    public enum PanelType
+    {
+        MainUI,
+        InGameUI,
+        MainSettings,
+        InGameSettings,
+        CreditsMenu,
+        MainBg,
+        InGameUnPausingMenu
+    }
 }

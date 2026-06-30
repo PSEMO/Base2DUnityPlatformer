@@ -1,21 +1,26 @@
 using UnityEngine;
+using PSEMO.Core.Management;
 
-public class Collectible : MonoBehaviour
+namespace PSEMO.Environment.Functionality.Collectible
 {
-    [SerializeField] CollectibleSO data;
 
-    void OnTriggerEnter2D(Collider2D _)
+    public class Collectible : MonoBehaviour
     {
-        HandleContact();
-    }
-    void OnCollisionEnter2D(Collision2D _)
-    {
-        HandleContact();
-    }
+        [SerializeField] CollectibleSO data;
 
-    void HandleContact()
-    {
-        Events.InvokeCollectibleCollected(data.group);
-        Destroy(gameObject);
+        void OnTriggerEnter2D(Collider2D _)
+        {
+            HandleContact();
+        }
+        void OnCollisionEnter2D(Collision2D _)
+        {
+            HandleContact();
+        }
+
+        void HandleContact()
+        {
+            Events.InvokeCollectibleCollected(data.group);
+            Destroy(gameObject);
+        }
     }
 }

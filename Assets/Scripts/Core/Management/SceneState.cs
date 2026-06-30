@@ -1,5 +1,8 @@
-public enum SceneState
+namespace PSEMO.Core.Management
 {
-    MainMenuScene,
-    GameScene
+    public enum SceneState
+    {
+        MainMenuScene,
+        GameScene
+    }
 }

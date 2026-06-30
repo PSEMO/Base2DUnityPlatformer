@@ -1,19 +1,22 @@
-public class SignalPredicate : IPredicate
+namespace PSEMO.Core.Predicate
 {
-    bool isSignaled;
-
-    public void Fire() => isSignaled = true;
-
-    public void Reset() => isSignaled = false;
-
-    public bool Evaluate()
+    public class SignalPredicate : IPredicate
     {
-        if (isSignaled)
-        {
-            isSignaled = false;
-            return true;
-        }
+        bool isSignaled;
 
-        return false;
+        public void Fire() => isSignaled = true;
+
+        public void Reset() => isSignaled = false;
+
+        public bool Evaluate()
+        {
+            if (isSignaled)
+            {
+                isSignaled = false;
+                return true;
+            }
+
+            return false;
+        }
     }
 }

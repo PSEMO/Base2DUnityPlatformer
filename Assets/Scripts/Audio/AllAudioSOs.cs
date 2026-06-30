@@ -1,24 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AllAudiosData", menuName = "SO/AllAudios")]
-public class AllAudioSOs : ScriptableObject
+namespace PSEMO.Audio
 {
-    [SerializeField] private List<AudioSO> _allAudios;
-    private Dictionary<string, AudioSO> allAudiosID;
-
-    public void Init()
+    [CreateAssetMenu(fileName = "AllAudiosData", menuName = "SO/AllAudios")]
+    public class AllAudioSOs : ScriptableObject
     {
-        allAudiosID = new Dictionary<string, AudioSO>();
+        [SerializeField] private List<AudioSO> _allAudios;
+        private Dictionary<string, AudioSO> allAudiosID;
 
-        foreach(AudioSO audioSO in _allAudios)
+        public void Init()
         {
-            allAudiosID.Add(audioSO.ID, audioSO);
-        }
-    }
+            allAudiosID = new Dictionary<string, AudioSO>();
 
-    public AudioSO GetAudioData(string ID)
-    {
-        return allAudiosID[ID];
+            foreach(AudioSO audioSO in _allAudios)
+            {
+                allAudiosID.Add(audioSO.ID, audioSO);
+            }
+        }
+
+        public AudioSO GetAudioData(string ID)
+        {
+            return allAudiosID[ID];
+        }
     }
 }

@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public interface IMover
+namespace PSEMO.Environment.Movement
 {
-    public virtual Vector2 GetVelocity() => Vector2.zero;
+
+    public interface IMover
+    {
+        public virtual Vector2 GetVelocity() => Vector2.zero;
+    }
 }

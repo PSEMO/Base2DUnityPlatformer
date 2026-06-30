@@ -1,18 +1,22 @@
 using System.Collections.Generic;
+using PSEMO.Core.Predicate;
 
-public class StateNode
+namespace PSEMO.Core.StateMachine
 {
-    public IState State { get; }
-    public HashSet<ITransition> Transitions { get; }
-
-    public StateNode(IState state)
+    public class StateNode
     {
-        State = state;
-        Transitions = new HashSet<ITransition>();
-    }
+        public IState State { get; }
+        public HashSet<ITransition> Transitions { get; }
 
-    public void AddTransition(IState to, IPredicate condition)
-    {
-        Transitions.Add(new Transition(to, condition));
+        public StateNode(IState state)
+        {
+            State = state;
+            Transitions = new HashSet<ITransition>();
+        }
+
+        public void AddTransition(IState to, IPredicate condition)
+        {
+            Transitions.Add(new Transition(to, condition));
+        }
     }
 }

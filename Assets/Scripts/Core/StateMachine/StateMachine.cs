@@ -1,83 +1,87 @@
 using System;
 using System.Collections.Generic;
+using PSEMO.Core.Predicate;
 
-public class StateMachine
+namespace PSEMO.Core.StateMachine
 {
-    StateNode current;
-    Dictionary<Type, StateNode> Nodes = new();
-    HashSet<ITransition> AnyTransition = new();
-
-    public IState CurrentState => current?.State;
-
-    public void Update()
+    public class StateMachine
     {
-        var transition = GetTransition();
-        if (transition != null)
-            ChangeState(transition.To);
+        StateNode current;
+        Dictionary<Type, StateNode> Nodes = new();
+        HashSet<ITransition> AnyTransition = new();
 
-        current.State.Update();
-    }
+        public IState CurrentState => current?.State;
 
-    public void FixedUpdate()
-    {
-        current.State.FixedUpdate();
-    }
-
-    public void SetState(IState state)
-    {
-        current?.State?.OnExit();
-        current = Nodes[state.GetType()];
-        current.State.OnEnter();
-    }
-
-    private void ChangeState(IState state)
-    {
-        if (state == current?.State) return;
-
-        var previousState = current?.State;
-        var nextState = Nodes[state.GetType()].State;
-
-        previousState?.OnExit();
-        nextState.OnEnter();
-        current = Nodes[state.GetType()];
-    }
-
-    ITransition GetTransition()
-    {
-        foreach (var transition in AnyTransition)
-            if (transition.Condition.Evaluate())
-                return transition;
-
-        if (current != null)
+        public void Update()
         {
-            foreach (var transition in current.Transitions)
+            var transition = GetTransition();
+            if (transition != null)
+                ChangeState(transition.To);
+
+            current.State.Update();
+        }
+
+        public void FixedUpdate()
+        {
+            current.State.FixedUpdate();
+        }
+
+        public void SetState(IState state)
+        {
+            current?.State?.OnExit();
+            current = Nodes[state.GetType()];
+            current.State.OnEnter();
+        }
+
+        private void ChangeState(IState state)
+        {
+            if (state == current?.State) return;
+
+            var previousState = current?.State;
+            var nextState = Nodes[state.GetType()].State;
+
+            previousState?.OnExit();
+            nextState.OnEnter();
+            current = Nodes[state.GetType()];
+        }
+
+        ITransition GetTransition()
+        {
+            foreach (var transition in AnyTransition)
                 if (transition.Condition.Evaluate())
                     return transition;
+
+            if (current != null)
+            {
+                foreach (var transition in current.Transitions)
+                    if (transition.Condition.Evaluate())
+                        return transition;
+            }
+
+            return null;
         }
 
-        return null;
-    }
-
-    public void AddTransition(IState from, IState to, IPredicate condition)
-    {
-        GetOrAddNode(from).AddTransition(GetOrAddNode(to).State, condition);
-    }
-
-    public void AddAnyTransition(IState to, IPredicate condition)
-    {
-        AnyTransition.Add(new Transition(GetOrAddNode(to).State, condition));
-    }
-
-    StateNode GetOrAddNode(IState state)
-    {
-        var node = Nodes.GetValueOrDefault(state.GetType());
-
-        if (node == null)
+        public void AddTransition(IState from, IState to, IPredicate condition)
         {
-            node = new StateNode(state);
-            Nodes.Add(state.GetType(), node);
+            GetOrAddNode(from).AddTransition(GetOrAddNode(to).State, condition);
         }
 
-        return node;
+        public void AddAnyTransition(IState to, IPredicate condition)
+        {
+            AnyTransition.Add(new Transition(GetOrAddNode(to).State, condition));
+        }
+
+        StateNode GetOrAddNode(IState state)
+        {
+            var node = Nodes.GetValueOrDefault(state.GetType());
+
+            if (node == null)
+            {
+                node = new StateNode(state);
+                Nodes.Add(state.GetType(), node);
+            }
+
+            return node;
+        }
     }
 }

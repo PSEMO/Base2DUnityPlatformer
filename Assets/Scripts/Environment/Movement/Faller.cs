@@ -1,47 +1,51 @@
 using UnityEngine;
+using PSEMO.Core;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Faller : MonoBehaviour, IPoolable, IMover
+namespace PSEMO.Environment.Movement
 {
-    [field: SerializeField] public string ID { get; set; }
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class Faller : MonoBehaviour, IPoolable, IMover
+    {
+        [field: SerializeField] public string ID { get; set; }
 
-    [Space]
+        [Space]
 
-    [SerializeField] private float maxSpeed = 20f;
-    [SerializeField] private float gravity = 9.8f;
+        [SerializeField] private float maxSpeed = 20f;
+        [SerializeField] private float gravity = 9.8f;
     
-    private float currentSpeed = 0f;
-    private Vector3 directionalSpeed = Vector3.zero;
+        private float currentSpeed = 0f;
+        private Vector3 directionalSpeed = Vector3.zero;
 
-    private Rigidbody2D rb;
+        private Rigidbody2D rb;
 
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    void FixedUpdate()
-    {
-        if (currentSpeed >= maxSpeed)
+        void Awake()
         {
-            directionalSpeed = Vector3.down * maxSpeed;
+            rb = GetComponent<Rigidbody2D>();
         }
-        else
+
+        void FixedUpdate()
         {
-            currentSpeed += gravity * Time.fixedDeltaTime;
-            directionalSpeed = Vector3.down * currentSpeed;
+            if (currentSpeed >= maxSpeed)
+            {
+                directionalSpeed = Vector3.down * maxSpeed;
+            }
+            else
+            {
+                currentSpeed += gravity * Time.fixedDeltaTime;
+                directionalSpeed = Vector3.down * currentSpeed;
+            }
+            rb.linearVelocity = directionalSpeed;
         }
-        rb.linearVelocity = directionalSpeed;
-    }
 
-    public Vector2 GetVelocity()
-    {
-        return directionalSpeed;
-    }
+        public Vector2 GetVelocity()
+        {
+            return directionalSpeed;
+        }
 
-    public void ResetObject()
-    {
-        currentSpeed = 0f;
-        rb.linearVelocity = Vector2.zero;
+        public void ResetObject()
+        {
+            currentSpeed = 0f;
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 }

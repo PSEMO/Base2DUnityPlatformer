@@ -1,33 +1,36 @@
 using UnityEngine;
 
-public class InGameUnPausingUIState : UIBaseState
+namespace PSEMO.UI
 {
-    private float timer;
-
-    public InGameUnPausingUIState(UIManager ctx) : base(ctx) {}
-
-    protected override PanelType[] ActivePanels => new[]
+    public class InGameUnPausingUIState : UIBaseState
     {
-        PanelType.InGameUnPausingMenu
-    };
+        private float timer;
 
-    public override void OnEnter()
-    {
-        base.OnEnter();
-        timer = 0f;
+        public InGameUnPausingUIState(UIManager ctx) : base(ctx) {}
+
+        protected override PanelType[] ActivePanels => new[]
+        {
+            PanelType.InGameUnPausingMenu
+        };
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            timer = 0f;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            timer += Time.unscaledDeltaTime;
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            Time.timeScale = 1f;
+        }
+
+        public bool IsTimerComplete => timer >= ctx.Data.returningFromPauseCooldown;
     }
-
-    public override void Update()
-    {
-        base.Update();
-        timer += Time.unscaledDeltaTime;
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-        Time.timeScale = 1f;
-    }
-
-    public bool IsTimerComplete => timer >= ctx.Data.returningFromPauseCooldown;
 }

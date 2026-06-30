@@ -1,5 +1,10 @@
-public interface ITransition
+using PSEMO.Core.Predicate;
+
+namespace PSEMO.Core.StateMachine
 {
-    IState To { get; }
-    IPredicate Condition { get; }
+    public interface ITransition
+    {
+        IState To { get; }
+        IPredicate Condition { get; }
+    }
 }

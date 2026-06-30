@@ -1,87 +1,90 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(CanvasGroup))]
-public class Panel : MonoBehaviour
+namespace PSEMO.UI
 {
-    public PanelType Type;
-    [Header("Animation Settings")]
-    [SerializeField] private float fadeDuration = 0.25f;
-
-    [HideInInspector] public bool IsOpen { get; private set; } = false;
-
-    private CanvasGroup canvasGroup;
-
-    protected virtual void Awake()
+    [RequireComponent(typeof(CanvasGroup))]
+    public class Panel : MonoBehaviour
     {
-        canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup == null)
-        {
-            canvasGroup = gameObject.AddComponent<CanvasGroup>();
-        }
-    }
+        public PanelType Type;
+        [Header("Animation Settings")]
+        [SerializeField] private float fadeDuration = 0.25f;
 
-    public virtual void Show()
-    {
-        IsOpen = true;
+        [HideInInspector] public bool IsOpen { get; private set; } = false;
 
-        gameObject.SetActive(true);
-        if (gameObject.activeInHierarchy)
+        private CanvasGroup canvasGroup;
+
+        protected virtual void Awake()
         {
-            StopAllCoroutines();
-            StartCoroutine(Fade(1f));
+            canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null)
+            {
+                canvasGroup = gameObject.AddComponent<CanvasGroup>();
+            }
         }
-        else
+
+        public virtual void Show()
         {
+            IsOpen = true;
+
+            gameObject.SetActive(true);
+            if (gameObject.activeInHierarchy)
+            {
+                StopAllCoroutines();
+                StartCoroutine(Fade(1f));
+            }
+            else
+            {
+                if (canvasGroup != null) canvasGroup.alpha = 1f;
+            }
+        }
+
+        public virtual void Hide()
+        {
+            IsOpen = false;
+
+            if (gameObject.activeInHierarchy)
+            {
+                StopAllCoroutines();
+                StartCoroutine(Fade(0f, () => gameObject.SetActive(false)));
+            }
+            else
+            {
+                if (canvasGroup != null) canvasGroup.alpha = 0f;
+                gameObject.SetActive(false);
+            }
+        }
+
+        public void ShowInstant()
+        {
+            IsOpen = true;
+
+            gameObject.SetActive(true);
             if (canvasGroup != null) canvasGroup.alpha = 1f;
         }
-    }
 
-    public virtual void Hide()
-    {
-        IsOpen = false;
-
-        if (gameObject.activeInHierarchy)
+        public void HideInstant()
         {
-            StopAllCoroutines();
-            StartCoroutine(Fade(0f, () => gameObject.SetActive(false)));
-        }
-        else
-        {
+            IsOpen = false;
+        
             if (canvasGroup != null) canvasGroup.alpha = 0f;
             gameObject.SetActive(false);
         }
-    }
 
-    public void ShowInstant()
-    {
-        IsOpen = true;
-
-        gameObject.SetActive(true);
-        if (canvasGroup != null) canvasGroup.alpha = 1f;
-    }
-
-    public void HideInstant()
-    {
-        IsOpen = false;
-        
-        if (canvasGroup != null) canvasGroup.alpha = 0f;
-        gameObject.SetActive(false);
-    }
-
-    private IEnumerator Fade(float targetAlpha, System.Action onComplete = null)
-    {
-        float startAlpha = canvasGroup.alpha;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < fadeDuration)
+        private IEnumerator Fade(float targetAlpha, System.Action onComplete = null)
         {
-            elapsedTime += Time.unscaledDeltaTime;
-            canvasGroup.alpha = Mathf.SmoothStep(startAlpha, targetAlpha, elapsedTime / fadeDuration);
-            yield return null;
-        }
+            float startAlpha = canvasGroup.alpha;
+            float elapsedTime = 0f;
 
-        canvasGroup.alpha = targetAlpha;
-        onComplete?.Invoke();
+            while (elapsedTime < fadeDuration)
+            {
+                elapsedTime += Time.unscaledDeltaTime;
+                canvasGroup.alpha = Mathf.SmoothStep(startAlpha, targetAlpha, elapsedTime / fadeDuration);
+                yield return null;
+            }
+
+            canvasGroup.alpha = targetAlpha;
+            onComplete?.Invoke();
+        }
     }
 }

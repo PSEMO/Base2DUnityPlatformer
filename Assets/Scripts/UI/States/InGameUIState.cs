@@ -1,9 +1,12 @@
-public class InGameUIState : UIBaseState
+namespace PSEMO.UI
 {
-    public InGameUIState(UIManager ctx) : base(ctx) {}
-
-    protected override PanelType[] ActivePanels => new[]
+    public class InGameUIState : UIBaseState
     {
-        PanelType.InGameUI
-    };
+        public InGameUIState(UIManager ctx) : base(ctx) {}
+
+        protected override PanelType[] ActivePanels => new[]
+        {
+            PanelType.InGameUI
+        };
+    }
 }

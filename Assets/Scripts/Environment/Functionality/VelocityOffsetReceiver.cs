@@ -1,37 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
+using PSEMO.Environment.Movement;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class VelocityOffsetReceiver : MonoBehaviour, IVelocityOffsettable
+namespace PSEMO.Environment.Functionality
 {
-    private Rigidbody2D rb;
-    private List<IMover> additionalVelocities = new();
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class VelocityOffsetReceiver : MonoBehaviour, IVelocityOffsettable
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
+        private Rigidbody2D rb;
+        private List<IMover> additionalVelocities = new();
 
-    private void FixedUpdate()
-    {
-        if (additionalVelocities.Count > 0)
+        private void Awake()
         {
-            Vector2 totalExtraVelocity = Vector2.zero;
-            foreach (IMover vel in additionalVelocities)
-            {
-                totalExtraVelocity += vel.GetVelocity();
-            }
-            rb.linearVelocity += totalExtraVelocity;
+            rb = GetComponent<Rigidbody2D>();
         }
-    }
 
-    public void AddVelocityOffset(IMover source)
-    {
-        additionalVelocities.Add(source);
-    }
+        private void FixedUpdate()
+        {
+            if (additionalVelocities.Count > 0)
+            {
+                Vector2 totalExtraVelocity = Vector2.zero;
+                foreach (IMover vel in additionalVelocities)
+                {
+                    totalExtraVelocity += vel.GetVelocity();
+                }
+                rb.linearVelocity += totalExtraVelocity;
+            }
+        }
 
-    public void RemoveVelocityOffset(IMover source)
-    {
-        additionalVelocities.Remove(source);
+        public void AddVelocityOffset(IMover source)
+        {
+            additionalVelocities.Add(source);
+        }
+
+        public void RemoveVelocityOffset(IMover source)
+        {
+            additionalVelocities.Remove(source);
+        }
     }
 }

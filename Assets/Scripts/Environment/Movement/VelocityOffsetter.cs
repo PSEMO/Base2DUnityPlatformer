@@ -1,58 +1,62 @@
 using System.Collections.Generic;
 using UnityEngine;
+using PSEMO.Environment.Functionality;
 
-public class VelocityOffsetter : MonoBehaviour
+namespace PSEMO.Environment.Movement
 {
-    [SerializeField] private GameObject _mover;
-    private IMover mover;
-
-    private List<IVelocityOffsettable> offsettables = new();
-
-    void Awake()
+    public class VelocityOffsetter : MonoBehaviour
     {
-        mover = _mover.GetComponent<IMover>();
-    }
+        [SerializeField] private GameObject _mover;
+        private IMover mover;
 
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        HandleEnter(col.collider);
-    }
+        private List<IVelocityOffsettable> offsettables = new();
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        HandleEnter(col);
-    }
-
-    private void OnCollisionExit2D(Collision2D col)
-    {
-        HandleExit(col.collider);
-    }
-
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        HandleExit(col);
-    }
-
-    private void HandleEnter(Collider2D col)
-    {
-        if (col.TryGetComponent(out IVelocityOffsettable offsettable))
+        void Awake()
         {
-            if (!offsettables.Contains(offsettable))
+            mover = _mover.GetComponent<IMover>();
+        }
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            HandleEnter(col.collider);
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            HandleEnter(col);
+        }
+
+        private void OnCollisionExit2D(Collision2D col)
+        {
+            HandleExit(col.collider);
+        }
+
+        private void OnTriggerExit2D(Collider2D col)
+        {
+            HandleExit(col);
+        }
+
+        private void HandleEnter(Collider2D col)
+        {
+            if (col.TryGetComponent(out IVelocityOffsettable offsettable))
             {
-                offsettables.Add(offsettable);
-                offsettable.AddVelocityOffset(mover);
+                if (!offsettables.Contains(offsettable))
+                {
+                    offsettables.Add(offsettable);
+                    offsettable.AddVelocityOffset(mover);
+                }
             }
         }
-    }
 
-    private void HandleExit(Collider2D col)
-    {
-        if (col.TryGetComponent(out IVelocityOffsettable offsettable))
+        private void HandleExit(Collider2D col)
         {
-            if (offsettables.Contains(offsettable))
+            if (col.TryGetComponent(out IVelocityOffsettable offsettable))
             {
-                offsettables.Remove(offsettable);
-                offsettable.RemoveVelocityOffset(mover);
+                if (offsettables.Contains(offsettable))
+                {
+                    offsettables.Remove(offsettable);
+                    offsettable.RemoveVelocityOffset(mover);
+                }
             }
         }
     }

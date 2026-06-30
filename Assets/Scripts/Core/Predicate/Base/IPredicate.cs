@@ -1,4 +1,7 @@
-public interface IPredicate
+namespace PSEMO.Core.Predicate
 {
-    bool Evaluate();
+    public interface IPredicate
+    {
+        bool Evaluate();
+    }
 }

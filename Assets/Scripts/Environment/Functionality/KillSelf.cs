@@ -1,19 +1,23 @@
 using System.Collections;
 using UnityEngine;
+using PSEMO.Core.Management;
 
-public class KillSelf : MonoBehaviour
+namespace PSEMO.Environment.Functionality
 {
-    [SerializeField] float secondsToDieAfter = 2;
-
-    void OnEnable()
+    public class KillSelf : MonoBehaviour
     {
-        StartCoroutine(KillSelfAfterSeconds(secondsToDieAfter));
-    }
+        [SerializeField] float secondsToDieAfter = 2;
 
-    IEnumerator KillSelfAfterSeconds(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
+        void OnEnable()
+        {
+            StartCoroutine(KillSelfAfterSeconds(secondsToDieAfter));
+        }
 
-        Instantiator.Instance.DeSpawnObject(gameObject);
+        IEnumerator KillSelfAfterSeconds(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+
+            Instantiator.Instance.DeSpawnObject(gameObject);
+        }
     }
 }

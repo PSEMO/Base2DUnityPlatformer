@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AllCollectibleDatas", menuName = "SO/AllCollectibles")]
-public class AllCollectibleSOs : ScriptableObject
+namespace PSEMO.Environment.Functionality.Collectible
 {
-    public List<CollectibleSO> collectibles;
+    [CreateAssetMenu(fileName = "AllCollectibleDatas", menuName = "SO/AllCollectibles")]
+    public class AllCollectibleSOs : ScriptableObject
+    {
+        public List<CollectibleSO> collectibles;
+    }
 }

@@ -1,6 +1,9 @@
-public interface IPoolable
+namespace PSEMO.Core
 {
-    public abstract string ID { get; set; }
+    public interface IPoolable
+    {
+        public abstract string ID { get; set; }
 
-    public abstract void ResetObject();
+        public abstract void ResetObject();
+    }
 }

@@ -1,21 +1,24 @@
-public class OrPredicate : IPredicate
+namespace PSEMO.Core.Predicate
 {
-    private readonly IPredicate[] predicates;
-
-    public OrPredicate(params IPredicate[] predicates)
+    public class OrPredicate : IPredicate
     {
-        this.predicates = predicates;
-    }
+        private readonly IPredicate[] predicates;
 
-    public bool Evaluate()
-    {
-        bool anyTrue = false;
-        foreach (var p in predicates)
+        public OrPredicate(params IPredicate[] predicates)
         {
-            if (p.Evaluate())
-                anyTrue = true;
+            this.predicates = predicates;
         }
 
-        return anyTrue;
+        public bool Evaluate()
+        {
+            bool anyTrue = false;
+            foreach (var p in predicates)
+            {
+                if (p.Evaluate())
+                    anyTrue = true;
+            }
+
+            return anyTrue;
+        }
     }
 }

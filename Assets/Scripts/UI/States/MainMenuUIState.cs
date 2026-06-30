@@ -1,10 +1,13 @@
-public class MainMenuUIState : UIBaseState
+namespace PSEMO.UI
 {
-    public MainMenuUIState(UIManager ctx) : base(ctx) {}
-
-    protected override PanelType[] ActivePanels => new[]
+    public class MainMenuUIState : UIBaseState
     {
-        PanelType.MainBg,
-        PanelType.MainUI
-    };
+        public MainMenuUIState(UIManager ctx) : base(ctx) {}
+
+        protected override PanelType[] ActivePanels => new[]
+        {
+            PanelType.MainBg,
+            PanelType.MainUI
+        };
+    }
 }

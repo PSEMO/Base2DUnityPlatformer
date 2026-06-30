@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class InGameSettingsUIState : UIBaseState
+namespace PSEMO.UI
 {
-    public InGameSettingsUIState(UIManager ctx) : base(ctx) {}
-
-    protected override PanelType[] ActivePanels => new[]
+    public class InGameSettingsUIState : UIBaseState
     {
-        PanelType.InGameSettings
-    };
+        public InGameSettingsUIState(UIManager ctx) : base(ctx) {}
 
-    public override void OnEnter()
-    {
-        base.OnEnter();
-        Time.timeScale = 0f;
+        protected override PanelType[] ActivePanels => new[]
+        {
+            PanelType.InGameSettings
+        };
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            Time.timeScale = 0f;
+        }
     }
 }

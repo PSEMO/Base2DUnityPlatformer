@@ -1,10 +1,13 @@
-public class CreditsUIState : UIBaseState
+namespace PSEMO.UI
 {
-    public CreditsUIState(UIManager ctx) : base(ctx) {}
-
-    protected override PanelType[] ActivePanels => new[]
+    public class CreditsUIState : UIBaseState
     {
-        PanelType.MainBg,
-        PanelType.CreditsMenu
-    };
+        public CreditsUIState(UIManager ctx) : base(ctx) {}
+
+        protected override PanelType[] ActivePanels => new[]
+        {
+            PanelType.MainBg,
+            PanelType.CreditsMenu
+        };
+    }
 }

@@ -1,49 +1,52 @@
 using UnityEngine;
 
-public class DashState : PlayerBaseState
+namespace PSEMO.Player
 {
-    private float dashTimeLeft;
-    private float originalGravity;
-    private bool isDashing;
-
-    public DashState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
-
-    public override void OnEnter()
+    public class DashState : PlayerBaseState
     {
-        //animator.Play(DashAnimHash);
-        
-        ctx.canDash = false;
-        
-        dashTimeLeft = ctx.data.dashDuration;
-        originalGravity = ctx.rb.gravityScale;
-        ctx.rb.gravityScale = 0f;
+        private float dashTimeLeft;
+        private float originalGravity;
+        private bool isDashing;
 
-        isDashing = true;
+        public DashState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
 
-        ctx.rb.linearVelocity = new Vector2(ctx.facing * ctx.data.dashForce, 0f);
-    }
-
-    public override void Update()
-    {
-        dashTimeLeft -= Time.deltaTime;
-        if (dashTimeLeft < 0f)
+        public override void OnEnter()
         {
+            //animator.Play(DashAnimHash);
+        
+            ctx.canDash = false;
+        
+            dashTimeLeft = ctx.data.dashDuration;
+            originalGravity = ctx.rb.gravityScale;
+            ctx.rb.gravityScale = 0f;
+
+            isDashing = true;
+
+            ctx.rb.linearVelocity = new Vector2(ctx.facing * ctx.data.dashForce, 0f);
+        }
+
+        public override void Update()
+        {
+            dashTimeLeft -= Time.deltaTime;
+            if (dashTimeLeft < 0f)
+            {
+                isDashing = false;
+            }
+        }
+
+        public override void FixedUpdate()
+        {
+            ctx.rb.linearVelocity = new Vector2(ctx.facing * ctx.data.dashForce, 0f);
+        }
+
+        public override void OnExit()
+        {
+            ctx.rb.gravityScale = originalGravity;
+            ctx.rb.linearVelocity = new Vector2(0, 0); 
+        
             isDashing = false;
         }
-    }
 
-    public override void FixedUpdate()
-    {
-        ctx.rb.linearVelocity = new Vector2(ctx.facing * ctx.data.dashForce, 0f);
+        public bool IsDashing() => isDashing;
     }
-
-    public override void OnExit()
-    {
-        ctx.rb.gravityScale = originalGravity;
-        ctx.rb.linearVelocity = new Vector2(0, 0); 
-        
-        isDashing = false;
-    }
-
-    public bool IsDashing() => isDashing;
 }

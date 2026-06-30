@@ -1,13 +1,16 @@
 using System;
 
-public class FuncPredicate : IPredicate
+namespace PSEMO.Core.Predicate
 {
-    readonly Func<bool> func;
-
-    public FuncPredicate(Func<bool> _func)
+    public class FuncPredicate : IPredicate
     {
-        func = _func;
-    }
+        readonly Func<bool> func;
 
-    public bool Evaluate() => func.Invoke();
+        public FuncPredicate(Func<bool> _func)
+        {
+            func = _func;
+        }
+
+        public bool Evaluate() => func.Invoke();
+    }
 }

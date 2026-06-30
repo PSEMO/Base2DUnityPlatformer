@@ -1,36 +1,40 @@
 using UnityEngine;
+using PSEMO.Core.Management;
 
-public class Spawner : MonoBehaviour
+namespace PSEMO.Environment.Functionality
 {
-    [Tooltip("Time in seconds between each spawn.")]
-    [SerializeField] private  float SpawnInterval = 2f;
-    
-    [Tooltip("Time in seconds before the first spawn.")]
-    [SerializeField] private  float InitialDelay = 0f;
-
-    [Space]
-    [SerializeField] private GameObject prefabToSpawn;
-    
-    private float timer;
-
-    private void Start()
+    public class Spawner : MonoBehaviour
     {
-        timer = InitialDelay;
-    }
+        [Tooltip("Time in seconds between each spawn.")]
+        [SerializeField] private  float SpawnInterval = 2f;
+    
+        [Tooltip("Time in seconds before the first spawn.")]
+        [SerializeField] private  float InitialDelay = 0f;
 
-    private void Update()
-    {
-        timer -= Time.deltaTime;
+        [Space]
+        [SerializeField] private GameObject prefabToSpawn;
+    
+        private float timer;
 
-        if (timer <= 0f)
+        private void Start()
         {
-            Spawn();
-            timer += SpawnInterval; 
+            timer = InitialDelay;
         }
-    }
 
-    private void Spawn()
-    {
-        Instantiator.Instance.SpawnObject(prefabToSpawn, transform.position, Quaternion.identity);
+        private void Update()
+        {
+            timer -= Time.deltaTime;
+
+            if (timer <= 0f)
+            {
+                Spawn();
+                timer += SpawnInterval; 
+            }
+        }
+
+        private void Spawn()
+        {
+            Instantiator.Instance.SpawnObject(prefabToSpawn, transform.position, Quaternion.identity);
+        }
     }
 }

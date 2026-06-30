@@ -1,10 +1,14 @@
 using UnityEngine;
+using PSEMO.Core.Management;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class KillBox : MonoBehaviour
+namespace PSEMO.Environment.Functionality
 {
-    void OnTriggerEnter2D(Collider2D _)
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class KillBox : MonoBehaviour
     {
-        Events.InvokePlayerDeath();
+        void OnTriggerEnter2D(Collider2D _)
+        {
+            Events.InvokePlayerDeath();
+        }
     }
 }

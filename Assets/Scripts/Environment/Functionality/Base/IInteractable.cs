@@ -1,4 +1,7 @@
-public interface IInteractable
+namespace PSEMO.Environment.Functionality
 {
-    public abstract void OnInteracted();
+    public interface IInteractable
+    {
+        public abstract void OnInteracted();
+    }
 }

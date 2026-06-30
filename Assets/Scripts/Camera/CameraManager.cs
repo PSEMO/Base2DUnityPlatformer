@@ -1,75 +1,78 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour
+namespace PSEMO.Camera
 {
-    public static CameraManager Instance { get; private set; }
-
-    private void Awake()
+    public class CameraManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static CameraManager Instance { get; private set; }
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-
-        targets = new Dictionary<Transform, float>();
-    }
-
-    [SerializeField] CameraSO data;
-
-    private Dictionary<Transform, float> targets;
-    private Vector3 velocity = Vector3.zero;
-
-    void LateUpdate()
-    {
-        MoveTowardsTheTarget(GetTargetPos());
-    }
-
-    private void MoveTowardsTheTarget(Vector3 targetPos)
-    {
-        Vector3 nextPos = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, data.smoothTime, data.maxSpeed);
-
-        if (data.useBounds)
-        {
-            nextPos.x = Mathf.Clamp(nextPos.x, data.minBounds.x, data.maxBounds.x);
-            nextPos.y = Mathf.Clamp(nextPos.y, data.minBounds.y, data.maxBounds.y);
-        }
-
-        transform.position = nextPos;
-    }
-
-    private Vector3 GetTargetPos()
-    {
-        if (targets.Count > 0)
-        {
-            Vector2 endPosition = Vector2.zero;
-
-            foreach (Transform target in targets.Keys)
+            if (Instance != null && Instance != this)
             {
-                endPosition += (Vector2)(target.position / targets[target]);
+                Destroy(gameObject);
+                return;
+            }
+            else
+            {
+                Instance = this;
+                DontDestroyOnLoad(this);
             }
 
-            endPosition /= targets.Count;
-
-            return new Vector3 (endPosition.x, endPosition.y, transform.position.z);
+            targets = new Dictionary<Transform, float>();
         }
 
-        return transform.position;
-    }
+        [SerializeField] CameraSO data;
 
-    public void AddTarget(Transform _transform, float divisor)
-    {
-        targets.Add(_transform, divisor);
-    }
+        private Dictionary<Transform, float> targets;
+        private Vector3 velocity = Vector3.zero;
 
-    public void RemoveTarget(Transform _tranform)
-    {
-        targets.Remove(_tranform);
+        void LateUpdate()
+        {
+            MoveTowardsTheTarget(GetTargetPos());
+        }
+
+        private void MoveTowardsTheTarget(Vector3 targetPos)
+        {
+            Vector3 nextPos = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, data.smoothTime, data.maxSpeed);
+
+            if (data.useBounds)
+            {
+                nextPos.x = Mathf.Clamp(nextPos.x, data.minBounds.x, data.maxBounds.x);
+                nextPos.y = Mathf.Clamp(nextPos.y, data.minBounds.y, data.maxBounds.y);
+            }
+
+            transform.position = nextPos;
+        }
+
+        private Vector3 GetTargetPos()
+        {
+            if (targets.Count > 0)
+            {
+                Vector2 endPosition = Vector2.zero;
+
+                foreach (Transform target in targets.Keys)
+                {
+                    endPosition += (Vector2)(target.position / targets[target]);
+                }
+
+                endPosition /= targets.Count;
+
+                return new Vector3 (endPosition.x, endPosition.y, transform.position.z);
+            }
+
+            return transform.position;
+        }
+
+        public void AddTarget(Transform _transform, float divisor)
+        {
+            targets.Add(_transform, divisor);
+        }
+
+        public void RemoveTarget(Transform _tranform)
+        {
+            targets.Remove(_tranform);
+        }
     }
 }

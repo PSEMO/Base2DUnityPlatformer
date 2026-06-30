@@ -1,5 +1,10 @@
-public interface IVelocityOffsettable
+using PSEMO.Environment.Movement;
+
+namespace PSEMO.Environment.Functionality
 {
-    void AddVelocityOffset(IMover offsetter);
-    void RemoveVelocityOffset(IMover offsetter);
+    public interface IVelocityOffsettable
+    {
+        void AddVelocityOffset(IMover offsetter);
+        void RemoveVelocityOffset(IMover offsetter);
+    }
 }

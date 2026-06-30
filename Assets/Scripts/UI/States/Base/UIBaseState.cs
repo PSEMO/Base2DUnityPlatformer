@@ -1,27 +1,32 @@
-public abstract class UIBaseState : BaseState<UIManager>
+using PSEMO.Core.StateMachine;
+
+namespace PSEMO.UI
 {
-    protected UIBaseState(UIManager ctx) : base(ctx) {}
-
-    protected abstract PanelType[] ActivePanels { get; }
-
-    public override void OnEnter()
+    public abstract class UIBaseState : BaseState<UIManager>
     {
-        if (ActivePanels != null)
+        protected UIBaseState(UIManager ctx) : base(ctx) {}
+
+        protected abstract PanelType[] ActivePanels { get; }
+
+        public override void OnEnter()
         {
-            foreach (var type in ActivePanels)
+            if (ActivePanels != null)
             {
-                ctx.GetPanel(type)?.Show();
+                foreach (var type in ActivePanels)
+                {
+                    ctx.GetPanel(type)?.Show();
+                }
             }
         }
-    }
 
-    public override void OnExit()
-    {
-        if (ActivePanels != null)
+        public override void OnExit()
         {
-            foreach (var type in ActivePanels)
+            if (ActivePanels != null)
             {
-                ctx.GetPanel(type)?.Hide();
+                foreach (var type in ActivePanels)
+                {
+                    ctx.GetPanel(type)?.Hide();
+                }
             }
         }
     }

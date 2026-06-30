@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class RunState : PlayerBaseState
+namespace PSEMO.Player
 {
-    public RunState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
-
-    public override void OnEnter()
+    public class RunState : PlayerBaseState
     {
-        //animator.Play(RunAnimHash);
-    }
+        public RunState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
 
-    public override void FixedUpdate()
-    {
-        ctx.Run();
+        public override void OnEnter()
+        {
+            //animator.Play(RunAnimHash);
+        }
+
+        public override void FixedUpdate()
+        {
+            ctx.Run();
+        }
     }
 }

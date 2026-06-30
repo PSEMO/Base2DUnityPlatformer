@@ -1,63 +1,68 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using PSEMO.Core.Management;
+using PSEMO.Environment.Functionality.Collectible;
 
-[RequireComponent(typeof(TextMeshProUGUI))]
-public class CollectibleUIUpdater : MonoBehaviour
+namespace PSEMO.UI
 {
-    private TextMeshProUGUI textMeshPro;
-
-    private void Awake()
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    public class CollectibleUIUpdater : MonoBehaviour
     {
-        textMeshPro = GetComponentInParent<TextMeshProUGUI>();
-    }
+        private TextMeshProUGUI textMeshPro;
 
-    private void OnEnable()
-    {
-        Events.OnCollectibleCountsUpdated += UpdateUI;
-    }
-
-    private void OnDisable()
-    {
-        Events.OnCollectibleCountsUpdated -= UpdateUI;
-    }
-
-    private void UpdateUI(Dictionary<string, int> collectedCounts, Dictionary<string, CollectibleSO> groupData)
-    {
-        if (groupData.Count <= 0)
+        private void Awake()
         {
-            textMeshPro.text = "";
-            return;
+            textMeshPro = GetComponentInParent<TextMeshProUGUI>();
         }
-        
-        int allCurrent = 0;
-        int allMax = 0;
-        
-        string outputText = "";
-        int currentIndex = 0;
-        
-        foreach (var kvp in groupData)
+
+        private void OnEnable()
         {
-            string group = kvp.Key;
-            var collectible = kvp.Value;
+            Events.OnCollectibleCountsUpdated += UpdateUI;
+        }
 
-            string displayName = collectible.displayName;
-            int maxCount = collectible.totalAmountOfThisGroup;
-            int currentCount = collectedCounts.TryGetValue(group, out int count) ? count : 0;
-            
-            allCurrent += currentCount;
-            allMax += maxCount;
+        private void OnDisable()
+        {
+            Events.OnCollectibleCountsUpdated -= UpdateUI;
+        }
 
-            outputText += $"{displayName}: {currentCount}/{maxCount}";
-            
-            if (currentIndex < groupData.Count - 1)
+        private void UpdateUI(Dictionary<string, int> collectedCounts, Dictionary<string, CollectibleSO> groupData)
+        {
+            if (groupData.Count <= 0)
             {
-                outputText += ", ";
+                textMeshPro.text = "";
+                return;
             }
-            currentIndex++;
-        }
+        
+            int allCurrent = 0;
+            int allMax = 0;
+        
+            string outputText = "";
+            int currentIndex = 0;
+        
+            foreach (var kvp in groupData)
+            {
+                string group = kvp.Key;
+                var collectible = kvp.Value;
 
-        string prefix = $"All: {allCurrent}/{allMax}, ";
-        textMeshPro.text = prefix + outputText;
+                string displayName = collectible.displayName;
+                int maxCount = collectible.totalAmountOfThisGroup;
+                int currentCount = collectedCounts.TryGetValue(group, out int count) ? count : 0;
+            
+                allCurrent += currentCount;
+                allMax += maxCount;
+
+                outputText += $"{displayName}: {currentCount}/{maxCount}";
+            
+                if (currentIndex < groupData.Count - 1)
+                {
+                    outputText += ", ";
+                }
+                currentIndex++;
+            }
+
+            string prefix = $"All: {allCurrent}/{allMax}, ";
+            textMeshPro.text = prefix + outputText;
+        }
     }
 }

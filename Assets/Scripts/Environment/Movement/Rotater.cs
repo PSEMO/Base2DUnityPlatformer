@@ -1,28 +1,32 @@
 using UnityEngine;
+using PSEMO.Core;
 
-public class Rotater : MonoBehaviour, IPoolable
+namespace PSEMO.Environment.Movement
 {
-    [field: SerializeField] public string ID { get; set; }
-
-    [Space]
-
-    [SerializeField] private float rotationSpeed = 90f;
-    [SerializeField] private Vector3 rotationAxis = Vector3.forward;
-
-    private Quaternion initialRotation;
-
-    private void Start()
+    public class Rotater : MonoBehaviour, IPoolable
     {
-        initialRotation = transform.rotation;
-    }
+        [field: SerializeField] public string ID { get; set; }
 
-    private void Update()
-    {
-        transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
-    }
+        [Space]
 
-    public void ResetObject()
-    {
-        transform.rotation = initialRotation;
+        [SerializeField] private float rotationSpeed = 90f;
+        [SerializeField] private Vector3 rotationAxis = Vector3.forward;
+
+        private Quaternion initialRotation;
+
+        private void Start()
+        {
+            initialRotation = transform.rotation;
+        }
+
+        private void Update()
+        {
+            transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
+        }
+
+        public void ResetObject()
+        {
+            transform.rotation = initialRotation;
+        }
     }
 }

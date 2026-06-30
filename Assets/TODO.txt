@@ -1,0 +1,18 @@
+### Add assets:
+* character art,
+* add 2-3 sfx,
+* add 2 music (menu - ingame).
+
+### Apply assets:
+* character anim,
+* sfx (on jump etc.),
+* different songs in different scenes.
+
+### Functionality
+* Mapped collectable collection.
+* Add pause
+* Add continue
+
+### Rework
+* Re-do the whole UI logic
+* Make use of the StateMachine for UI.

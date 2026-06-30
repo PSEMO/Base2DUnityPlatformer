@@ -1,2 +1,0 @@
-Add animations
-improve the spawner (object pooling)

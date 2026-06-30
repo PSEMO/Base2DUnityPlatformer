@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameState initialGameState = GameState.MainMenu;
 
-    public void UpdateGameState(GameState newState)
+    public void TryUpdateGameState(GameState newState)
     {
         if (CurrentGameState != newState)
         {

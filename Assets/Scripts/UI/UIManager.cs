@@ -99,14 +99,14 @@ public class UIManager : MonoBehaviour
 //#region Buttons
     public void PlayBtn()
     {
-        GameManager.Instance.UpdateGameState(GameState.Playing);
+        GameManager.Instance.TryUpdateGameState(GameState.Playing);
 
         SceneManager.LoadScene(1);
     }
 
     public void QuitBtn()
     {
-        GameManager.Instance.UpdateGameState(GameState.MainMenu);
+        GameManager.Instance.TryUpdateGameState(GameState.MainMenu);
         
         SceneManager.LoadScene(0);
     }

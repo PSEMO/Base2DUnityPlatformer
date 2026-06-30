@@ -9,6 +9,6 @@ public class CameraSO : ScriptableObject
 
     [Header("Camera Bounds")]
     public bool useBounds = false;
-    public Vector2 minBounds;
-    public Vector2 maxBounds;
+    public Vector2 minBounds = Vector2.zero;
+    public Vector2 maxBounds = Vector2.zero;
 }

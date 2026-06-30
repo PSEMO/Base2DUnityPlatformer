@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class CollectibleUIUpdater : MonoBehaviour
@@ -13,38 +12,22 @@ public class CollectibleUIUpdater : MonoBehaviour
         textMeshPro = GetComponentInParent<TextMeshProUGUI>();
     }
 
-    private void Start()
-    {
-        UpdateUICaller(null);
-    }
-
     private void OnEnable()
     {
-        Events.OnCollectibleCollected += UpdateUICaller;
+        Events.OnCollectibleCountsUpdated += UpdateUI;
     }
 
     private void OnDisable()
     {
-        Events.OnCollectibleCollected -= UpdateUICaller;
+        Events.OnCollectibleCountsUpdated -= UpdateUI;
     }
 
-    private void UpdateUICaller(string _)
+    private void UpdateUI(Dictionary<string, int> collectedCounts, Dictionary<string, CollectibleSO> groupData)
     {
-        StartCoroutine(UpdateUI());
-    }
-
-    IEnumerator UpdateUI()
-    {
-        yield return null;
-
-        var tracker = CollectibleTracker.Instance;
-
-        var groupData = tracker.GroupData;
-
         if (groupData.Count <= 0)
         {
             textMeshPro.text = "";
-            yield break;
+            return;
         }
         
         int allCurrent = 0;
@@ -56,12 +39,11 @@ public class CollectibleUIUpdater : MonoBehaviour
         foreach (var kvp in groupData)
         {
             string group = kvp.Key;
-
             var collectible = kvp.Value;
 
             string displayName = collectible.displayName;
             int maxCount = collectible.totalAmountOfThisGroup;
-            int currentCount = tracker.GetCount(group);
+            int currentCount = collectedCounts.TryGetValue(group, out int count) ? count : 0;
             
             allCurrent += currentCount;
             allMax += maxCount;
@@ -76,7 +58,6 @@ public class CollectibleUIUpdater : MonoBehaviour
         }
 
         string prefix = $"All: {allCurrent}/{allMax}, ";
-
         textMeshPro.text = prefix + outputText;
     }
 }

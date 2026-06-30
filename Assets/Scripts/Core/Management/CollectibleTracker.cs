@@ -3,29 +3,16 @@ using UnityEngine;
 
 public class CollectibleTracker : MonoBehaviour
 {
-    public static CollectibleTracker Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-
-        InitializeCollectibles();
-    }
-
     [SerializeField] private AllCollectibleSOs allCollectibles;
     public AllCollectibleSOs AllCollectibles => allCollectibles;
 
     public Dictionary<string, int> CollectedCounts { get; private set; } = new();
     public Dictionary<string, CollectibleSO> GroupData { get; private set; } = new();
+    
+    private void Awake()
+    {
+        InitializeCollectibles();
+    }
 
     private void InitializeCollectibles()
     {
@@ -36,6 +23,11 @@ public class CollectibleTracker : MonoBehaviour
                 GroupData[collectible.group] = collectible;
             }
         }
+    }
+
+    private void Start()
+    {
+        Events.InvokeCollectibleCountsUpdated(CollectedCounts, GroupData);
     }
 
     private void OnEnable()
@@ -58,6 +50,8 @@ public class CollectibleTracker : MonoBehaviour
         {
             CollectedCounts[group] = 1;
         }
+
+        Events.InvokeCollectibleCountsUpdated(CollectedCounts, GroupData);
     }
 
     public int GetCount(string group)

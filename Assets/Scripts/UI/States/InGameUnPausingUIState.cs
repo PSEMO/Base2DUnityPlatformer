@@ -29,5 +29,5 @@ public class InGameUnPausingUIState : UIBaseState
         Time.timeScale = 1f;
     }
 
-    public bool IsTimerComplete => timer >= 1.5f;
+    public bool IsTimerComplete => timer >= ctx.Data.returningFromPauseCooldown;
 }

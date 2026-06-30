@@ -5,38 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour, IStateMachineUser
 {
-    public static UIManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-
-        panelDict = new();
-
-        foreach (var menu in panels)
-        {
-            if (menu != null && !panelDict.ContainsKey(menu.Type))
-            {
-                menu.HideInstant();
-                panelDict.Add(menu.Type, menu);
-            }
-        }
-
-        inputActions = new InputSystem_Actions();
-
-        InitializeStateMachine();
-
-        CurrentSceneState = initialSceneState;
-    }
+    public UISO Data;
 
     public StateMachine UIStateMachine { get; private set; }
 
@@ -54,6 +23,26 @@ public class UIManager : MonoBehaviour, IStateMachineUser
 
     [SerializeField] private SceneState initialSceneState = SceneState.MainMenuScene;
     public SceneState CurrentSceneState { get; private set; }
+
+    private void Awake()
+    {
+        panelDict = new();
+
+        foreach (var menu in panels)
+        {
+            if (menu != null && !panelDict.ContainsKey(menu.Type))
+            {
+                menu.HideInstant();
+                panelDict.Add(menu.Type, menu);
+            }
+        }
+
+        inputActions = new InputSystem_Actions();
+
+        InitializeStateMachine();
+
+        CurrentSceneState = initialSceneState;
+    }
 
     private void Start()
     {
@@ -85,6 +74,34 @@ public class UIManager : MonoBehaviour, IStateMachineUser
         }
     }
 
+    private void HandleSceneStateChanged(SceneState state)
+    {
+        if (state == SceneState.MainMenuScene)
+            MainMenuStateSignal.Fire();
+        else if (state == SceneState.GameScene)
+            InGameStateSignal.Fire();
+    }
+
+    private bool TryUpdateSceneState(SceneState to)
+    {
+        if (CurrentSceneState == to)
+        {
+            return false;
+        }
+
+        CurrentSceneState = to;
+        HandleSceneStateChanged(to);
+        return true;
+    }
+    
+    public Panel GetPanel(PanelType type)
+    {
+        if (panelDict.TryGetValue(type, out var panel))
+            return panel;
+        return null;
+    }
+
+    //==== State Machine ======
     private void InitializeStateMachine()
     {
         UIStateMachine = new StateMachine();
@@ -124,27 +141,9 @@ public class UIManager : MonoBehaviour, IStateMachineUser
         // Initial state doesn't matter because of HandleGameStateChanged signal.
         UIStateMachine.SetState(mainMenuUIState);
     }
-
-    private void HandleSceneStateChanged(SceneState state)
-    {
-        if (state == SceneState.MainMenuScene)
-            MainMenuStateSignal.Fire();
-        else if (state == SceneState.GameScene)
-            InGameStateSignal.Fire();
-    }
-
-    private bool TryUpdateSceneState(SceneState to)
-    {
-        if (CurrentSceneState == to)
-        {
-            return false;
-        }
-
-        CurrentSceneState = to;
-        HandleSceneStateChanged(to);
-        return true;
-    }
-
+    //=========================
+    
+    //==== Input/Button =======
     private void OnInputBack(InputAction.CallbackContext context)
     {
         InputBackSignal.Fire();
@@ -164,6 +163,7 @@ public class UIManager : MonoBehaviour, IStateMachineUser
     public void QuitBtn()
     {
         TryUpdateSceneState(SceneState.MainMenuScene);
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 
@@ -176,11 +176,5 @@ public class UIManager : MonoBehaviour, IStateMachineUser
     {
         CreditsSignal.Fire();
     }
-    
-    public Panel GetPanel(PanelType type)
-    {
-        if (panelDict.TryGetValue(type, out var panel))
-            return panel;
-        return null;
-    }
+    //=========================
 }

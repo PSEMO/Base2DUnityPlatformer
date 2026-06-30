@@ -10,3 +10,4 @@
 
 ### Functionality
 * Key rebinding.
+* Saving.

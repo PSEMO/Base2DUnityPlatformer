@@ -514,6 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15564df223d9c59f3aa78c2f4365504c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnpauseCountdownUI
+  Data: {fileID: 11400000, guid: a671485ae0e7d386eb110b42a77e6326, type: 2}
   countdownText: {fileID: 529387957904478249}
 --- !u!1 &564335041154067819
 GameObject:
@@ -1452,7 +1453,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1510,6 +1511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4830c6b5d54d37d6b25901aaf8349a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  Data: {fileID: 11400000, guid: a671485ae0e7d386eb110b42a77e6326, type: 2}
   panels:
   - {fileID: 4071901483403920496}
   - {fileID: 2799165307578194608}

@@ -3,12 +3,13 @@ using TMPro;
 
 public class UnpauseCountdownUI : MonoBehaviour
 {
+    [SerializeField] UISO Data;
     [SerializeField] private TextMeshProUGUI countdownText;
     private float timer;
 
     private void OnEnable()
     {
-        timer = 1.5f;
+        timer = Data.returningFromPauseCooldown;
         UpdateText();
     }
 

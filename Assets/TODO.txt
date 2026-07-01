@@ -1,7 +1,5 @@
-### Apply assets:
-* different songs in different scenes.
-
 ### Functionality
 * Key rebinding,
 * Level selection(?),
-* UI feedback.
+* UI feedback,
+* Song to song, smooth transition.

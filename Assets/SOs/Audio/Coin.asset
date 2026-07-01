@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094a662747b74def589ac350dd0fa4f3, type: 3}
   m_Name: Coin
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Audio.AudioSO
-  ID: 
-  clip: {fileID: 0}
+  ID: Coin
+  clip: {fileID: 8300000, guid: 3880a9052155a57df871cd2f91581222, type: 3}
   volume: 1
   loop: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094a662747b74def589ac350dd0fa4f3, type: 3}
   m_Name: GameMusic
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Audio.AudioSO
-  ID: 
-  clip: {fileID: 0}
-  volume: 1
-  loop: 0
+  ID: GameMusic
+  clip: {fileID: 8300000, guid: 6ee0283cc102c8723ad1aa1793098233, type: 3}
+  volume: 0.7
+  loop: 1

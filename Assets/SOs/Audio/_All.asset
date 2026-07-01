@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0da083c53e84b7cea23ea815d212cf1, type: 3}
   m_Name: _All
   m_EditorClassIdentifier: Assembly-CSharp::AllAudioSOs
-  _allAudios: []
+  _allAudios:
+  - {fileID: 11400000, guid: 127219bd6102790b89a26ef22153a2b3, type: 2}
+  - {fileID: 11400000, guid: 31a8fdae4b8be0f1090250d735e3b40e, type: 2}
+  - {fileID: 11400000, guid: 80ad1ecf293dadd95ac3095045eb5716, type: 2}
+  - {fileID: 11400000, guid: 1e7a1556769cbf58fa6450ccfb37d908, type: 2}
+  - {fileID: 11400000, guid: 196c30a78775fe47282a3d16de4d728a, type: 2}

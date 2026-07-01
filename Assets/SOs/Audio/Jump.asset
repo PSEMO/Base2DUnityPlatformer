@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094a662747b74def589ac350dd0fa4f3, type: 3}
   m_Name: Jump
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Audio.AudioSO
-  ID: 
-  clip: {fileID: 0}
-  volume: 1
+  ID: Jump
+  clip: {fileID: 8300000, guid: fa8f69f31ded479b2a0415517d31b796, type: 3}
+  volume: 0.8
   loop: 0

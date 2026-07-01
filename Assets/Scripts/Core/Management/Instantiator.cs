@@ -58,6 +58,8 @@ namespace PSEMO.Core.Management
                     while (queue.Count > 0)
                     {
                         GameObject spawnedObj = queue.Dequeue();
+                        if (spawnedObj == null) continue;
+
                         spawnedObj.transform.SetPositionAndRotation(pos, rotation);
                         spawnedObj.transform.SetParent(parent);
                         spawnedObj.SetActive(true);

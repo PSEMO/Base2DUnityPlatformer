@@ -59,6 +59,7 @@ namespace PSEMO.Player
         void Awake()
         {
             inputActions = new InputSystem_Actions();
+            InputSettings.RebindManager.LoadOverrides(inputActions.asset);
             inputActions.Player.AddCallbacks(this);
 
             animator = GetComponent<Animator>();

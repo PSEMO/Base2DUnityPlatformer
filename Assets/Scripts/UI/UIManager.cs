@@ -50,6 +50,7 @@ namespace PSEMO.UI
             }
 
             inputActions = new InputSystem_Actions();
+            InputSettings.RebindManager.LoadOverrides(inputActions.asset);
 
             InitializeStateMachine();
 

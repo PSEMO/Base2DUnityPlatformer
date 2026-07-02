@@ -1,5 +1,4 @@
 ### Functionality
 * Key rebinding,
 * Level selection(?),
-* UI feedback,
-* Song to song, smooth transition.
+* UI feedback.

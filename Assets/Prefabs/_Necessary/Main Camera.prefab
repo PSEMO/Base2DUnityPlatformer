@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   allAudios: {fileID: 11400000, guid: 05f3175916007ce849d5fee045c8a76d, type: 2}
+  musicTransitionDuration: 1
 --- !u!20 &345434361929669659
 Camera:
   m_ObjectHideFlags: 0

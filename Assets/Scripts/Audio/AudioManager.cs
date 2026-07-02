@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ namespace PSEMO.Audio
 
             sfxSources = new List<AudioSource>();
             musicSource = gameObject.AddComponent<AudioSource>();
+            secondaryMusicSource = gameObject.AddComponent<AudioSource>();
 
             LoadVolumes();
         }
@@ -81,10 +83,14 @@ namespace PSEMO.Audio
 
         [SerializeField] private AllAudioSOs allAudios;
 
+        [SerializeField] private float musicTransitionDuration = 1.0f;
+        private Coroutine musicTransitionCoroutine;
+
         private Dictionary<AudioSource, AudioSO> sourceToData;
 
         private List<AudioSource> sfxSources;
         private AudioSource musicSource;
+        private AudioSource secondaryMusicSource;
 
         public void PlayAudio(string ID, bool isMusic = false)
         {
@@ -94,21 +100,78 @@ namespace PSEMO.Audio
 
         public void PlayAudio(AudioSO data, bool isMusic = false)
         {
-            AudioSource source = isMusic? musicSource : GetAvailableSource();
+            if (isMusic)
+            {
+                if (musicSource.clip == data.clip && musicSource.isPlaying)
+                    return;
 
-            if (isMusic && source.clip == data.clip && source.isPlaying)
+                if (musicSource.isPlaying)
+                {
+                    if (musicTransitionCoroutine != null)
+                    {
+                        StopCoroutine(musicTransitionCoroutine);
+                        ResetCrossfadeMusic(data);
+                    }
+
+                    musicTransitionCoroutine = StartCoroutine(CrossfadeMusic(data));
+                    return;
+                }
+
+                PlayAudio(musicSource, data, true);
                 return;
+            }
 
-            if (sourceToData.ContainsKey(source))
-                sourceToData[source] = data;
-            else
-                sourceToData.Add(source, data);
+            AudioSource source = GetAvailableSource();
+
+            PlayAudio(source, data);
+        }
+
+        public void PlayAudio(AudioSource source, AudioSO data, bool isMusic = false, float volume = -1)
+        {
+            sourceToData[source] = data;
 
             source.clip = data.clip;
             source.loop = data.loop;
-            source.volume = (isMusic? musicVolume : sfxVolume) * data.volume * masterVolume;
+            source.volume = volume == -1? GetVolumeOfData(data, isMusic) : volume;
 
             source.Play();
+        }
+
+        private IEnumerator CrossfadeMusic(AudioSO newData)
+        {
+            (musicSource, secondaryMusicSource) = (secondaryMusicSource, musicSource);
+            
+            float startSecondaryVolume = secondaryMusicSource.volume;
+
+            PlayAudio(musicSource, newData, true, 0f);
+
+            float t = 0;
+            while (t < musicTransitionDuration)
+            {
+                t += Time.deltaTime;
+                float normalizedTime = t / musicTransitionDuration;
+                
+                float currentTargetVolume = GetVolumeOfData(newData, true);
+                
+                musicSource.volume = Mathf.Lerp(0f, currentTargetVolume, normalizedTime);
+                secondaryMusicSource.volume = Mathf.Lerp(startSecondaryVolume, 0f, normalizedTime);
+                
+                yield return null;
+            }
+            
+            ResetCrossfadeMusic(newData);
+        }
+
+        private float GetVolumeOfData(AudioSO data, bool isMusic = false) =>
+            (isMusic? musicVolume : sfxVolume) * data.volume * masterVolume;
+
+        private void ResetCrossfadeMusic(AudioSO currentData)
+        {
+            musicSource.volume = GetVolumeOfData(currentData, true);
+            secondaryMusicSource.Stop();
+            secondaryMusicSource.volume = 0f;
+
+            musicTransitionCoroutine = null;
         }
 
         public void StopAllSounds()
@@ -124,9 +187,20 @@ namespace PSEMO.Audio
 
         public void StopMusic()
         {
+            if (musicTransitionCoroutine != null)
+            {
+                StopCoroutine(musicTransitionCoroutine);
+                musicTransitionCoroutine = null;
+            }
+
             if (musicSource != null && musicSource.isPlaying)
             {
                 musicSource.Stop();
+            }
+            
+            if (secondaryMusicSource != null && secondaryMusicSource.isPlaying)
+            {
+                secondaryMusicSource.Stop();
             }
         }
 
@@ -170,7 +244,10 @@ namespace PSEMO.Audio
                 ? sourceToData[musicSource].volume
                 : 1f;
 
-            musicSource.volume = raw * musicVolume * masterVolume;
+            if (musicTransitionCoroutine == null)
+            {
+                musicSource.volume = raw * musicVolume * masterVolume;
+            }
         }
 
         private void ApplySFXVolumes()

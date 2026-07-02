@@ -19,5 +19,8 @@ namespace PSEMO.Events
 
         public static event Action<Persists> OnPersistsObjectRemoved;
         public static void InvokePersistsObjectRemoved(Persists objToAdd) => OnPersistsObjectRemoved?.Invoke(objToAdd);
+
+        public static event Action<string> OnSaveSlotChanged;
+        public static void InvokeSaveSlotChanged(string slotName) => OnSaveSlotChanged?.Invoke(slotName);
     }
 }

@@ -213,6 +213,14 @@ namespace PSEMO.UI
             SceneManager.LoadScene(0);
         }
 
+        public void QuitAndSaveBtn()
+        {
+            TryUpdateSceneState(SceneState.MainMenuScene);
+            Time.timeScale = 1;
+            PersistenceEvents.InvokeGameSave();
+            SceneManager.LoadScene(0);
+        }
+
         public void SettingsBtn()
         {
             SettingsSignal.Fire();
@@ -227,6 +235,20 @@ namespace PSEMO.UI
         {
             PersistenceEvents.InvokeGameSave();
         }
+
+        private void SelectSaveSlotBtn(string slotName)
+        {
+            PersistenceEvents.InvokeSaveSlotChanged(slotName);
+            if (ContinueBtnObj != null)
+            {
+                ContinueBtnObj.interactable = PersistenceManager.HasSceneData();
+            }
+        }
+
+        public void SelectSaveSlot1Btn() => SelectSaveSlotBtn("SaveSlot1");
+        public void SelectSaveSlot2Btn() => SelectSaveSlotBtn("SaveSlot2");
+        public void SelectSaveSlot3Btn() => SelectSaveSlotBtn("SaveSlot3");
+        public void SelectSaveSlot4Btn() => SelectSaveSlotBtn("SaveSlot4");
         //=========================
     }
 }

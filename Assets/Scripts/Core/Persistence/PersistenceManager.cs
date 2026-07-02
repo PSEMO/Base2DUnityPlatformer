@@ -11,10 +11,37 @@ namespace PSEMO.Core.Persistence
     {
         private static string GameNameSuffix => $".data.{Application.productName}";
         
-        private static string GetGlobalFilePath() => Path.Combine(Application.persistentDataPath, "Global", $"Global{GameNameSuffix}");
-        private static string GetSceneFilePath(string sceneName) => Path.Combine(Application.persistentDataPath, $"{sceneName}{GameNameSuffix}");
+        private static string _currentSaveSlot;
+        public static string CurrentSaveSlot
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_currentSaveSlot))
+                {
+                    _currentSaveSlot = PlayerPrefs.GetString("LastSaveSlot", "SaveSlot1");
+                }
+                return _currentSaveSlot;
+            }
+            private set
+            {
+                _currentSaveSlot = value;
+                PlayerPrefs.SetString("LastSaveSlot", value);
+                PlayerPrefs.Save();
+            }
+        }
+        private static string CurrentSaveSlotPath => Path.Combine(Application.persistentDataPath, CurrentSaveSlot);
+        
+        private static string GetGlobalFilePath() => Path.Combine(CurrentSaveSlotPath, "Global", $"Global{GameNameSuffix}");
+        private static string GetSceneFilePath(string sceneName) => Path.Combine(CurrentSaveSlotPath, $"{sceneName}{GameNameSuffix}");
 
-        private static string[] GetAllSceneFiles() => Directory.GetFiles(Application.persistentDataPath, $"*{GameNameSuffix}");
+        private static string[] GetAllSceneFiles()
+        {
+            if (!Directory.Exists(CurrentSaveSlotPath))
+            {
+                return new string[0];
+            }
+            return Directory.GetFiles(CurrentSaveSlotPath, $"*{GameNameSuffix}");
+        }
 
         private List<Persists> dataPersistenceObjects;
 
@@ -43,6 +70,7 @@ namespace PSEMO.Core.Persistence
             PersistenceEvents.OnCreateEmptySceneFile += CreateEmptySceneFile;
             PersistenceEvents.OnPersistsObjectAdded += AddPersistentObj;
             PersistenceEvents.OnPersistsObjectRemoved += RemovePersistentObj;
+            PersistenceEvents.OnSaveSlotChanged += ChangeSaveSlot;
         }
 
         void OnDisable()
@@ -52,6 +80,7 @@ namespace PSEMO.Core.Persistence
             PersistenceEvents.OnCreateEmptySceneFile -= CreateEmptySceneFile;
             PersistenceEvents.OnPersistsObjectAdded -= AddPersistentObj;
             PersistenceEvents.OnPersistsObjectRemoved -= RemovePersistentObj;
+            PersistenceEvents.OnSaveSlotChanged -= ChangeSaveSlot;
         }
 
         void AddPersistentObj(Persists objToAdd)
@@ -62,6 +91,11 @@ namespace PSEMO.Core.Persistence
         void RemovePersistentObj(Persists objToRemove)
         {
             dataPersistenceObjects.Remove(objToRemove);
+        }
+
+        void ChangeSaveSlot(string slotName)
+        {
+            CurrentSaveSlot = slotName;
         }
 
         void LoadGame()

@@ -12,7 +12,7 @@ namespace PSEMO.Player
         public float speed = 8f;
 
         [Header("Jump")]
-        public int jumpCount = 3;
+        public int maxJumpCount = 3;
         public float jumpForce = 14f;
         public bool variableJump = true;
         [Range(0, 1)] public float variableJumpMult = 0;

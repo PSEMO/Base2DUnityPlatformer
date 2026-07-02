@@ -12,7 +12,7 @@ namespace PSEMO.Player
         {
             animator.Play(FallAnimHash);
 
-            if(ctx.jumpsLeft == ctx.data.jumpCount)
+            if(ctx.jumpsLeft == ctx.data.maxJumpCount)
             {
                 ctx.jumpsLeft--;
             }

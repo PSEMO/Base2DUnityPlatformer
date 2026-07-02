@@ -6,7 +6,6 @@ using PSEMO.Camera;
 using PSEMO.Core.Predicate;
 using PSEMO.Core.StateMachine;
 using PSEMO.Environment.Functionality;
-using PSEMO.Audio;
 
 namespace PSEMO.Player
 {
@@ -43,6 +42,19 @@ namespace PSEMO.Player
 
         //Dash
         [HideInInspector] public bool canDash = true;
+
+        //Able To
+        private bool ableToRun;
+        private bool ableToJump;
+        private bool ableToDash;
+        private bool ableToInteract;
+        private int maxJumpCount;
+
+        public void EnableRun() => ableToRun = true;
+        public void EnableJump() => ableToJump = true;
+        public void EnableDash() => ableToDash = true;
+        public void EnableInteract() => ableToInteract = true;
+        public void SetMaxJumpCount(int newCount) => maxJumpCount = newCount;
     
         void Awake()
         {
@@ -53,6 +65,12 @@ namespace PSEMO.Player
             rb = GetComponent<Rigidbody2D>();
 
             InitializeStateMachine();
+
+            ableToRun = data.ableToRun;
+            ableToJump = data.ableToJump;
+            ableToDash = data.ableToDash;
+            ableToInteract = data.ableToInteract;
+            maxJumpCount = data.maxJumpCount;
         }
 
         void Start()
@@ -60,7 +78,7 @@ namespace PSEMO.Player
             CameraManager.Instance.AddTarget(transform, data.camDivisor);
 
             respawnPos = transform.position;
-            jumpsLeft = data.jumpCount;
+            jumpsLeft = maxJumpCount;
             initialScale = transform.localScale;
         }
 
@@ -106,7 +124,7 @@ namespace PSEMO.Player
                 if (rb.linearVelocity.y <= 0.1f)
                 {
                     hasJumped = false;
-                    jumpsLeft = data.jumpCount;
+                    jumpsLeft = maxJumpCount;
                     canDash = true;
                 }
             }
@@ -114,7 +132,7 @@ namespace PSEMO.Player
             {
                 coyoteTimeCounter -= Time.deltaTime;
 
-                if (coyoteTimeCounter <= 0f && !hasJumped && jumpsLeft == data.jumpCount)
+                if (coyoteTimeCounter <= 0f && !hasJumped && jumpsLeft == maxJumpCount)
                 {
                     jumpsLeft--;
                 }
@@ -217,7 +235,7 @@ namespace PSEMO.Player
         //======== INPUTS =========
         public void OnMove(InputAction.CallbackContext context)
         {
-            if (data.ableToRun)
+            if (ableToRun)
             {
                 moveInput = context.ReadValue<float>();
             }
@@ -225,7 +243,7 @@ namespace PSEMO.Player
 
         public void OnUp(InputAction.CallbackContext context)
         {
-            if (context.performed && data.ableToJump)
+            if (context.performed && ableToJump)
             {
                 upInput = true;
                 jumpBufferCounter = data.jumpBufferTime;
@@ -238,7 +256,7 @@ namespace PSEMO.Player
 
         public void OnDash(InputAction.CallbackContext context)
         {
-            if (context.performed && data.ableToDash)
+            if (context.performed && ableToDash)
             {
                 dashInput = true;
             }
@@ -250,7 +268,7 @@ namespace PSEMO.Player
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if (context.performed && data.ableToInteract)
+            if (context.performed && ableToInteract)
             {
                 Collider2D hit = Physics2D.OverlapCircle(transform.position, data.interactionRadius, data.interactionLayer);
 

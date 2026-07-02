@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 624843551008324052}
-  - component: {fileID: 4411668668178077297}
+  - component: {fileID: 2513340471098276634}
   - component: {fileID: 5664088433768720309}
   - component: {fileID: 5317553010553152284}
   m_Layer: 9
@@ -34,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4411668668178077297
+--- !u!114 &2513340471098276634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,9 +43,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 378949906492037249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13a69aa99351e0416b8c9aa18bdaceea, type: 3}
+  m_Script: {fileID: 11500000, guid: 28d047a2b602f2ac89f12ed7313e3766, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Functionality.Enabler.EnableRunOnContact
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Functionality.Enabler.EnableDashOnContact
 --- !u!61 &5664088433768720309
 BoxCollider2D:
   m_ObjectHideFlags: 0

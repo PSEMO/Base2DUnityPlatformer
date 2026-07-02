@@ -13,5 +13,6 @@ namespace PSEMO.Core.Persistence
         public bool ableToDash;
         public bool ableToInteract;
         public int maxJumpCount;
+        public bool ResetOnLoad;
     }
 }

@@ -1,5 +1,6 @@
 using PSEMO.Player;
 using UnityEngine;
+using PSEMO.Environment.Functionality;
 
 namespace PSEMO.Core.Persistence
 {
@@ -26,6 +27,11 @@ namespace PSEMO.Core.Persistence
             ctx.ableToDash = data.ableToDash;
             ctx.ableToInteract = data.ableToInteract;
             ctx.maxJumpCount = data.maxJumpCount;
+
+            if (data.ResetOnLoad)
+            {
+                ctx.Respawn();
+            }
         }
 
         public override string SaveData()
@@ -38,7 +44,8 @@ namespace PSEMO.Core.Persistence
                 ableToJump = ctx.ableToJump,
                 ableToDash = ctx.ableToDash,
                 ableToInteract = ctx.ableToInteract,
-                maxJumpCount = ctx.maxJumpCount
+                maxJumpCount = ctx.maxJumpCount,
+                ResetOnLoad = ctx.triggerResetOnNextSave
             };
             return JsonUtility.ToJson(data);
         }

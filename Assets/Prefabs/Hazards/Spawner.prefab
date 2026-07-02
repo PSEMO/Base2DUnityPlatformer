@@ -60,5 +60,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d423420514e746ff692c1567d1b5219f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.GizmosAsAComp.ShowInGizmos
-  label: Spawner
+  label: Hazard Spawner
   circleRadius: 0.15

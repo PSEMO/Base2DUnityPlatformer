@@ -22,6 +22,8 @@ namespace PSEMO.UI
         public SignalPredicate InputBackSignal { get; private set; } = new();
         public SignalPredicate MainMenuStateSignal { get; private set; } = new();
         public SignalPredicate InGameStateSignal { get; private set; } = new();
+        public SignalPredicate EndMenuStateSignal { get; private set; } = new();
+        public SignalPredicate InputNextSignal { get; private set; } = new();
 
         [SerializeField] private List<Panel> panels; 
         private Dictionary<PanelType, Panel> panelDict;
@@ -75,15 +77,21 @@ namespace PSEMO.UI
         {
             inputActions.Enable();
             inputActions.UI.Back.performed += OnInputBack;
+            inputActions.UI.Next.performed += OnInputNext;
+            UIEvents.OnEndGame += HandleEndGameSignal;
         }
 
         private void OnDisable()
         {
-            if (inputActions != null)
-            {
-                inputActions.Disable();
-                inputActions.UI.Back.performed -= OnInputBack;
-            }
+            inputActions.Disable();
+            inputActions.UI.Back.performed -= OnInputBack;
+            inputActions.UI.Next.performed -= OnInputNext;
+            UIEvents.OnEndGame -= HandleEndGameSignal;
+        }
+
+        private void HandleEndGameSignal()
+        {
+            EndMenuStateSignal.Fire();
         }
 
         private void HandleSceneStateChanged(SceneState state)
@@ -92,6 +100,8 @@ namespace PSEMO.UI
                 MainMenuStateSignal.Fire();
             else if (state == SceneState.GameScene)
                 InGameStateSignal.Fire();
+            else if (state == SceneState.EndMenuScene)
+                EndMenuStateSignal.Fire();
         }
 
         private bool TryUpdateSceneState(SceneState to)
@@ -124,6 +134,7 @@ namespace PSEMO.UI
             var inGameSettingsUIState = new InGameSettingsUIState(this);
             var creditsUIState = new CreditsUIState(this);
             var inGameUnPausingUIState = new InGameUnPausingUIState(this);
+            var endGameUIState = new EndGameUIState(this);
 
             void At(IState from, IState to, IPredicate condition) =>
                 UIStateMachine.AddTransition(from, to, condition);
@@ -136,6 +147,7 @@ namespace PSEMO.UI
 
             Any(mainMenuUIState, MainMenuStateSignal);
             Any(inGameUIState, InGameStateSignal);
+            Any(endGameUIState, EndMenuStateSignal);
 
             At(mainMenuUIState, mainSettingsUIState, Or(SettingsSignal, InputBackSignal));
             At(mainMenuUIState, creditsUIState, CreditsSignal);
@@ -158,7 +170,22 @@ namespace PSEMO.UI
         //==== Input/Button =======
         private void OnInputBack(InputAction.CallbackContext context)
         {
+            if (UIStateMachine.CurrentState is EndGameUIState)
+            {
+                Quit();
+                return;
+            }
             InputBackSignal.Fire();
+        }
+
+        private void OnInputNext(InputAction.CallbackContext context)
+        {
+            if (UIStateMachine.CurrentState is EndGameUIState)
+            {
+                Quit();
+                return;
+            }
+            InputNextSignal.Fire();
         }
 
         public void BackBtn()
@@ -181,9 +208,14 @@ namespace PSEMO.UI
 
         public void QuitBtn()
         {
+            PersistenceEvents.InvokeGameSave();
+            Quit();
+        }
+
+        public void Quit()
+        {
             TryUpdateSceneState(SceneState.MainMenuScene);
             Time.timeScale = 1;
-            PersistenceEvents.InvokeGameSave();
             SceneManager.LoadScene(0);
         }
 

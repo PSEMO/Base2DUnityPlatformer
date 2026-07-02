@@ -8,6 +8,9 @@ namespace PSEMO.UI
         InGameSettings,
         CreditsMenu,
         MainBg,
-        InGameUnPausingMenu
+        InGameUnPausingMenu,
+        EndGameMenu,
+        GameEndBg,
+        InGameBg
     }
 }

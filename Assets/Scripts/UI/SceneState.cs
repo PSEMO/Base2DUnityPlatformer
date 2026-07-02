@@ -3,6 +3,7 @@ namespace PSEMO.UI
     public enum SceneState
     {
         MainMenuScene,
-        GameScene
+        GameScene,
+        EndMenuScene
     }
 }

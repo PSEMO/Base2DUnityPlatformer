@@ -55,6 +55,8 @@ namespace PSEMO.Player
         public void EnableDash() => ableToDash = true;
         public void EnableInteract() => ableToInteract = true;
         public void SetMaxJumpCount(int newCount) => maxJumpCount = newCount;
+
+        [HideInInspector] public bool triggerResetOnNextSave = false;
     
         void Awake()
         {
@@ -178,6 +180,11 @@ namespace PSEMO.Player
         }
 
         private void Die()
+        {
+            Respawn();
+        }
+
+        public void Respawn()
         {
             transform.position = respawnPos;
             rb.linearVelocity = Vector2.zero;

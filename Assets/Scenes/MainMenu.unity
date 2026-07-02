@@ -504,7 +504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9118911909735303269, guid: f604d02284ca1aec2a048c2592bb2eaf, type: 3}
       propertyPath: m_Name
-      value: Global Light 2D
+      value: GlobalLight2D
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -618,7 +618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5662047847214701983, guid: 79eafcb55e91f60dba0ae22ac33c3d59, type: 3}
       propertyPath: m_Name
-      value: Main Camera
+      value: MainCam
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

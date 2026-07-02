@@ -10,6 +10,7 @@ namespace PSEMO.UI
 
         protected override PanelType[] ActivePanels => new[]
         {
+            PanelType.InGameBg,
             PanelType.InGameUnPausingMenu
         };
 

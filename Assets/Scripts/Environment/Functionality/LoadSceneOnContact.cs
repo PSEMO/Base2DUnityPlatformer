@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PSEMO.Events;
-using PSEMO.Player;
 
 namespace PSEMO.Environment.Functionality
 {
@@ -18,21 +17,9 @@ namespace PSEMO.Environment.Functionality
             OnContact(col.collider);
         }
 
-        void OnContact(Collider2D col)
+        void OnContact(Collider2D _)
         {
-            col.TryGetComponent(out PlayerController ctx);
-
-            if (ctx != null)
-            {
-                ctx.triggerResetOnNextSave = true;
-            }
-
-            PersistenceEvents.InvokeGameSave();
-
-            if (ctx != null)
-            {
-                ctx.triggerResetOnNextSave = false;
-            }
+            PersistenceEvents.InvokeCreateEmptySceneFile(SceneToLoadName);
 
             SceneManager.LoadScene(SceneToLoadName);
         }

@@ -172,7 +172,7 @@ namespace PSEMO.UI
         {
             if (UIStateMachine.CurrentState is EndGameUIState)
             {
-                Quit();
+                QuitBtn();
                 return;
             }
             InputBackSignal.Fire();
@@ -182,7 +182,7 @@ namespace PSEMO.UI
         {
             if (UIStateMachine.CurrentState is EndGameUIState)
             {
-                Quit();
+                QuitBtn();
                 return;
             }
             InputNextSignal.Fire();
@@ -207,12 +207,6 @@ namespace PSEMO.UI
         }
 
         public void QuitBtn()
-        {
-            PersistenceEvents.InvokeGameSave();
-            Quit();
-        }
-
-        public void Quit()
         {
             TryUpdateSceneState(SceneState.MainMenuScene);
             Time.timeScale = 1;

@@ -3,7 +3,7 @@ using PSEMO.Events;
 
 namespace PSEMO.Environment.Functionality
 {
-    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Collider2D))]
     public class KillBox : MonoBehaviour
     {
         void OnTriggerEnter2D(Collider2D _)

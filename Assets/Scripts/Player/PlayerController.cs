@@ -55,8 +55,6 @@ namespace PSEMO.Player
         public void EnableDash() => ableToDash = true;
         public void EnableInteract() => ableToInteract = true;
         public void SetMaxJumpCount(int newCount) => maxJumpCount = newCount;
-
-        [HideInInspector] public bool triggerResetOnNextSave = false;
     
         void Awake()
         {

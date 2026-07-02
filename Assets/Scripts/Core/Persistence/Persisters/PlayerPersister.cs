@@ -44,8 +44,7 @@ namespace PSEMO.Core.Persistence
                 ableToJump = ctx.ableToJump,
                 ableToDash = ctx.ableToDash,
                 ableToInteract = ctx.ableToInteract,
-                maxJumpCount = ctx.maxJumpCount,
-                ResetOnLoad = ctx.triggerResetOnNextSave
+                maxJumpCount = ctx.maxJumpCount
             };
             return JsonUtility.ToJson(data);
         }

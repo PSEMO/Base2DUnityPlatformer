@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 588487435366844556}
   - component: {fileID: 3215229438007053258}
   - component: {fileID: 6263657836173283300}
+  - component: {fileID: 9213277210609572558}
   - component: {fileID: 4652410101882708085}
-  - component: {fileID: 1723764745922498525}
+  - component: {fileID: 343308452326059969}
   - component: {fileID: 8351655813838353413}
   m_Layer: 9
   m_Name: FallingObstacle
@@ -90,6 +91,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KillSelf
   secondsToDieAfter: 1.2
+--- !u!114 &9213277210609572558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6464453770252932767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a3d45c64b47cc4cb2c6e90c7fbd396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Movement.Rotater
+  rotationSpeed: 90
+  rotationAxis: {x: 0, y: 0, z: 1}
 --- !u!212 &4652410101882708085
 SpriteRenderer:
   serializedVersion: 2
@@ -139,8 +154,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: f0c70b5d980ed8ac69294c71956c8a9b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 90a936c422fe7763fa4417318b85d2a5, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -149,8 +164,8 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &1723764745922498525
-BoxCollider2D:
+--- !u!58 &343308452326059969
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -184,17 +199,7 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.4
 --- !u!50 &8351655813838353413
 Rigidbody2D:
   serializedVersion: 5

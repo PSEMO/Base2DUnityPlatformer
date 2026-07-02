@@ -40,6 +40,7 @@ namespace PSEMO.Core.Persistence
         {
             PersistenceEvents.OnGameSave += SaveTheGame;
             PersistenceEvents.OnGameSaveDelete += DeleteGameData;
+            PersistenceEvents.OnCreateEmptySceneFile += CreateEmptySceneFile;
             PersistenceEvents.OnPersistsObjectAdded += AddPersistentObj;
             PersistenceEvents.OnPersistsObjectRemoved += RemovePersistentObj;
         }
@@ -48,6 +49,7 @@ namespace PSEMO.Core.Persistence
         {
             PersistenceEvents.OnGameSave -= SaveTheGame;
             PersistenceEvents.OnGameSaveDelete -= DeleteGameData;
+            PersistenceEvents.OnCreateEmptySceneFile -= CreateEmptySceneFile;
             PersistenceEvents.OnPersistsObjectAdded -= AddPersistentObj;
             PersistenceEvents.OnPersistsObjectRemoved -= RemovePersistentObj;
         }
@@ -113,6 +115,20 @@ namespace PSEMO.Core.Persistence
             {
                 File.Delete(file);
                 Debug.Log($"Scene game data deleted: {file}");
+            }
+        }
+
+        void CreateEmptySceneFile(string sceneName)
+        {
+            string fullPath = GetSceneFilePath(sceneName);
+            try
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                File.WriteAllText(fullPath, string.Empty);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Error occured when trying to create empty file: " + fullPath + "\n" + e);
             }
         }
 

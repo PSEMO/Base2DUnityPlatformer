@@ -10,6 +10,10 @@ namespace PSEMO.Editor
     {
         public override void OnInspectorGUI()
         {
+            EditorGUILayout.HelpBox("This object should not be destroyed or instantiated mid-gameplay.", MessageType.Warning);
+
+            EditorGUILayout.Space();
+
             base.OnInspectorGUI();
             
             if (GUILayout.Button("Generate New ID", GUILayout.Height(30)))

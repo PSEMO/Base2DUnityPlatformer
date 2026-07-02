@@ -197,6 +197,11 @@ MonoBehaviour:
   jumpsLeft: 0
   hasJumped: 0
   canDash: 1
+  ableToRun: 0
+  ableToJump: 0
+  ableToDash: 0
+  ableToInteract: 0
+  maxJumpCount: 0
 --- !u!114 &4114354756184461682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Persistence.PlayerPersister
   persistenceId: 15aad04b-d076-4458-9210-fab2ce8bdf5f
+  ShouldSaveGlobally: 1
 --- !u!114 &8742660120965922276
 MonoBehaviour:
   m_ObjectHideFlags: 0

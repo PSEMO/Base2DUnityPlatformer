@@ -3,5 +3,4 @@
 * Level selection(?),
 * UI feedback,
 * Environment art implementation,
-* Hazard art implementation,
-* Scene based saves.
+* Hazard art implementation.

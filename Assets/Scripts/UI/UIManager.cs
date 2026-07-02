@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using PSEMO.Core.Predicate;
 using PSEMO.Core.StateMachine;
 using PSEMO.Events;
+using PSEMO.Core.Persistence;
 
 namespace PSEMO.UI
 {
@@ -57,7 +58,7 @@ namespace PSEMO.UI
         {
             HandleSceneStateChanged(CurrentSceneState);
 
-            ContinueBtnObj.interactable = Env.HasGameData();
+            ContinueBtnObj.interactable = PersistenceManager.HasSceneData();
         }
 
         private void Update()
@@ -168,7 +169,7 @@ namespace PSEMO.UI
         public void ContinueBtn()
         {
             TryUpdateSceneState(SceneState.GameScene);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(PersistenceManager.FurthestAvailableSceneIndex());
         }
 
         public void NewGameBtn()

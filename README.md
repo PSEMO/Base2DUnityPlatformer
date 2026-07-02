@@ -6,6 +6,14 @@
 
 A highly scalable, decoupled, and performance-driven 2D platformer template for Unity. Built around a custom node-based State Machine and an Event-Driven architecture, this foundation eliminates rigid inheritance chains and tightly coupled logic. It leverages custom Object Pooling to prevent runtime garbage collection spikes, utilizes Unity's new Input System, and fully embraces ScriptableObjects for a data-driven configuration workflow.
 
+> [!NOTE]
+> ### Save locations 
+> Save files will be located at following directories at default:
+> Linux:
+> /home/[YourUsername]/.config/unity3d/PSEMOSoftware/Base2DUnityPlatformer/
+> Windows:
+> C:\Users\\[YourUsername]\AppData\LocalLow\PSEMOSoftware\Base2DUnityPlatformer\
+
 ## Core Features & Architecture
 
 ### **State Machine Driven**

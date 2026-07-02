@@ -1,6 +1,4 @@
 ### Functionality
 * Key rebinding,
-* Level selection(?),
 * UI feedback,
-* Save slots,
 * Environment art implementation.

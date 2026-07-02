@@ -22,4 +22,22 @@ public static class Events
 
     public static event Action<Dictionary<string, int>, Dictionary<string, CollectibleSO>> OnCollectibleCountsUpdated;
     public static void InvokeCollectibleCountsUpdated(Dictionary<string, int> counts, Dictionary<string, CollectibleSO> groupData) => OnCollectibleCountsUpdated?.Invoke(counts, groupData);
+
+    public static event Func<GameObject, Vector3, Quaternion, Transform, GameObject> OnSpawnObject;
+    public static GameObject InvokeSpawnObject(GameObject obj, Vector3 pos, Quaternion rotation, Transform parent = null)
+    {
+        if (OnSpawnObject != null)
+            return OnSpawnObject.Invoke(obj, pos, rotation, parent);
+        else
+            return UnityEngine.Object.Instantiate(obj, pos, rotation, parent);
+    }
+
+    public static event Action<GameObject> OnDeSpawnObject;
+    public static void InvokeDeSpawnObject(GameObject obj)
+    {
+        if (OnDeSpawnObject == null)
+            UnityEngine.Object.Destroy(obj);
+        else
+            OnDeSpawnObject.Invoke(obj);
+    }
 }

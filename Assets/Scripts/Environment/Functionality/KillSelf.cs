@@ -16,8 +16,7 @@ namespace PSEMO.Environment.Functionality
         IEnumerator KillSelfAfterSeconds(float seconds)
         {
             yield return new WaitForSeconds(seconds);
-
-            Instantiator.Instance.DeSpawnObject(gameObject);
+            Events.InvokeDeSpawnObject(gameObject);
         }
     }
 }

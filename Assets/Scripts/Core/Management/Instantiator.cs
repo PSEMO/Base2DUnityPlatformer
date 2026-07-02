@@ -6,20 +6,16 @@ namespace PSEMO.Core.Management
 {
     public class Instantiator : MonoBehaviour
     {
-        public static Instantiator Instance { get; private set; }
-
-        private void Awake()
+        private void OnEnable()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            else
-            {
-                Instance = this;
-                DontDestroyOnLoad(this);
-            }
+            Events.OnSpawnObject += SpawnObject;
+            Events.OnDeSpawnObject += DeSpawnObject;
+        }
+
+        private void OnDisable()
+        {
+            Events.OnSpawnObject -= SpawnObject;
+            Events.OnDeSpawnObject -= DeSpawnObject;
         }
 
         Dictionary<string, Queue<GameObject>> pooledObjects = new();

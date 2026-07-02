@@ -34,7 +34,7 @@ namespace PSEMO.Environment.Functionality
 
         private void Spawn()
         {
-            Instantiator.Instance.SpawnObject(prefabToSpawn, transform.position, Quaternion.identity);
+            Events.InvokeSpawnObject(prefabToSpawn, transform.position, Quaternion.identity);
         }
     }
 }

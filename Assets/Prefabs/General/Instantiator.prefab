@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5259122982484548566}
   - component: {fileID: 984812515453235075}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Instantiator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

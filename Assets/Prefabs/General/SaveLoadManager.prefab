@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 594295574197870253}
   - component: {fileID: 1566293912253268545}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SaveLoadManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,4 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6878f41062a33b4188c7f9038cdf2123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Persistence.PersistenceManager
-  fileName: data.gameName

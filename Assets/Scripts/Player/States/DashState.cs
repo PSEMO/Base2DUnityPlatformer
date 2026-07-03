@@ -15,6 +15,7 @@ namespace PSEMO.Player
             animator.Play(DashAnimHash);
         
             ctx.canDash = false;
+            ctx.dashInput = false;
         
             dashTimeLeft = ctx.data.dashDuration;
             originalGravity = ctx.rb.gravityScale;

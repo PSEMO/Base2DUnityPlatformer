@@ -51,12 +51,6 @@ namespace PSEMO.Player
         [HideInInspector] public bool ableToInteract;
         [HideInInspector] public int maxJumpCount;
 
-        public void EnableRun() => ableToRun = true;
-        public void EnableJump() => ableToJump = true;
-        public void EnableDash() => ableToDash = true;
-        public void EnableInteract() => ableToInteract = true;
-        public void SetMaxJumpCount(int newCount) => maxJumpCount = newCount;
-
         private Vector2 groundCheckBoxSize;
         [HideInInspector] public Vector2 wallCheckBoxSize;
         private RaycastHit2D[] physicsHits = new RaycastHit2D[5];
@@ -233,6 +227,26 @@ namespace PSEMO.Player
         {
             respawnPos = pos;
         }
+
+        public void EnableAbility(AbilityType type)
+        {
+            switch (type)
+            {
+                case AbilityType.Run:
+                    ableToRun = true;
+                    break;
+                case AbilityType.Jump:
+                    ableToJump = true;
+                    break;
+                case AbilityType.Dash:
+                    ableToDash = true;
+                    break;
+                case AbilityType.Interact:
+                    ableToInteract = true;
+                    break;
+            }
+        }
+        public void SetMaxJumpCount(int newCount) => maxJumpCount = newCount;
 
         //====== PERSISTENCE ======
         public void LoadData(string jsonData)

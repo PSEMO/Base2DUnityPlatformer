@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9127456733933684015}
-  - component: {fileID: 6849842979329261634}
+  - component: {fileID: 5490368818866263896}
   - component: {fileID: 4037799154567609059}
   - component: {fileID: 4515082043817269072}
   m_Layer: 9
@@ -34,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6849842979329261634
+--- !u!114 &5490368818866263896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,9 +43,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4108001195175684881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70b2bc82815810288b6be1bfc47fb4be, type: 3}
+  m_Script: {fileID: 11500000, guid: e728823bd013eef759cdd12bb121b8e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Functionality.Enabler.EnableJumpOnContact
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Functionality.Enabler.EnableAbilityOnContact
+  abilityType: 1
 --- !u!61 &4037799154567609059
 BoxCollider2D:
   m_ObjectHideFlags: 0

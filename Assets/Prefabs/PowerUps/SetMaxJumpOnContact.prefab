@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c00b1b8733a44dd2861c60c6e8b69ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Functionality.Enabler.SetMaxJumpOnContact
-  newCount: 2
+  newCount: 4
 --- !u!61 &1346455868913636739
 BoxCollider2D:
   m_ObjectHideFlags: 0

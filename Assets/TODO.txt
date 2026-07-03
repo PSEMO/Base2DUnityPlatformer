@@ -1,0 +1,31 @@
+Add a function that returns the saved values to the main scripts and make persisters something that just facilitates it
+
+CollectiblePersister.cs should not send a whole ass signal when it is told that it was collected in the previous save
+
+Change audio strings with enums or static constants
+
+in FallState.cs coyote time is bypassed in "OnEnter()" logic
+
+in FallState.cs for land sound the play, instead of looking for "nextState is RunState || nextState is IdleState" check isGrounded instead
+
+in JumpState.cs FixedUpdate() there is a frame rate dependent variable jump, fix that.
+
+raycast and stop the dash if the player hits a wall
+
+dashInput = false  inside  DashState.OnEnter() so that player can't dash 7/24
+
+use Physics2D.RaycastNonAlloc instead of Physics2D.Raycast for ground detection
+
+use Mathf.Log10(value) * 20 to convert percentage of audio into actual volume?
+
+use weight instead of divisor for camera tracking. and divide by the total weight. current math is wrong.
+
+add Vector2 offset to the CameraSO.cs 
+
+make an Init like the one AllAudioSOs have but for AllCollectibleSOs
+
+Maybe use an AbilityType instead of calling special functions that are in the PlayerController via Enabe[Ability]OnContact.cs files
+
+[IDK wtf this means:] Array Allocation:  protected abstract PanelType[] ActivePanels { get; }  means every time a derived class returns  new PanelType[] { ... } , it allocates memory. For state transitions that might happen often, it's better to declare a  protected abstract readonly PanelType[] ActivePanels  or ensure the derived class returns a cached array rather than creating a  new  array on every  get. As predicted in the base class review,  protected override PanelType[] ActivePanels => new[] { ... };  creates a new array every single time  ActivePanels  is accessed. Since UIBaseState.OnEnter  and  OnExit  access  ActivePanels  using a foreach loop, it's allocating a new array multiple times when transitioning. You should cache it: private static readonly PanelType[] _activePanels = new[] { PanelType.MainBg, PanelType.CreditsMenu }; protected override PanelType[] ActivePanels => _activePanels; This completely eliminates garbage collection overhead for UI transitions.
+
+disable CanvasGroup.interactable and CanvasGroup.blocksRaycasts in the transition periods of Panel.cs

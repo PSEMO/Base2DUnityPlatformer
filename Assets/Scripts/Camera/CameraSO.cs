@@ -6,6 +6,7 @@ namespace PSEMO.Camera
     public class CameraSO : ScriptableObject
     {
         [Header("Follow Settings")]
+        public Vector2 offset = Vector2.zero;
         public float smoothTime = 0.25f;
         public float maxSpeed = Mathf.Infinity;
 

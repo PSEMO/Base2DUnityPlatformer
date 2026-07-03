@@ -58,6 +58,7 @@ namespace PSEMO.Camera
                 }
 
                 endPosition /= targets.Count;
+                endPosition += data.offset;
 
                 return new Vector3 (endPosition.x, endPosition.y, transform.position.z);
             }

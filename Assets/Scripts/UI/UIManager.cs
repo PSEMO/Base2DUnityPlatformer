@@ -40,15 +40,6 @@ namespace PSEMO.UI
         {
             panelDict = new();
 
-            foreach (var menu in panels)
-            {
-                if (menu != null && !panelDict.ContainsKey(menu.Type))
-                {
-                    menu.HideInstant();
-                    panelDict.Add(menu.Type, menu);
-                }
-            }
-
             inputActions = new InputSystem_Actions();
             InputSettings.RebindManager.LoadOverrides(inputActions.asset);
 
@@ -59,6 +50,15 @@ namespace PSEMO.UI
 
         private void Start()
         {
+            foreach (var menu in panels)
+            {
+                if (menu != null && !panelDict.ContainsKey(menu.Type))
+                {
+                    menu.HideInstant();
+                    panelDict.Add(menu.Type, menu);
+                }
+            }
+
             HandleSceneStateChanged(CurrentSceneState);
 
             ContinueBtnObj.interactable = PersistenceManager.HasSceneData();
@@ -84,9 +84,13 @@ namespace PSEMO.UI
 
         private void OnDisable()
         {
-            inputActions.Disable();
-            inputActions.UI.Back.performed -= OnInputBack;
-            inputActions.UI.Next.performed -= OnInputNext;
+            if (inputActions != null)
+            {
+                inputActions.Disable();
+                inputActions.UI.Back.performed -= OnInputBack;
+                inputActions.UI.Next.performed -= OnInputNext;
+            }
+
             UIEvents.OnEndGame -= HandleEndGameSignal;
         }
 

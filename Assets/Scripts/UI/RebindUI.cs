@@ -11,7 +11,7 @@ namespace PSEMO.InputSettings
         [Tooltip("The input action reference to rebind.")]
         [SerializeField] private InputActionReference inputActionReference;
         
-        [Tooltip("Leave at -1 to automatically find the first binding, or specify a specific binding index (e.g. for composite parts like WASD).")]
+        [Tooltip("Specify a specific binding index")]
         [SerializeField] private int bindingIndex = -1;
 
         [Header("UI Elements")]
@@ -20,7 +20,7 @@ namespace PSEMO.InputSettings
         [SerializeField] private Button rebindButton;
         [SerializeField] private Button resetButton;
 
-        [Header("State Objects (Optional)")]
+        [Header("State Objects")]
         [SerializeField] private GameObject startRebindObject;
         [SerializeField] private GameObject waitingForInputObject;
 
@@ -28,8 +28,6 @@ namespace PSEMO.InputSettings
 
         private void Start()
         {
-            if (inputActionReference == null) return;
-            
             // Automatically find index if not specified
             if (bindingIndex < 0)
             {
@@ -37,16 +35,13 @@ namespace PSEMO.InputSettings
                 if (bindingIndex < 0) bindingIndex = 0; // Default fallback
             }
 
-            if (actionNameText != null)
-                actionNameText.text = inputActionReference.action.name;
+            actionNameText.text = inputActionReference.action.name;
 
             UpdateBindingDisplay();
 
-            if (rebindButton != null)
-                rebindButton.onClick.AddListener(StartRebinding);
-                
-            if (resetButton != null)
-                resetButton.onClick.AddListener(ResetBinding);
+            rebindButton.onClick.AddListener(StartRebinding);
+            
+            resetButton.onClick.AddListener(ResetBinding);
         }
 
         private void OnDestroy()
@@ -56,12 +51,10 @@ namespace PSEMO.InputSettings
 
         private void StartRebinding()
         {
-            if (inputActionReference == null) return;
-
             startRebindObject.SetActive(false);
             waitingForInputObject.SetActive(true);
 
-            if (rebindButton != null) rebindButton.interactable = false;
+            rebindButton.interactable = false;
 
             inputActionReference.action.Disable();
 
@@ -87,8 +80,6 @@ namespace PSEMO.InputSettings
 
         private void ResetBinding()
         {
-            if (inputActionReference == null) return;
-            
             inputActionReference.action.RemoveBindingOverride(bindingIndex);
             RebindManager.SaveOverrides(inputActionReference.asset);
             UpdateBindingDisplay();
@@ -109,12 +100,9 @@ namespace PSEMO.InputSettings
 
         private void UpdateBindingDisplay()
         {
-            if (bindingText != null && inputActionReference != null)
-            {
-                bindingText.text = InputControlPath.ToHumanReadableString(
-                    inputActionReference.action.bindings[bindingIndex].effectivePath,
-                    InputControlPath.HumanReadableStringOptions.OmitDevice);
-            }
+            bindingText.text = InputControlPath.ToHumanReadableString(
+                inputActionReference.action.bindings[bindingIndex].effectivePath,
+                InputControlPath.HumanReadableStringOptions.OmitDevice);
         }
     }
 }

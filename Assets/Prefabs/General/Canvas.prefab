@@ -1682,7 +1682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3905286100450158622
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1753,9 +1753,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8501987814294678395}
+  - component: {fileID: 8450425882107643308}
   - component: {fileID: 30992323403838442}
   - component: {fileID: 529387957904478249}
-  - component: {fileID: 8450425882107643308}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1782,6 +1782,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -400, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8450425882107643308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496700342409288351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15564df223d9c59f3aa78c2f4365504c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnpauseCountdownUI
+  Data: {fileID: 11400000, guid: a671485ae0e7d386eb110b42a77e6326, type: 2}
+  countdownText: {fileID: 529387957904478249}
 --- !u!222 &30992323403838442
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1882,20 +1896,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8450425882107643308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496700342409288351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15564df223d9c59f3aa78c2f4365504c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UnpauseCountdownUI
-  Data: {fileID: 11400000, guid: a671485ae0e7d386eb110b42a77e6326, type: 2}
-  countdownText: {fileID: 529387957904478249}
 --- !u!1 &564335041154067819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,7 +1915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6017078283481409353
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2842,7 +2842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4093200931416672168
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3183,7 +3183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5285878689843786252
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7942,7 +7942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1407347085577279659
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14993,7 +14993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8268911583089615861
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16760,7 +16760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4910436522021022446
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19772,7 +19772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6684728595722293157
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22106,7 +22106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3646349031110020488
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22586,7 +22586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1242281873400161252
 RectTransform:
   m_ObjectHideFlags: 0

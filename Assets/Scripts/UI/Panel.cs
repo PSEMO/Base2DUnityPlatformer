@@ -34,15 +34,8 @@ namespace PSEMO.UI
             IsOpen = true;
 
             gameObject.SetActive(true);
-            if (gameObject.activeInHierarchy)
-            {
-                StopAllCoroutines();
-                StartCoroutine(Fade(1f));
-            }
-            else
-            {
-                canvasGroup.alpha = 1f;
-            }
+            StopAllCoroutines();
+            StartCoroutine(Fade(1f));
         }
 
         public virtual void Hide()
@@ -57,6 +50,7 @@ namespace PSEMO.UI
             else
             {
                 canvasGroup.alpha = 0f;
+                setInteraction(false);
                 gameObject.SetActive(false);
             }
         }
@@ -66,6 +60,7 @@ namespace PSEMO.UI
             IsOpen = true;
 
             gameObject.SetActive(true);
+            setInteraction(true);
             canvasGroup.alpha = 1f;
         }
 
@@ -74,11 +69,14 @@ namespace PSEMO.UI
             IsOpen = false;
         
             canvasGroup.alpha = 0f;
+            setInteraction(false);
             gameObject.SetActive(false);
         }
 
         private IEnumerator Fade(float targetAlpha, System.Action onComplete = null)
         {
+            setInteraction(false);
+
             float startAlpha = canvasGroup.alpha;
             float elapsedTime = 0f;
 
@@ -90,7 +88,17 @@ namespace PSEMO.UI
             }
 
             canvasGroup.alpha = targetAlpha;
+
+            if (targetAlpha > 0f)
+                setInteraction(true);
+
             onComplete?.Invoke();
+        }
+
+        private void setInteraction(bool setTo)
+        {
+            canvasGroup.interactable = setTo;
+            canvasGroup.blocksRaycasts = setTo;
         }
     }
 }

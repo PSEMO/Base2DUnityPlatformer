@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PSEMO.Audio
 {
-    public class PlayGivenAudioAtAwake : MonoBehaviour
+    public class PlayGivenAudioAtStart : MonoBehaviour
     {
         [SerializeField] string AudioName;
 

@@ -17,10 +17,6 @@ namespace PSEMO.UI
         protected virtual void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-            if (canvasGroup == null)
-            {
-                canvasGroup = gameObject.AddComponent<CanvasGroup>();
-            }
         }
 
         public virtual void Show()
@@ -35,7 +31,7 @@ namespace PSEMO.UI
             }
             else
             {
-                if (canvasGroup != null) canvasGroup.alpha = 1f;
+                canvasGroup.alpha = 1f;
             }
         }
 
@@ -50,7 +46,7 @@ namespace PSEMO.UI
             }
             else
             {
-                if (canvasGroup != null) canvasGroup.alpha = 0f;
+                canvasGroup.alpha = 0f;
                 gameObject.SetActive(false);
             }
         }
@@ -60,14 +56,14 @@ namespace PSEMO.UI
             IsOpen = true;
 
             gameObject.SetActive(true);
-            if (canvasGroup != null) canvasGroup.alpha = 1f;
+            canvasGroup.alpha = 1f;
         }
 
         public void HideInstant()
         {
             IsOpen = false;
         
-            if (canvasGroup != null) canvasGroup.alpha = 0f;
+            canvasGroup.alpha = 0f;
             gameObject.SetActive(false);
         }
 

@@ -13,7 +13,7 @@ namespace PSEMO.UI
 
         private void Awake()
         {
-            textMeshPro = GetComponentInParent<TextMeshProUGUI>();
+            textMeshPro = GetComponent<TextMeshProUGUI>();
         }
 
         private void OnEnable()

@@ -43,7 +43,7 @@ namespace PSEMO.Player
         [Space]
         
         public float groundCheckDistance = 0.02f;
-        public LayerMask groundLayer = 128;
+        public LayerMask groundLayer = 1152;
 
         [Space]
 

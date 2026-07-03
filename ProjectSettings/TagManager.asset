@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - Interact
-  - GroundWallPlatform
+  - GroundWall
   - Player
   - DetectPlayer
-  - 
+  - Platform
   - 
   - 
   - 

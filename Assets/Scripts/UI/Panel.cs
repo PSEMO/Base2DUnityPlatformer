@@ -12,11 +12,21 @@ namespace PSEMO.UI
 
         [HideInInspector] public bool IsOpen { get; private set; } = false;
 
-        private CanvasGroup canvasGroup;
+        private CanvasGroup _canvasGroup;
+        private CanvasGroup canvasGroup
+        {
+            get
+            {
+                if (_canvasGroup == null)
+                    _canvasGroup = GetComponent<CanvasGroup>();
+                return _canvasGroup;
+            }
+        }
 
         protected virtual void Awake()
         {
-            canvasGroup = GetComponent<CanvasGroup>();
+            if (_canvasGroup == null)
+                _canvasGroup = GetComponent<CanvasGroup>();
         }
 
         public virtual void Show()

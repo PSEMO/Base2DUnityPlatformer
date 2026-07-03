@@ -8,6 +8,16 @@ namespace PSEMO.Environment.Functionality
     {
         void OnTriggerEnter2D(Collider2D _)
         {
+            OnContact();
+        }
+
+        void OnCollisionEnter2D(Collision2D _)
+        {
+            OnContact();
+        }
+
+        void OnContact()
+        {
             PlayerEvents.InvokePlayerDeath();
         }
     }

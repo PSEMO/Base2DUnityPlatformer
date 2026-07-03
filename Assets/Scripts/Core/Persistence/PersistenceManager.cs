@@ -43,7 +43,7 @@ namespace PSEMO.Core.Persistence
             return Directory.GetFiles(CurrentSaveSlotPath, $"*{GameNameSuffix}");
         }
 
-        private List<Persists> dataPersistenceObjects;
+        private List<Persister> dataPersistenceObjects;
 
         void Awake()
         {
@@ -59,7 +59,7 @@ namespace PSEMO.Core.Persistence
         {
             yield return null;
 
-            dataPersistenceObjects = FindAllDataPersistenceObjects();
+            //dataPersistenceObjects = FindAllDataPersistenceObjects();
             LoadGame();
         }
 
@@ -83,12 +83,12 @@ namespace PSEMO.Core.Persistence
             PersistenceEvents.OnSaveSlotChanged -= ChangeSaveSlot;
         }
 
-        void AddPersistentObj(Persists objToAdd)
+        void AddPersistentObj(Persister objToAdd)
         {
             dataPersistenceObjects.Add(objToAdd);
         }
 
-        void RemovePersistentObj(Persists objToRemove)
+        void RemovePersistentObj(Persister objToRemove)
         {
             dataPersistenceObjects.Remove(objToRemove);
         }
@@ -122,7 +122,7 @@ namespace PSEMO.Core.Persistence
                 }
             }
 
-            foreach (Persists dataPersistenceObj in dataPersistenceObjects)
+            foreach (Persister dataPersistenceObj in dataPersistenceObjects)
             {
                 bool isGlobal = dataPersistenceObj.ShouldSaveGlobally;
 
@@ -174,7 +174,7 @@ namespace PSEMO.Core.Persistence
             SerializableDictionary sceneDictToSave = new();
             HashSet<string> processedGlobalIds = new();
 
-            foreach (Persists dataPersistenceObj in dataPersistenceObjects)
+            foreach (Persister dataPersistenceObj in dataPersistenceObjects)
             {
                 bool isGlobal = dataPersistenceObj.ShouldSaveGlobally;
 
@@ -222,11 +222,18 @@ namespace PSEMO.Core.Persistence
             SaveToFile(GetSceneFilePath(sceneName), sceneDictToSave);
         }
 
-        List<Persists> FindAllDataPersistenceObjects()
+        private void DuplicateFoundWarningLog()
         {
-            IEnumerable<Persists> dataPersistenceObjects = FindObjectsByType<Persists>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            return new List<Persists>(dataPersistenceObjects);
+            
         }
+
+        /*
+        List<Persister> FindAllDataPersistenceObjects()
+        {
+            IEnumerable<Persister> dataPersistenceObjects = FindObjectsByType<Persister>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            return new List<Persister>(dataPersistenceObjects);
+        }
+        */
 
         SerializableDictionary LoadFromFile(string fullPath) 
         {

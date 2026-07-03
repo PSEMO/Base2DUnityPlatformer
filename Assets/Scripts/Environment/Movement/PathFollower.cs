@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PSEMO.Environment.Functionality;
+using PSEMO.Core.Persistence;
 
 namespace PSEMO.Environment.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PathFollower : MonoBehaviour, IMover, IPoolable
+    public class PathFollower : MonoBehaviour, IMover, IPoolable, IPersistable
     {
         [SerializeField] private float speed = 5f;
         [SerializeField] private float distanceToleranceSqr = 0.01f;
@@ -68,5 +69,29 @@ namespace PSEMO.Environment.Movement
             targetPos = targetPositions[0];
             transform.position = initialPosition;
         }
+
+        //====== PERSISTENCE ======
+        public void LoadData(string jsonData)
+        {
+            if (string.IsNullOrEmpty(jsonData)) return;
+
+            PathFollowerSaveData data = JsonUtility.FromJson<PathFollowerSaveData>(jsonData);
+            
+            transform.position = data.position;
+            currentWaypointIndex = data.currentWaypointIndex;
+            targetPos = data.targetPos;
+        }
+
+        public string SaveData()
+        {
+            PathFollowerSaveData data = new()
+            {
+                position = transform.position,
+                currentWaypointIndex = currentWaypointIndex,
+                targetPos = targetPos
+            };
+            return JsonUtility.ToJson(data);
+        }
+        //=========================
     }
 }

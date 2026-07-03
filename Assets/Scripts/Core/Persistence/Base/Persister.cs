@@ -3,7 +3,8 @@ using PSEMO.Events;
 
 namespace PSEMO.Core.Persistence
 {
-    public abstract class Persists : MonoBehaviour
+    [RequireComponent(typeof(IPersistable))]
+    public abstract class Persister : MonoBehaviour
     {
         [Tooltip("Unique ID for this specific object in the scene.")]
         [ContextMenuItem("Generate New ID", nameof(GenerateId))]

@@ -71,8 +71,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5683096626466162161}
+  - component: {fileID: 2878201541253858587}
   - component: {fileID: 6407358065351369170}
-  - component: {fileID: 7412541059957034310}
   - component: {fileID: 4990176163348047429}
   - component: {fileID: 3731981733738914072}
   - component: {fileID: 7752903064717840955}
@@ -102,6 +102,20 @@ Transform:
   - {fileID: 1711839116479352640}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2878201541253858587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4913353851761900561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf064e21adcfde9b4886c0c9eb504504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Core.Persistence.GeneralPersister
+  persistenceId: 
+  ShouldSaveGlobally: 0
 --- !u!114 &6407358065351369170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a5888ee12c1c3218e3a42c448c2fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PathFollower
-  <ID>k__BackingField: MovingPlatform
   speed: 5
   distanceToleranceSqr: 0.01
   waypoints:
@@ -122,19 +135,6 @@ MonoBehaviour:
   - {fileID: 7800471949628566280}
   currentWaypointIndex: 0
   targetPos: {x: 0, y: 0, z: 0}
---- !u!114 &7412541059957034310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4913353851761900561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d207da01d7c678b8d0e335610e1516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Persistence.PathFollowerPersister
-  persistenceId: be49e7b4-2da9-412c-a476-ec3b2df65d4b
 --- !u!212 &4990176163348047429
 SpriteRenderer:
   serializedVersion: 2

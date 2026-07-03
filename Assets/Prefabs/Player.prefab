@@ -136,8 +136,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7741476016541829853}
+  - component: {fileID: 1565698321691134389}
   - component: {fileID: 2018240993954701890}
-  - component: {fileID: 4114354756184461682}
   - component: {fileID: 8742660120965922276}
   - component: {fileID: 300087426028984753}
   - component: {fileID: 9208908686564330161}
@@ -166,6 +166,20 @@ Transform:
   - {fileID: 5001185867842743367}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1565698321691134389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9202858013134004778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf064e21adcfde9b4886c0c9eb504504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Core.Persistence.GeneralPersister
+  persistenceId: 3c61eda6-6c09-4a8c-88cf-2c28336eff92
+  ShouldSaveGlobally: 1
 --- !u!114 &2018240993954701890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,20 +216,6 @@ MonoBehaviour:
   ableToDash: 0
   ableToInteract: 0
   maxJumpCount: 0
---- !u!114 &4114354756184461682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9202858013134004778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceba32ac2c1811ece864256cf58c586e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Persistence.PlayerPersister
-  persistenceId: 15aad04b-d076-4458-9210-fab2ce8bdf5f
-  ShouldSaveGlobally: 1
 --- !u!114 &8742660120965922276
 MonoBehaviour:
   m_ObjectHideFlags: 0

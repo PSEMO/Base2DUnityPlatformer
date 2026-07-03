@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6737214745213044546}
+  - component: {fileID: 3054234845214489907}
   - component: {fileID: 4847437742652343363}
   - component: {fileID: 4449681677340886898}
   - component: {fileID: 2288280518947444643}
@@ -74,6 +75,20 @@ Transform:
   - {fileID: 7815453874702169107}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3054234845214489907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3416181069142102259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf064e21adcfde9b4886c0c9eb504504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Core.Persistence.GeneralPersister
+  persistenceId: 
+  ShouldSaveGlobally: 0
 --- !u!114 &4847437742652343363
 MonoBehaviour:
   m_ObjectHideFlags: 0

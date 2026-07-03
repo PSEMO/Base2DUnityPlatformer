@@ -5,9 +5,9 @@ using PSEMO.Core.Persistence;
 namespace PSEMO.Editor
 {
     #if UNITY_EDITOR
-    [CustomEditor(typeof(Persists), true)]
+    [CustomEditor(typeof(Persister), true)]
     [CanEditMultipleObjects]
-    public class PersistsEditor : UnityEditor.Editor
+    public class PersisterEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -21,7 +21,7 @@ namespace PSEMO.Editor
             {
                 foreach (var t in targets)
                 {
-                    Persists script = (Persists)t;
+                    Persister script = (Persister)t;
                     Undo.RecordObject(script, "Generate New ID");
                     script.GenerateId();
                     EditorUtility.SetDirty(script);

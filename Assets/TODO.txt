@@ -1,7 +1,3 @@
-Add a function that returns the saved values to the main scripts and make persisters something that just facilitates it
-
-CollectiblePersister.cs should not send a whole ass signal when it is told that it was collected in the previous save
-
 Change audio strings with enums or static constants
 
 in FallState.cs coyote time is bypassed in "OnEnter()" logic

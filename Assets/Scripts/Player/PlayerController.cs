@@ -6,11 +6,12 @@ using PSEMO.Core.Predicate;
 using PSEMO.Core.StateMachine;
 using PSEMO.Environment.Functionality;
 using PSEMO.Events;
+using PSEMO.Core.Persistence;
 
 namespace PSEMO.Player
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
-    public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Actions.IPlayerActions
+    public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Actions.IPlayerActions, IPersistable
     {
         public PlayerSO data;
         [SerializeField] private List<Transform> groundChecks;
@@ -199,6 +200,38 @@ namespace PSEMO.Player
         {
             respawnPos = pos;
         }
+
+        //====== PERSISTENCE ======
+        public void LoadData(string jsonData)
+        {
+            if (string.IsNullOrEmpty(jsonData)) return;
+
+            PlayerSaveData saveData = JsonUtility.FromJson<PlayerSaveData>(jsonData);
+            
+            transform.position = saveData.playerPosition;
+            respawnPos = saveData.playerRespawnPosition;
+            ableToRun = saveData.ableToRun;
+            ableToJump = saveData.ableToJump;
+            ableToDash = saveData.ableToDash;
+            ableToInteract = saveData.ableToInteract;
+            maxJumpCount = saveData.maxJumpCount;
+        }
+
+        public string SaveData()
+        {
+            PlayerSaveData data = new()
+            {
+                playerPosition = transform.position,
+                playerRespawnPosition = respawnPos,
+                ableToRun = ableToRun,
+                ableToJump = ableToJump,
+                ableToDash = ableToDash,
+                ableToInteract = ableToInteract,
+                maxJumpCount = maxJumpCount
+            };
+            return JsonUtility.ToJson(data);
+        }
+        //=========================
 
         //===== STATE MACHINE =====
         void InitializeStateMachine()

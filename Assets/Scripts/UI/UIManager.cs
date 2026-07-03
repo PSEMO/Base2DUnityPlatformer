@@ -40,6 +40,12 @@ namespace PSEMO.UI
         {
             panelDict = new();
 
+            foreach (var panel in panels)
+            {
+                panel.HideInstant();
+                panelDict.Add(panel.Type, panel);
+            }
+
             inputActions = new InputSystem_Actions();
             InputSettings.RebindManager.LoadOverrides(inputActions.asset);
 
@@ -50,15 +56,6 @@ namespace PSEMO.UI
 
         private void Start()
         {
-            foreach (var menu in panels)
-            {
-                if (menu != null && !panelDict.ContainsKey(menu.Type))
-                {
-                    menu.HideInstant();
-                    panelDict.Add(menu.Type, menu);
-                }
-            }
-
             HandleSceneStateChanged(CurrentSceneState);
 
             ContinueBtnObj.interactable = PersistenceManager.HasSceneData();

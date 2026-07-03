@@ -77,7 +77,7 @@ namespace PSEMO.Player
 
         void Start()
         {
-            CameraEvents.InvokeCameraTargetAdded(transform, data.camDivisor);
+            CameraEvents.InvokeCameraTargetAdded(transform, data.camWeight);
 
             respawnPos = transform.position;
             jumpsLeft = maxJumpCount;

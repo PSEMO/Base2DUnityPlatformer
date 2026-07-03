@@ -6,7 +6,8 @@ namespace PSEMO.Player
     public class PlayerSO : ScriptableObject
     {
         [Header("Camera")]
-        public float camDivisor = 1;
+        [UnityEngine.Serialization.FormerlySerializedAs("camDivisor")]
+        public float camWeight = 1;
 
         [Header("Movement")]
         public float speed = 8f;

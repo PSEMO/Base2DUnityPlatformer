@@ -51,13 +51,16 @@ namespace PSEMO.Camera
             if (targets.Count > 0)
             {
                 Vector2 endPosition = Vector2.zero;
+                float totalWeight = 0f;
 
                 foreach (Transform target in targets.Keys)
                 {
-                    endPosition += (Vector2)(target.position / targets[target]);
+                    float weight = targets[target];
+                    endPosition += (Vector2)target.position * weight;
+                    totalWeight += weight;
                 }
 
-                endPosition /= targets.Count;
+                endPosition /= totalWeight;
                 endPosition += data.offset;
 
                 return new Vector3 (endPosition.x, endPosition.y, transform.position.z);
@@ -66,9 +69,9 @@ namespace PSEMO.Camera
             return transform.position;
         }
 
-        public void AddTarget(Transform _transform, float divisor)
+        public void AddTarget(Transform _transform, float weight)
         {
-            targets.Add(_transform, divisor);
+            targets.Add(_transform, weight);
         }
 
         public void RemoveTarget(Transform _tranform)

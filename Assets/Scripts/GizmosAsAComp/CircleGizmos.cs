@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PSEMO.GizmosAsAComp
 {
-    public class ShowInGizmos : MonoBehaviour
+    public class CircleGizmos : MonoBehaviour
     {
         [SerializeField] string label = "";
         [SerializeField] float circleRadius = 0.1f;

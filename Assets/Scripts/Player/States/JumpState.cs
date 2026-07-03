@@ -11,7 +11,7 @@ namespace PSEMO.Player
         {
             animator.Play(JumpAnimHash);
             
-            AudioManager.Instance.PlayAudio("Jump");
+            AudioManager.Instance.PlayAudio(AudioConstants.Jump);
         
             ctx.rb.linearVelocity = new Vector2(ctx.rb.linearVelocity.x, ctx.data.jumpForce);
             ctx.jumpBufferCounter = 0f;

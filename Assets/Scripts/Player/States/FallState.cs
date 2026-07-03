@@ -27,7 +27,7 @@ namespace PSEMO.Player
         {
             if (nextState is RunState || nextState is IdleState)
             {
-                AudioManager.Instance.PlayAudio("Fall");
+                AudioManager.Instance.PlayAudio(AudioConstants.Fall);
             }
 
             base.OnExit(nextState);

@@ -23,7 +23,7 @@ namespace PSEMO.Environment.Functionality.Collectible
 
         private void HandleContact()
         {
-            AudioManager.Instance.PlayAudio("Coin");
+            AudioManager.Instance.PlayAudio(AudioConstants.Coin);
             
             isCollected = true;
             CollectibleEvents.InvokeCollectibleCollected(data.group);

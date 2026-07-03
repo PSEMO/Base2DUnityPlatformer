@@ -11,8 +11,11 @@ namespace PSEMO.Player
         public override void OnEnter()
         {
             animator.Play(FallAnimHash);
+        }
 
-            if(ctx.jumpsLeft == ctx.data.maxJumpCount)
+        public override void Update()
+        {
+            if (ctx.coyoteTimeCounter <= 0f && ctx.jumpsLeft == ctx.data.maxJumpCount)
             {
                 ctx.jumpsLeft--;
             }

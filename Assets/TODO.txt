@@ -1,5 +1,3 @@
-in FallState.cs coyote time is bypassed in "OnEnter()" logic
-
 in FallState.cs for land sound the play, instead of looking for "nextState is RunState || nextState is IdleState" check isGrounded instead
 
 in JumpState.cs FixedUpdate() there is a frame rate dependent variable jump, fix that.

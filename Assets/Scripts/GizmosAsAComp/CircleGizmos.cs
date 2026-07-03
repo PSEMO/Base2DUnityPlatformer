@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace PSEMO.GizmosAsAComp
 {
+    #if UNITY_EDITOR
     public class CircleGizmos : MonoBehaviour
     {
         [SerializeField] string label = "";
@@ -15,9 +16,8 @@ namespace PSEMO.GizmosAsAComp
 
         private void DrawLabel(string text)
         {
-    #if UNITY_EDITOR
             UnityEditor.Handles.Label(transform.position + Vector3.up * 0.2f, text);
-    #endif
         }
     }
+    #endif
 }

@@ -1,7 +1,5 @@
 in FallState.cs for land sound the play, instead of looking for "nextState is RunState || nextState is IdleState" check isGrounded instead
 
-in JumpState.cs FixedUpdate() there is a frame rate dependent variable jump, fix that.
-
 raycast and stop the dash if the player hits a wall
 
 dashInput = false  inside  DashState.OnEnter() so that player can't dash 7/24

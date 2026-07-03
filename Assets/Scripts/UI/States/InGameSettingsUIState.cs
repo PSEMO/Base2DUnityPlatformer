@@ -6,11 +6,13 @@ namespace PSEMO.UI
     {
         public InGameSettingsUIState(UIManager ctx) : base(ctx) {}
 
-        protected override PanelType[] ActivePanels => new[]
+        private static readonly PanelType[] _activePanels = new[]
         {
             PanelType.InGameBg,
             PanelType.InGameSettings
         };
+
+        protected override PanelType[] ActivePanels => _activePanels;
 
         public override void OnEnter()
         {

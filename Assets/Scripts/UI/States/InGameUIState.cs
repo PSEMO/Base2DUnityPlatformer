@@ -4,9 +4,11 @@ namespace PSEMO.UI
     {
         public InGameUIState(UIManager ctx) : base(ctx) {}
 
-        protected override PanelType[] ActivePanels => new[]
+        private static readonly PanelType[] _activePanels = new[]
         {
             PanelType.InGameUI
         };
+
+        protected override PanelType[] ActivePanels => _activePanels;
     }
 }

@@ -6,10 +6,12 @@ namespace PSEMO.UI
     {
         public EndGameUIState(UIManager ctx) : base(ctx) {}
 
-        protected override PanelType[] ActivePanels => new[]
+        private static readonly PanelType[] _activePanels = new[]
         {
             PanelType.GameEndBg,
             PanelType.EndGameMenu
         };
+
+        protected override PanelType[] ActivePanels => _activePanels;
     }
 }

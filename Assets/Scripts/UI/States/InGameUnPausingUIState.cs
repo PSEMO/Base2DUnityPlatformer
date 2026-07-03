@@ -8,11 +8,13 @@ namespace PSEMO.UI
 
         public InGameUnPausingUIState(UIManager ctx) : base(ctx) {}
 
-        protected override PanelType[] ActivePanels => new[]
+        private static readonly PanelType[] _activePanels = new[]
         {
             PanelType.InGameBg,
             PanelType.InGameUnPausingMenu
         };
+
+        protected override PanelType[] ActivePanels => _activePanels;
 
         public override void OnEnter()
         {

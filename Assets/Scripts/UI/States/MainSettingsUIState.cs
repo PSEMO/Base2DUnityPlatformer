@@ -4,10 +4,12 @@ namespace PSEMO.UI
     {
         public MainSettingsUIState(UIManager ctx) : base(ctx) {}
 
-        protected override PanelType[] ActivePanels => new[]
+        private static readonly PanelType[] _activePanels = new[]
         {
             PanelType.MainBg,
             PanelType.MainSettings
         };
+
+        protected override PanelType[] ActivePanels => _activePanels;
     }
 }

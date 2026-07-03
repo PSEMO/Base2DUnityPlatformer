@@ -4,10 +4,12 @@ namespace PSEMO.UI
     {
         public CreditsUIState(UIManager ctx) : base(ctx) {}
 
-        protected override PanelType[] ActivePanels => new[]
+        private static readonly PanelType[] _activePanels = new[]
         {
             PanelType.MainBg,
             PanelType.CreditsMenu
         };
+
+        protected override PanelType[] ActivePanels => _activePanels;
     }
 }

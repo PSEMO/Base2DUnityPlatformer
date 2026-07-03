@@ -37,7 +37,16 @@ namespace PSEMO.Player
 
         public override void FixedUpdate()
         {
-            ctx.rb.linearVelocity = new Vector2(ctx.facing * ctx.data.dashForce, 0f);
+            if (ctx.IsFacingWall())
+            {
+                isDashing = false;
+                return;
+            }
+
+            if (isDashing)
+            {
+                ctx.rb.linearVelocity = new Vector2(ctx.facing * ctx.data.dashForce, 0f);
+            }
         }
 
         public override void OnExit()

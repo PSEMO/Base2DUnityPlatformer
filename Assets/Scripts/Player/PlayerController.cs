@@ -10,16 +10,15 @@ using PSEMO.Core.Persistence;
 
 namespace PSEMO.Player
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(Collider2D))]
     public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Actions.IPlayerActions, IPersistable
     {
         public PlayerSO data;
-        [SerializeField] private List<Transform> groundChecks;
-        private RaycastHit2D[] groundHits = new RaycastHit2D[1];
 
         private InputSystem_Actions inputActions;
 
         [HideInInspector] public Rigidbody2D rb;
+        [HideInInspector] public Collider2D col;
         [HideInInspector] public Animator animator;
 
         private StateMachine stateMachine;
@@ -57,6 +56,10 @@ namespace PSEMO.Player
         public void EnableDash() => ableToDash = true;
         public void EnableInteract() => ableToInteract = true;
         public void SetMaxJumpCount(int newCount) => maxJumpCount = newCount;
+
+        private Vector2 groundCheckBoxSize;
+        [HideInInspector] public Vector2 wallCheckBoxSize;
+        private RaycastHit2D[] physicsHits = new RaycastHit2D[5];
     
         void Awake()
         {
@@ -66,6 +69,7 @@ namespace PSEMO.Player
 
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
+            col = GetComponent<Collider2D>();
 
             InitializeStateMachine();
 
@@ -74,6 +78,9 @@ namespace PSEMO.Player
             ableToDash = data.ableToDash;
             ableToInteract = data.ableToInteract;
             maxJumpCount = data.maxJumpCount;
+
+            groundCheckBoxSize = new Vector2(col.bounds.size.x * 0.9f, col.bounds.size.y);
+            wallCheckBoxSize = new Vector2(col.bounds.size.x, col.bounds.size.y * 0.9f);
         }
 
         void Start()
@@ -149,19 +156,44 @@ namespace PSEMO.Player
 
         private bool IsOnGround()
         {
-            foreach (Transform check in groundChecks)
+            ContactFilter2D filter = new()
             {
-                if (check == null) continue;
+                useTriggers = false,
+                useLayerMask = true,
+                layerMask = data.groundLayer
+            };
 
-                int hitCount = Physics2D.RaycastNonAlloc(check.position, Vector2.down, groundHits, data.groundCheckDistance, data.groundLayer);
+            int hitCount = Physics2D.BoxCast(
+                col.bounds.center,
+                groundCheckBoxSize,
+                0f,
+                Vector2.down,
+                filter,
+                physicsHits,
+                data.groundCheckDistance);
 
-                if (hitCount > 0)
-                {
-                    return true;
-                }
-            }
+            return hitCount > 0;
+        }
 
-            return false;
+        public bool IsFacingWall()
+        {
+            ContactFilter2D filter = new()
+            {
+                useTriggers = false,
+                useLayerMask = true,
+                layerMask = data.wallLayer
+            };
+
+            int hitCount = Physics2D.BoxCast(
+                col.bounds.center,
+                wallCheckBoxSize,
+                0f,
+                Vector2.right * facing,
+                filter,
+                physicsHits,
+                data.wallCheckDistance);
+
+            return hitCount > 0;
         }
 
         public virtual void Run()

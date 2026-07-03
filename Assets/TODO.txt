@@ -1,7 +1,3 @@
-in FallState.cs for land sound the play, instead of looking for "nextState is RunState || nextState is IdleState" check isGrounded instead
-
-raycast and stop the dash if the player hits a wall
-
 use Mathf.Log10(value) * 20 to convert percentage of audio into actual volume?
 
 Maybe use an AbilityType instead of calling special functions that are in the PlayerController via Enabe[Ability]OnContact.cs files

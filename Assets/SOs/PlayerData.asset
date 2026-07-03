@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33477a40c40fa497da323e1cbe838037, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSO
-  camDivisor: 1
+  camWeight: 1
   speed: 8
-  jumpCount: 3
+  maxJumpCount: 3
   jumpForce: 14
   variableJump: 1
   variableJumpMult: 0
@@ -26,10 +26,14 @@ MonoBehaviour:
   ableToInteract: 1
   coyoteTime: 0.08
   jumpBufferTime: 0.12
-  groundCheckDistance: 0.01
+  groundCheckDistance: 0.02
   groundLayer:
     serializedVersion: 2
-    m_Bits: 133
+    m_Bits: 128
+  wallCheckDistance: 0.2
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 128
   interactionRadius: 4
   interactionLayer:
     serializedVersion: 2

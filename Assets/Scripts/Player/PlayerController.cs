@@ -15,6 +15,7 @@ namespace PSEMO.Player
     {
         public PlayerSO data;
         [SerializeField] private List<Transform> groundChecks;
+        private RaycastHit2D[] groundHits = new RaycastHit2D[1];
 
         private InputSystem_Actions inputActions;
 
@@ -152,9 +153,9 @@ namespace PSEMO.Player
             {
                 if (check == null) continue;
 
-                RaycastHit2D hit = Physics2D.Raycast(check.position, Vector2.down, data.groundCheckDistance, data.groundLayer);
+                int hitCount = Physics2D.RaycastNonAlloc(check.position, Vector2.down, groundHits, data.groundCheckDistance, data.groundLayer);
 
-                if (hit.collider != null)
+                if (hitCount > 0)
                 {
                     return true;
                 }

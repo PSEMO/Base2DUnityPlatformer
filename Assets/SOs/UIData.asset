@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: UIData
   m_EditorClassIdentifier: Assembly-CSharp::UISO
   returningFromPauseCooldown: 1
+  extraDelayForLoading: 0.3

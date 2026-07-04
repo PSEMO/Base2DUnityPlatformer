@@ -7,6 +7,7 @@ namespace PSEMO.Environment.Movement
     {
         [SerializeField] private float rotationSpeed = 90f;
         [SerializeField] private Vector3 rotationAxis = Vector3.forward;
+        [SerializeField] private bool unscaledTime = false;
 
         private Quaternion initialRotation;
 
@@ -17,7 +18,14 @@ namespace PSEMO.Environment.Movement
 
         private void Update()
         {
-            transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
+            if (unscaledTime)
+            {
+                transform.Rotate(rotationAxis, rotationSpeed * Time.unscaledDeltaTime);
+            }
+            else
+            {
+                transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
+            }
         }
 
         public void ResetObject()

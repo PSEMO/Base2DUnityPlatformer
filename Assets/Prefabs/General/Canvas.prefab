@@ -1731,7 +1731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 0
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!225 &3983687958309765325
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1973,7 +1973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 2
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!225 &7160744864862439392
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2874,7 +2874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 3
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!114 &1025363591098751592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3208,7 +3208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 5
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!114 &567773378722861635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7970,7 +7970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 1
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!225 &4467197205793204346
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -14064,7 +14064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.Panel
   Type: 10
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!1 &5835929362254154092
 GameObject:
   m_ObjectHideFlags: 0
@@ -15134,7 +15134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 6
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!225 &5273077163250655754
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -15533,6 +15533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Movement.Rotater
   rotationSpeed: 180
   rotationAxis: {x: 0, y: 0, z: 1}
+  unscaledTime: 1
 --- !u!1 &6469125774985386432
 GameObject:
   m_ObjectHideFlags: 0
@@ -16990,7 +16991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 8
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!114 &1281547787789999521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20002,7 +20003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 9
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!114 &1455963562442783585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22368,7 +22369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.Panel
   Type: 7
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!225 &744683623294235200
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -22857,7 +22858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
   Type: 4
-  fadeDuration: 0.125
+  fadeDuration: 0.15
 --- !u!225 &3813979027249868007
 CanvasGroup:
   m_ObjectHideFlags: 0

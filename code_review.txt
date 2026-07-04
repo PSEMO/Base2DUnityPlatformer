@@ -1,3 +1,7 @@
+Major issue
+
+Game Lags on scene loads
+
 Needs a fix
 
 **PlayerController.cs**: A massive "God class" handling input, movement, persistence, and state management, completely violating the Single Responsibility Principle.

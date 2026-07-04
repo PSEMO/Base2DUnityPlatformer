@@ -11,6 +11,6 @@ namespace PSEMO.UI
         [Space]
 
         public int firstGameSceneIndex = 1;
-        public int mainMenuIndex = 0;
+        public int mainMenuSceneIndex = 0;
     }
 }

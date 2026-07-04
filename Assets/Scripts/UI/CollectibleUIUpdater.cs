@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using PSEMO.Environment.Functionality.Collectible;
 using PSEMO.Events;
+using PSEMO.Core.Management;
 
 namespace PSEMO.UI
 {
@@ -16,9 +17,17 @@ namespace PSEMO.UI
             textMeshPro = GetComponent<TextMeshProUGUI>();
         }
 
+        private CollectibleTracker tracker;
+
         private void OnEnable()
         {
             CollectibleEvents.OnCollectibleCountsUpdated += UpdateUI;
+
+            if (tracker == null)
+                tracker = FindFirstObjectByType<CollectibleTracker>();
+            
+            if (tracker != null)
+                UpdateUI(tracker.CollectedCounts, tracker.GroupData);
         }
 
         private void OnDisable()

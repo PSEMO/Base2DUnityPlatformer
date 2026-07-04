@@ -31,18 +31,6 @@ namespace PSEMO.Core.Management
             }
         }
 
-        private void Start()
-        {
-            StartCoroutine(LateStart());
-        }
-
-        IEnumerator LateStart()
-        {
-            yield return null;
-
-            CollectibleEvents.InvokeCollectibleCountsUpdated(CollectedCounts, GroupData);
-        }
-
         private void OnEnable()
         {
             CollectibleEvents.OnCollectibleCollected += HandleCollectibleCollected;

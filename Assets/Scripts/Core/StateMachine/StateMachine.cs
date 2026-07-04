@@ -8,7 +8,7 @@ namespace PSEMO.Core.StateMachine
     {
         StateNode current;
         Dictionary<Type, StateNode> Nodes = new();
-        HashSet<ITransition> AnyTransition = new();
+        List<ITransition> AnyTransition = new();
 
         public IState CurrentState => current?.State;
 

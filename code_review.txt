@@ -105,19 +105,3 @@
 **RebindManager.cs**: Directly modifies and calls `PlayerPrefs.Save()` constantly. This causes synchronous disk I/O freezes on slower hard drives during gameplay.
 
 **Instantiator.cs**: Iterates through a queue to pop items but doesn't instantiate new items if the pool is empty. This means the spawn request just fails silently when the pool is exhausted.
-
-**CollectibleTracker.cs**: Using a Coroutine for `LateStart` to broadcast the state forces a 1-frame delay. This causes noticeable visual UI pop-in or stuttering right when the scene loads.
-
-**BaseState.cs**: The empty virtual methods add minor invocation overhead compared to using abstract methods where an override is genuinely required.
-
-**IStateMachineUser.cs**: An empty marker interface that provides absolutely no functional contract value.
-
-**StateMachine.cs**: The `AnyTransition` check loops through a `HashSet` sequentially. HashSets are not ordered deterministically, which causes unpredictable transition priorities.
-
-**Persister.cs**: Relies on `System.Guid.NewGuid().ToString()` which will cause duplicated GUIDs and breaking save data if prefabs are cloned directly in the hierarchy.
-
-**SerializableDictionary.cs**: Using two separate lists for keys and values risks massive data desynchronization if one list is inadvertently modified without the other.
-
-**PersistenceManager.cs**: Heavy usage of `File.ReadAllText` and `File.WriteAllText`. Because these run synchronously on the main thread, they are guaranteed to cause a noticeable lag spike when saving or loading large amounts of data.
-
-**PathFollowerSaveData.cs**: Exposes vectors directly and completely ignores serialization of the object's specific path layout, so changes to the layout won't be respected on reload.

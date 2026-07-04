@@ -53,14 +53,6 @@ namespace PSEMO.Core.Persistence
 
         void Start()
         {
-            StartCoroutine(LateStart());
-        }
-
-        IEnumerator LateStart()
-        {
-            yield return null;
-
-            //dataPersistenceObjects = FindAllDataPersistenceObjects();
             LoadGame();
         }
 

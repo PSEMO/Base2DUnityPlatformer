@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using PSEMO.Events;
 using System.Threading.Tasks;
+using System;
 
 namespace PSEMO.Core.Persistence
 {
@@ -99,7 +100,7 @@ namespace PSEMO.Core.Persistence
                 string globalPath = GetGlobalFilePath();
                 string scenePath = GetSceneFilePath(sceneName);
 
-                var (globalData, sceneData) = await Task.Run(() => 
+                var (globalData, sceneData) = await RunTask(() => 
                 {
                     var globalDict = LoadFromFile(globalPath);
                     var sceneDict = LoadFromFile(scenePath);
@@ -153,7 +154,7 @@ namespace PSEMO.Core.Persistence
                 string globalPath = GetGlobalFilePath();
                 string[] files = GetAllSceneFiles();
 
-                await Task.Run(() => 
+                await RunTask(() => 
                 {
                     if (File.Exists(globalPath))
                     {
@@ -181,7 +182,7 @@ namespace PSEMO.Core.Persistence
             {
                 string fullPath = GetSceneFilePath(sceneName);
 
-                await Task.Run(() => 
+                await RunTask(() => 
                 {
                     try
                     {
@@ -222,7 +223,7 @@ namespace PSEMO.Core.Persistence
                     ));
                 }
 
-                await Task.Run(() => 
+                await RunTask(() => 
                 {
                     SerializableDictionary globalDictToSave = LoadFromFile(globalPath);
                     globalDictToSave ??= new SerializableDictionary();
@@ -336,6 +337,25 @@ namespace PSEMO.Core.Persistence
             }
         }
     
+        private Task RunTask(Action action)
+        {
+#if UNITY_WEBGL
+            action();
+            return Task.CompletedTask;
+#else
+            return Task.Run(action);
+#endif
+        }
+
+        private Task<T> RunTask<T>(Func<T> func)
+        {
+#if UNITY_WEBGL
+            return Task.FromResult(func());
+#else
+            return Task.Run(func);
+#endif
+        }
+
         public static int FurthestAvailableSceneIndex()
         {
             int sceneCount = SceneManager.sceneCountInBuildSettings;

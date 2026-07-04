@@ -10,6 +10,12 @@ namespace PSEMO.Environment.Movement
         [SerializeField] private bool unscaledTime = false;
 
         private Quaternion initialRotation;
+        private Rigidbody2D rb;
+
+        void Awake()
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
 
         void Start()
         {
@@ -18,6 +24,8 @@ namespace PSEMO.Environment.Movement
 
         private void Update()
         {
+            if (rb != null) return;
+
             if (unscaledTime)
             {
                 transform.Rotate(rotationAxis, rotationSpeed * Time.unscaledDeltaTime);
@@ -28,9 +36,23 @@ namespace PSEMO.Environment.Movement
             }
         }
 
+        private void FixedUpdate()
+        {
+            if (rb == null) return;
+
+            float dt = unscaledTime ? Time.fixedUnscaledDeltaTime : Time.fixedDeltaTime;
+            
+            rb.MoveRotation(rb.rotation + (rotationSpeed * dt * rotationAxis.z));
+        }
+
         public void ResetObject()
         {
             transform.rotation = initialRotation;
+            if (rb != null)
+            {
+                rb.rotation = initialRotation.eulerAngles.z;
+                rb.angularVelocity = 0f;
+            }
         }
     }
 }

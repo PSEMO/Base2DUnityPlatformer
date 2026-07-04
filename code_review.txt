@@ -6,8 +6,6 @@ Needs a fix
 
 **AudioManager.cs**: Audio volume multiplication isn't scaled logarithmically, so linear UI slider changes won't sound natural to human ears.
 
-**CollectibleUIUpdater.cs**: Performs string concatenation using `+=` inside a loop. This creates excessive garbage collection pressure on the heap every time the UI updates.
-
 WTF does that mean
 
 **RotateTowardsDirection.cs**: Relies on a `minVelocityThreshold` but does not correctly normalize the direction vector before using it to calculate rotation angles.

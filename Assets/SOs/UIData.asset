@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: UIData
   m_EditorClassIdentifier: Assembly-CSharp::UISO
   returningFromPauseCooldown: 1
-  extraDelayForLoading: 0.2
+  extraDelayForLoading: 0.1
   firstGameSceneIndex: 1
   mainMenuSceneIndex: 0

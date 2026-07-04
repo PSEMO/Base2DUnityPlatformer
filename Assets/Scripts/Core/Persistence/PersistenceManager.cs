@@ -92,162 +92,194 @@ namespace PSEMO.Core.Persistence
 
         async void LoadGame()
         {
-            string sceneName = SceneManager.GetActiveScene().name;
-            string globalPath = GetGlobalFilePath();
-            string scenePath = GetSceneFilePath(sceneName);
-
-            var (globalData, sceneData) = await Task.Run(() => 
+            UIEvents.InvokeLoadingStart();
+            try
             {
-                var globalDict = LoadFromFile(globalPath);
-                var sceneDict = LoadFromFile(scenePath);
+                string sceneName = SceneManager.GetActiveScene().name;
+                string globalPath = GetGlobalFilePath();
+                string scenePath = GetSceneFilePath(sceneName);
 
-                Dictionary<string, string> gd = new();
-                if (globalDict != null)
+                var (globalData, sceneData) = await Task.Run(() => 
                 {
-                    for (int i = 0; i < globalDict.keys.Count; i++)
+                    var globalDict = LoadFromFile(globalPath);
+                    var sceneDict = LoadFromFile(scenePath);
+
+                    Dictionary<string, string> gd = new();
+                    if (globalDict != null)
                     {
-                        gd[globalDict.keys[i]] = globalDict.values[i];
+                        for (int i = 0; i < globalDict.keys.Count; i++)
+                        {
+                            gd[globalDict.keys[i]] = globalDict.values[i];
+                        }
+                    }
+
+                    Dictionary<string, string> sd = new();
+                    if (sceneDict != null)
+                    {
+                        for (int i = 0; i < sceneDict.keys.Count; i++)
+                        {
+                            sd[sceneDict.keys[i]] = sceneDict.values[i];
+                        }
+                    }
+
+                    return (gd, sd);
+                });
+
+                foreach (Persister dataPersistenceObj in dataPersistenceObjects)
+                {
+                    if (dataPersistenceObj == null) continue;
+
+                    bool isGlobal = dataPersistenceObj.ShouldSaveGlobally;
+
+                    Dictionary<string, string> targetData = isGlobal ? globalData : sceneData;
+
+                    if (targetData.TryGetValue(dataPersistenceObj.persistenceId, out string jsonData))
+                    {
+                        dataPersistenceObj.LoadData(jsonData);
                     }
                 }
-
-                Dictionary<string, string> sd = new();
-                if (sceneDict != null)
-                {
-                    for (int i = 0; i < sceneDict.keys.Count; i++)
-                    {
-                        sd[sceneDict.keys[i]] = sceneDict.values[i];
-                    }
-                }
-
-                return (gd, sd);
-            });
-
-            foreach (Persister dataPersistenceObj in dataPersistenceObjects)
+            }
+            finally
             {
-                if (dataPersistenceObj == null) continue;
-
-                bool isGlobal = dataPersistenceObj.ShouldSaveGlobally;
-
-                Dictionary<string, string> targetData = isGlobal ? globalData : sceneData;
-
-                if (targetData.TryGetValue(dataPersistenceObj.persistenceId, out string jsonData))
-                {
-                    dataPersistenceObj.LoadData(jsonData);
-                }
+                UIEvents.InvokeLoadingEnd();
             }
         }
 
         async void DeleteGameData()
         {
-            string globalPath = GetGlobalFilePath();
-            string[] files = GetAllSceneFiles();
-
-            await Task.Run(() => 
+            UIEvents.InvokeLoadingStart();
+            try
             {
-                if (File.Exists(globalPath))
-                {
-                    File.Delete(globalPath);
-                    Debug.Log("Global game data deleted.");
-                }
+                string globalPath = GetGlobalFilePath();
+                string[] files = GetAllSceneFiles();
 
-                foreach (string file in files)
+                await Task.Run(() => 
                 {
-                    File.Delete(file);
-                    Debug.Log($"Scene game data deleted: {file}");
-                }
-            });
+                    if (File.Exists(globalPath))
+                    {
+                        File.Delete(globalPath);
+                        Debug.Log("Global game data deleted.");
+                    }
+
+                    foreach (string file in files)
+                    {
+                        File.Delete(file);
+                        Debug.Log($"Scene game data deleted: {file}");
+                    }
+                });
+            }
+            finally
+            {
+                UIEvents.InvokeLoadingEnd();
+            }
         }
 
         async void CreateEmptySceneFile(string sceneName)
         {
-            string fullPath = GetSceneFilePath(sceneName);
-
-            await Task.Run(() => 
+            UIEvents.InvokeLoadingStart();
+            try
             {
-                try
+                string fullPath = GetSceneFilePath(sceneName);
+
+                await Task.Run(() => 
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-                    File.WriteAllText(fullPath, string.Empty);
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogError("Error occured when trying to create empty file: " + fullPath + "\n" + e);
-                }
-            });
+                    try
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                        File.WriteAllText(fullPath, string.Empty);
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError("Error occured when trying to create empty file: " + fullPath + "\n" + e);
+                    }
+                });
+            }
+            finally
+            {
+                UIEvents.InvokeLoadingEnd();
+            }
         }
 
         async void SaveTheGame()
         {
-            string globalPath = GetGlobalFilePath();
-            string sceneName = SceneManager.GetActiveScene().name;
-            string scenePath = GetSceneFilePath(sceneName);
-
-            var capturedData = new List<(string id, bool isGlobal, string data, string name)>();
-            foreach (Persister dataPersistenceObj in dataPersistenceObjects)
+            UIEvents.InvokeLoadingStart();
+            try
             {
-                if (dataPersistenceObj == null) continue;
+                string globalPath = GetGlobalFilePath();
+                string sceneName = SceneManager.GetActiveScene().name;
+                string scenePath = GetSceneFilePath(sceneName);
 
-                capturedData.Add((
-                    dataPersistenceObj.persistenceId, 
-                    dataPersistenceObj.ShouldSaveGlobally, 
-                    dataPersistenceObj.SaveData(),
-                    dataPersistenceObj.gameObject.name
-                ));
-            }
-
-            await Task.Run(() => 
-            {
-                SerializableDictionary globalDictToSave = LoadFromFile(globalPath);
-                globalDictToSave ??= new SerializableDictionary();
-
-                SerializableDictionary sceneDictToSave = new();
-                HashSet<string> processedGlobalIds = new();
-
-                foreach (var captured in capturedData)
+                var capturedData = new List<(string id, bool isGlobal, string data, string name)>();
+                foreach (Persister dataPersistenceObj in dataPersistenceObjects)
                 {
-                    if (captured.isGlobal)
+                    if (dataPersistenceObj == null) continue;
+
+                    capturedData.Add((
+                        dataPersistenceObj.persistenceId, 
+                        dataPersistenceObj.ShouldSaveGlobally, 
+                        dataPersistenceObj.SaveData(),
+                        dataPersistenceObj.gameObject.name
+                    ));
+                }
+
+                await Task.Run(() => 
+                {
+                    SerializableDictionary globalDictToSave = LoadFromFile(globalPath);
+                    globalDictToSave ??= new SerializableDictionary();
+
+                    SerializableDictionary sceneDictToSave = new();
+                    HashSet<string> processedGlobalIds = new();
+
+                    foreach (var captured in capturedData)
                     {
-                        if (processedGlobalIds.Contains(captured.id))
+                        if (captured.isGlobal)
                         {
-                            Debug.LogWarning($"Duplicate Global ID found:");
-                            Debug.LogWarning($"{captured.id}");
-                            Debug.LogWarning($"{captured.name}");
-                            Debug.LogWarning("------------------------------------");
-                            continue;
-                        }
+                            if (processedGlobalIds.Contains(captured.id))
+                            {
+                                Debug.LogWarning($"Duplicate Global ID found:");
+                                Debug.LogWarning($"{captured.id}");
+                                Debug.LogWarning($"{captured.name}");
+                                Debug.LogWarning("------------------------------------");
+                                continue;
+                            }
 
-                        processedGlobalIds.Add(captured.id);
+                            processedGlobalIds.Add(captured.id);
 
-                        int index = globalDictToSave.keys.IndexOf(captured.id);
-                        if (index >= 0)
-                        {
-                            globalDictToSave.values[index] = captured.data;
+                            int index = globalDictToSave.keys.IndexOf(captured.id);
+                            if (index >= 0)
+                            {
+                                globalDictToSave.values[index] = captured.data;
+                            }
+                            else
+                            {
+                                globalDictToSave.keys.Add(captured.id);
+                                globalDictToSave.values.Add(captured.data);
+                            }
                         }
                         else
                         {
-                            globalDictToSave.keys.Add(captured.id);
-                            globalDictToSave.values.Add(captured.data);
+                            if (sceneDictToSave.keys.Contains(captured.id))
+                            {
+                                Debug.LogWarning($"Duplicate Scene ID found:");
+                                Debug.LogWarning($"{captured.id}");
+                                Debug.LogWarning($"{captured.name}");
+                                Debug.LogWarning("------------------------------------");
+                                continue;
+                            }
+                            
+                            sceneDictToSave.keys.Add(captured.id);
+                            sceneDictToSave.values.Add(captured.data);
                         }
                     }
-                    else
-                    {
-                        if (sceneDictToSave.keys.Contains(captured.id))
-                        {
-                            Debug.LogWarning($"Duplicate Scene ID found:");
-                            Debug.LogWarning($"{captured.id}");
-                            Debug.LogWarning($"{captured.name}");
-                            Debug.LogWarning("------------------------------------");
-                            continue;
-                        }
-                        
-                        sceneDictToSave.keys.Add(captured.id);
-                        sceneDictToSave.values.Add(captured.data);
-                    }
-                }
 
-                SaveToFile(globalPath, globalDictToSave);
-                SaveToFile(scenePath, sceneDictToSave);
-            });
+                    SaveToFile(globalPath, globalDictToSave);
+                    SaveToFile(scenePath, sceneDictToSave);
+                });
+            }
+            finally
+            {
+                UIEvents.InvokeLoadingEnd();
+            }
         }
 
         /*

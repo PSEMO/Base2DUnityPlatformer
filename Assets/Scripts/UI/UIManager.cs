@@ -68,6 +68,9 @@ namespace PSEMO.UI
             HandleSceneStateChanged(CurrentSceneState);
 
             ContinueBtnObj.interactable = PersistenceManager.HasSceneData();
+            
+            if (UIEvents.IsLoading)
+                HandleLoadingStart();
         }
 
         private void Update()
@@ -86,6 +89,8 @@ namespace PSEMO.UI
             inputActions.UI.Back.performed += OnInputBack;
             inputActions.UI.Next.performed += OnInputNext;
             UIEvents.OnEndGame += HandleEndGameSignal;
+            UIEvents.OnLoadingStart += HandleLoadingStart;
+            UIEvents.OnLoadingEnd += HandleLoadingEnd;
         }
 
         private void OnDisable()
@@ -98,6 +103,8 @@ namespace PSEMO.UI
             }
 
             UIEvents.OnEndGame -= HandleEndGameSignal;
+            UIEvents.OnLoadingStart -= HandleLoadingStart;
+            UIEvents.OnLoadingEnd -= HandleLoadingEnd;
         }
 
         private void ForceSetState(UIBaseState state)
@@ -191,12 +198,13 @@ namespace PSEMO.UI
 
             mainMenuUIState = new MainMenuUIState(this);
             inGameUIState = new InGameUIState(this);
+            endGameUIState = new EndGameUIState(this);
+            loadingUIState = new LoadingUIState(this);
+            
             var mainSettingsUIState = new MainSettingsUIState(this);
             var inGameSettingsUIState = new InGameSettingsUIState(this);
             var creditsUIState = new CreditsUIState(this);
             var inGameUnPausingUIState = new InGameUnPausingUIState(this);
-            endGameUIState = new EndGameUIState(this);
-            loadingUIState = new LoadingUIState(this);
 
             void At(IState from, IState to, IPredicate condition) =>
                 UIStateMachine.AddTransition(from, to, condition);
@@ -254,21 +262,27 @@ namespace PSEMO.UI
         public void ContinueBtn()
         {
             TryUpdateSceneState(SceneState.GameScene);
-            SceneManager.LoadSceneAsync(PersistenceManager.FurthestAvailableSceneIndex());
+            UIEvents.InvokeLoadingStart();
+            var op = SceneManager.LoadSceneAsync(PersistenceManager.FurthestAvailableSceneIndex());
+            op.completed += _ => UIEvents.InvokeLoadingEnd();
         }
 
         public void NewGameBtn()
         {
             PersistenceEvents.InvokeGameSaveDelete();
             TryUpdateSceneState(SceneState.GameScene);
-            SceneManager.LoadSceneAsync(Data.firstGameSceneIndex);
+            UIEvents.InvokeLoadingStart();
+            var op = SceneManager.LoadSceneAsync(Data.firstGameSceneIndex);
+            op.completed += _ => UIEvents.InvokeLoadingEnd();
         }
 
         public void QuitBtn()
         {
             TryUpdateSceneState(SceneState.MainMenuScene);
             Time.timeScale = TimeScaleData.playTimeScale;
-            SceneManager.LoadSceneAsync(Data.mainMenuSceneIndex);
+            UIEvents.InvokeLoadingStart();
+            var op = SceneManager.LoadSceneAsync(Data.mainMenuSceneIndex);
+            op.completed += _ => UIEvents.InvokeLoadingEnd();
         }
 
         public void QuitAndSaveBtn()
@@ -276,7 +290,9 @@ namespace PSEMO.UI
             TryUpdateSceneState(SceneState.MainMenuScene);
             Time.timeScale = TimeScaleData.playTimeScale;
             PersistenceEvents.InvokeGameSave();
-            SceneManager.LoadSceneAsync(Data.mainMenuSceneIndex);
+            UIEvents.InvokeLoadingStart();
+            var op = SceneManager.LoadSceneAsync(Data.mainMenuSceneIndex);
+            op.completed += _ => UIEvents.InvokeLoadingEnd();
         }
 
         public void SettingsBtn()

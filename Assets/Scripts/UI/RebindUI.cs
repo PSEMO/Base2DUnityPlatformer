@@ -28,11 +28,10 @@ namespace PSEMO.InputSettings
 
         private void Start()
         {
-            // Automatically find index if not specified
             if (bindingIndex < 0)
             {
-                bindingIndex = inputActionReference.action.GetBindingIndexForControl(inputActionReference.action.controls.FirstOrDefault());
-                if (bindingIndex < 0) bindingIndex = 0; // Default fallback
+                Debug.LogError("invalid binding index");
+                Destroy(this);
             }
 
             actionNameText.text = inputActionReference.action.name;

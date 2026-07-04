@@ -86,8 +86,6 @@ namespace PSEMO.UI
             inputActions.UI.Back.performed += OnInputBack;
             inputActions.UI.Next.performed += OnInputNext;
             UIEvents.OnEndGame += HandleEndGameSignal;
-            UIEvents.OnLoadingStart += HandleLoadingStart;
-            UIEvents.OnLoadingEnd += HandleLoadingEnd;
         }
 
         private void OnDisable()
@@ -100,8 +98,6 @@ namespace PSEMO.UI
             }
 
             UIEvents.OnEndGame -= HandleEndGameSignal;
-            UIEvents.OnLoadingStart -= HandleLoadingStart;
-            UIEvents.OnLoadingEnd -= HandleLoadingEnd;
         }
 
         private void ForceSetState(UIBaseState state)

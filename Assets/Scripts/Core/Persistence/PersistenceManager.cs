@@ -3,7 +3,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PSEMO.Events;
-using System.Collections;
 using System.Threading.Tasks;
 
 namespace PSEMO.Core.Persistence
@@ -93,36 +92,35 @@ namespace PSEMO.Core.Persistence
 
         async void LoadGame()
         {
-            UIEvents.InvokeLoadingStart();
-
             string sceneName = SceneManager.GetActiveScene().name;
             string globalPath = GetGlobalFilePath();
             string scenePath = GetSceneFilePath(sceneName);
 
-            var (globalDict, sceneDict) = await Task.Run(() => 
+            var (globalData, sceneData) = await Task.Run(() => 
             {
-                var gd = LoadFromFile(globalPath);
-                var sd = LoadFromFile(scenePath);
+                var globalDict = LoadFromFile(globalPath);
+                var sceneDict = LoadFromFile(scenePath);
+
+                Dictionary<string, string> gd = new();
+                if (globalDict != null)
+                {
+                    for (int i = 0; i < globalDict.keys.Count; i++)
+                    {
+                        gd[globalDict.keys[i]] = globalDict.values[i];
+                    }
+                }
+
+                Dictionary<string, string> sd = new();
+                if (sceneDict != null)
+                {
+                    for (int i = 0; i < sceneDict.keys.Count; i++)
+                    {
+                        sd[sceneDict.keys[i]] = sceneDict.values[i];
+                    }
+                }
+
                 return (gd, sd);
             });
-
-            Dictionary<string, string> globalData = new();
-            if (globalDict != null)
-            {
-                for (int i = 0; i < globalDict.keys.Count; i++)
-                {
-                    globalData[globalDict.keys[i]] = globalDict.values[i];
-                }
-            }
-
-            Dictionary<string, string> sceneData = new();
-            if (sceneDict != null)
-            {
-                for (int i = 0; i < sceneDict.keys.Count; i++)
-                {
-                    sceneData[sceneDict.keys[i]] = sceneDict.values[i];
-                }
-            }
 
             foreach (Persister dataPersistenceObj in dataPersistenceObjects)
             {
@@ -137,45 +135,49 @@ namespace PSEMO.Core.Persistence
                     dataPersistenceObj.LoadData(jsonData);
                 }
             }
-
-            UIEvents.InvokeLoadingEnd();
         }
 
-        void DeleteGameData()
+        async void DeleteGameData()
         {
             string globalPath = GetGlobalFilePath();
-            if (File.Exists(globalPath))
-            {
-                File.Delete(globalPath);
-                Debug.Log("Global game data deleted.");
-            }
-
             string[] files = GetAllSceneFiles();
-            foreach (string file in files)
+
+            await Task.Run(() => 
             {
-                File.Delete(file);
-                Debug.Log($"Scene game data deleted: {file}");
-            }
+                if (File.Exists(globalPath))
+                {
+                    File.Delete(globalPath);
+                    Debug.Log("Global game data deleted.");
+                }
+
+                foreach (string file in files)
+                {
+                    File.Delete(file);
+                    Debug.Log($"Scene game data deleted: {file}");
+                }
+            });
         }
 
-        void CreateEmptySceneFile(string sceneName)
+        async void CreateEmptySceneFile(string sceneName)
         {
             string fullPath = GetSceneFilePath(sceneName);
-            try
+
+            await Task.Run(() => 
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-                File.WriteAllText(fullPath, string.Empty);
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError("Error occured when trying to create empty file: " + fullPath + "\n" + e);
-            }
+                try
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                    File.WriteAllText(fullPath, string.Empty);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("Error occured when trying to create empty file: " + fullPath + "\n" + e);
+                }
+            });
         }
 
         async void SaveTheGame()
         {
-            UIEvents.InvokeLoadingStart();
-            
             string globalPath = GetGlobalFilePath();
             string sceneName = SceneManager.GetActiveScene().name;
             string scenePath = GetSceneFilePath(sceneName);
@@ -184,6 +186,7 @@ namespace PSEMO.Core.Persistence
             foreach (Persister dataPersistenceObj in dataPersistenceObjects)
             {
                 if (dataPersistenceObj == null) continue;
+
                 capturedData.Add((
                     dataPersistenceObj.persistenceId, 
                     dataPersistenceObj.ShouldSaveGlobally, 
@@ -192,64 +195,59 @@ namespace PSEMO.Core.Persistence
                 ));
             }
 
-            SerializableDictionary globalDictToSave = await Task.Run(() => LoadFromFile(globalPath));
-            globalDictToSave ??= new SerializableDictionary();
-
-            SerializableDictionary sceneDictToSave = new();
-            HashSet<string> processedGlobalIds = new();
-
-            foreach (var captured in capturedData)
+            await Task.Run(() => 
             {
-                if (captured.isGlobal)
-                {
-                    if (processedGlobalIds.Contains(captured.id))
-                    {
-                        Debug.LogWarning($"Duplicate Global ID found:");
-                        Debug.LogWarning($"{captured.id}");
-                        Debug.LogWarning($"{captured.name}");
-                        Debug.LogWarning("------------------------------------");
-                        continue;
-                    }
-                    processedGlobalIds.Add(captured.id);
+                SerializableDictionary globalDictToSave = LoadFromFile(globalPath);
+                globalDictToSave ??= new SerializableDictionary();
 
-                    int index = globalDictToSave.keys.IndexOf(captured.id);
-                    if (index >= 0)
+                SerializableDictionary sceneDictToSave = new();
+                HashSet<string> processedGlobalIds = new();
+
+                foreach (var captured in capturedData)
+                {
+                    if (captured.isGlobal)
                     {
-                        globalDictToSave.values[index] = captured.data;
+                        if (processedGlobalIds.Contains(captured.id))
+                        {
+                            Debug.LogWarning($"Duplicate Global ID found:");
+                            Debug.LogWarning($"{captured.id}");
+                            Debug.LogWarning($"{captured.name}");
+                            Debug.LogWarning("------------------------------------");
+                            continue;
+                        }
+
+                        processedGlobalIds.Add(captured.id);
+
+                        int index = globalDictToSave.keys.IndexOf(captured.id);
+                        if (index >= 0)
+                        {
+                            globalDictToSave.values[index] = captured.data;
+                        }
+                        else
+                        {
+                            globalDictToSave.keys.Add(captured.id);
+                            globalDictToSave.values.Add(captured.data);
+                        }
                     }
                     else
                     {
-                        globalDictToSave.keys.Add(captured.id);
-                        globalDictToSave.values.Add(captured.data);
+                        if (sceneDictToSave.keys.Contains(captured.id))
+                        {
+                            Debug.LogWarning($"Duplicate Scene ID found:");
+                            Debug.LogWarning($"{captured.id}");
+                            Debug.LogWarning($"{captured.name}");
+                            Debug.LogWarning("------------------------------------");
+                            continue;
+                        }
+                        
+                        sceneDictToSave.keys.Add(captured.id);
+                        sceneDictToSave.values.Add(captured.data);
                     }
                 }
-                else
-                {
-                    if (sceneDictToSave.keys.Contains(captured.id))
-                    {
-                        Debug.LogWarning($"Duplicate Scene ID found:");
-                        Debug.LogWarning($"{captured.id}");
-                        Debug.LogWarning($"{captured.name}");
-                        Debug.LogWarning("------------------------------------");
-                        continue;
-                    }
-                    sceneDictToSave.keys.Add(captured.id);
-                    sceneDictToSave.values.Add(captured.data);
-                }
-            }
 
-            await Task.Run(() => 
-            {
                 SaveToFile(globalPath, globalDictToSave);
                 SaveToFile(scenePath, sceneDictToSave);
             });
-
-            UIEvents.InvokeLoadingEnd();
-        }
-
-        private void DuplicateFoundWarningLog()
-        {
-            
         }
 
         /*

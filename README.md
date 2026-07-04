@@ -17,10 +17,11 @@ Character behaviors and game states are governed by a powerful, generic `StateMa
 * **Transitions**: Driven by `ITransition` interfaces and evaluated through `IPredicate` logic, ensuring clean and deterministic state flow.
 
 ### 4. Robust Persistence System
-The save/load system is highly flexible and centered around the `PersistenceManager`.
+The save/load system is highly flexible, multi-threaded, and centered around the `PersistenceManager`.
 * **IPersistable**: Components implement this interface to easily hook into the save system.
 * **Scene vs. Global Persistence**: Cleanly differentiates between **scene-based** data and **global** data, ensuring seamless loading across level transitions.
 * **Serialization**: Utilizes a custom `SerializableDictionary` (wrapper for dual lists) to handle complex data structures, serialized cleanly via `JsonUtility` (e.g., `PlayerSaveData`).
+* **Multi-Threaded Operations**: File I/O operations for saving and loading run asynchronously on separate threads, preventing frame drops during autosaves.
 
 ### 5. ScriptableObject-Driven Configuration
 `ScriptableObject`s are used extensively throughout the project not just for static configuration data, but also as a core part of the architecture, further promoting decoupling and making it incredibly easy for designers to tweak parameters without touching code.
@@ -41,7 +42,13 @@ Features a dedicated, Singleton-based audio manager that utilizes scriptable dat
 Leveraging Unity's new Input System, the project includes a complete `RebindManager`. This allows for seamless, JSON-backed runtime key rebinding that automatically saves and loads player control preferences.
 
 ### 11. Modular Environment Mechanics
-Level design is supported by highly modular movement and hazard components. Interfaces like `IMover` and `IVelocityOffsettable` drive moving platforms that correctly inherit velocity to the player, while abstract hazard classes provide a clean foundation for traps and obstacles.
+Level design is supported by highly modular movement and hazard components. Interfaces like `IMover` and `IVelocityOffsettable` drive moving platforms that correctly inherit velocity to the player, while abstract hazard classes provide a clean foundation for traps and obstacles. Components like `Rotater` are fully featured, capable of syncing states across scenes, utilizing Rigidbodies, and maintaining persistence effortlessly.
+
+### 12. Asynchronous Scene Management
+Scene transitions are fully decoupled and asynchronous, seamlessly integrating with UI states to display optimized and responsive loading screens without blocking the main Unity thread.
+
+### 13. Built-in Diagnostics Tools
+Equipped with runtime diagnostic utilities, such as a built-in Lag Detector, allowing developers to easily monitor frame hitches and optimize performance profiles dynamically.
 
 ## Practical Positive Aspects
 * **Developer Experience**: The clean architecture and clear separation of concerns make onboarding and expanding the codebase a breeze.

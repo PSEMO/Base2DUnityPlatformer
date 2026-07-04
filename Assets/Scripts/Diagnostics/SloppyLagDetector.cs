@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 namespace PSEMO.Diagnostic
 {
     #if UNITY_EDITOR
-
+    
     /*
     OnSceneLoaded measures from:
         Very begining of the last scenes death (before OnDestroy and stuff)

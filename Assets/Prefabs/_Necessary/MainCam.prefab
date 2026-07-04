@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2743190618378286413}
   - component: {fileID: 4433558062769191103}
   - component: {fileID: 9220819521073134142}
+  - component: {fileID: 4000426336880895092}
   - component: {fileID: 345434361929669659}
   - component: {fileID: 8942830143173306161}
   - component: {fileID: 1099943886626747412}
@@ -63,6 +64,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   allAudios: {fileID: 11400000, guid: 05f3175916007ce849d5fee045c8a76d, type: 2}
   musicTransitionDuration: 1
+--- !u!114 &4000426336880895092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5662047847214701983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 052206685cae4743d84022f14e08a054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Diagnostic.SloppyLagDetector
 --- !u!20 &345434361929669659
 Camera:
   m_ObjectHideFlags: 0

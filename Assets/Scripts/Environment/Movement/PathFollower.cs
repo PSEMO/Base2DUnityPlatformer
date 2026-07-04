@@ -79,7 +79,11 @@ namespace PSEMO.Environment.Movement
             
             transform.position = data.position;
             currentWaypointIndex = data.currentWaypointIndex;
-            targetPos = data.targetPos;
+
+            if (currentWaypointIndex >= targetPositions.Count)
+                currentWaypointIndex = 0;
+                
+            targetPos = targetPositions[currentWaypointIndex];
         }
 
         public string SaveData()
@@ -87,8 +91,7 @@ namespace PSEMO.Environment.Movement
             PathFollowerSaveData data = new()
             {
                 position = transform.position,
-                currentWaypointIndex = currentWaypointIndex,
-                targetPos = targetPos
+                currentWaypointIndex = currentWaypointIndex
             };
             return JsonUtility.ToJson(data);
         }

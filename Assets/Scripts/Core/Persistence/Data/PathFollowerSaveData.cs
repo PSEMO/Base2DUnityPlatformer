@@ -8,6 +8,5 @@ namespace PSEMO.Core.Persistence
     {
         public Vector3 position;
         public int currentWaypointIndex;
-        public Vector3 targetPos;
     }
 }

@@ -15535,6 +15535,7 @@ MonoBehaviour:
   rotationSpeed: 180
   rotationAxis: {x: 0, y: 0, z: 1}
   unscaledTime: 1
+  useGlobalTime: 1
 --- !u!1 &6469125774985386432
 GameObject:
   m_ObjectHideFlags: 0

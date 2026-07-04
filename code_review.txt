@@ -6,8 +6,6 @@ Needs a fix
 
 **AudioManager.cs**: Audio volume multiplication isn't scaled logarithmically, so linear UI slider changes won't sound natural to human ears.
 
-**PoolingEvents.cs**: Exposing `OnSpawnObject` as a global event that returns a `GameObject` using a `Func` implies only one listener should ever handle object spawning, which is bad practice for a globally scoped event.
-
 **Rotater.cs**: Modifying `transform.rotation` directly instead of using `Rigidbody2D.MoveRotation` breaks proper physics simulation and ruins collision interpolation.
 
 **InGameUnPausingUIState.cs**: `Time.timeScale` is arbitrarily forced back to `1f` on exit. This completely ignores scenarios where the game was intentionally meant to be running at a different timescale (like slow-motion).

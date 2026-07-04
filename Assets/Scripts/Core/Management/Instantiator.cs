@@ -1,27 +1,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PSEMO.Environment.Functionality;
-using PSEMO.Events;
 
 namespace PSEMO.Core.Management
 {
     public class Instantiator : MonoBehaviour
     {
-        private void OnEnable()
-        {
-            PoolingEvents.OnSpawnObject += SpawnObject;
-            PoolingEvents.OnDeSpawnObject += DeSpawnObject;
-        }
+        public static Instantiator Instance { get; private set; }
 
-        private void OnDisable()
+        private void Awake()
         {
-            PoolingEvents.OnSpawnObject -= SpawnObject;
-            PoolingEvents.OnDeSpawnObject -= DeSpawnObject;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            else
+            {
+                Instance = this;
+                DontDestroyOnLoad(this);
+            }
         }
 
         Dictionary<string, Queue<GameObject>> pooledObjects = new();
 
-        public void DeSpawnObject(GameObject obj)
+        public static void DeSpawn(GameObject obj)
+        {
+            if (Instance != null)
+                Instance.DeSpawnObject(obj);
+            else
+                Destroy(obj);
+        }
+
+        public static GameObject Spawn(GameObject obj, Vector3 pos, Quaternion rotation, Transform parent = null)
+        {
+            if (Instance != null)
+                return Instance.SpawnObject(obj, pos, rotation, parent);
+            else
+                return Instantiate(obj, pos, rotation, parent);
+        }
+
+        private void DeSpawnObject(GameObject obj)
         {
             if (obj.TryGetComponent(out Pooler pooler))
             {
@@ -44,7 +63,7 @@ namespace PSEMO.Core.Management
             }
         }
 
-        public GameObject SpawnObject(GameObject obj, Vector3 pos, Quaternion rotation, Transform parent = null)
+        private GameObject SpawnObject(GameObject obj, Vector3 pos, Quaternion rotation, Transform parent = null)
         {
             if (obj.TryGetComponent(out Pooler pooler))
             {

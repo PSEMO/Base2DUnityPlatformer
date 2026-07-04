@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using PSEMO.Events;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace PSEMO.Core.Persistence
 {
@@ -100,6 +101,8 @@ namespace PSEMO.Core.Persistence
 
         void LoadGame()
         {
+            UIEvents.InvokeLoadingStart();
+
             string sceneName = SceneManager.GetActiveScene().name;
             SerializableDictionary globalDict = LoadFromFile(GetGlobalFilePath());
             SerializableDictionary sceneDict = LoadFromFile(GetSceneFilePath(sceneName));
@@ -133,6 +136,8 @@ namespace PSEMO.Core.Persistence
                     dataPersistenceObj.LoadData(jsonData);
                 }
             }
+
+            UIEvents.InvokeLoadingEnd();
         }
 
         void DeleteGameData()
@@ -168,6 +173,8 @@ namespace PSEMO.Core.Persistence
 
         void SaveTheGame()
         {
+            UIEvents.InvokeLoadingStart();
+            
             SerializableDictionary globalDictToSave = LoadFromFile(GetGlobalFilePath());
             globalDictToSave ??= new SerializableDictionary();
 
@@ -220,6 +227,8 @@ namespace PSEMO.Core.Persistence
             
             string sceneName = SceneManager.GetActiveScene().name;
             SaveToFile(GetSceneFilePath(sceneName), sceneDictToSave);
+
+            UIEvents.InvokeLoadingEnd();
         }
 
         private void DuplicateFoundWarningLog()

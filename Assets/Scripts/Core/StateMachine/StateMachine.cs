@@ -30,6 +30,7 @@ namespace PSEMO.Core.StateMachine
 
         public void SetState(IState state)
         {
+            GetOrAddNode(state);
             var previousState = current?.State;
             previousState?.OnExit(Nodes[state.GetType()].State);
             

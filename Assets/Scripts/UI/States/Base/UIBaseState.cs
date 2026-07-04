@@ -8,6 +8,8 @@ namespace PSEMO.UI
 
         protected abstract PanelType[] ActivePanels { get; }
 
+        public PanelType[] GetActivePanels() => ActivePanels;
+
         public override void OnEnter()
         {
             if (ActivePanels != null)

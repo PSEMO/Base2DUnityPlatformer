@@ -6,5 +6,7 @@ namespace PSEMO.UI
     public class UISO : ScriptableObject
     {
         public float returningFromPauseCooldown = 1.5f;
+
+        public float extraDelayForLoading = 0.3f;
     }
 }

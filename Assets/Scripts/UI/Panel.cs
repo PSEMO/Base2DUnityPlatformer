@@ -60,6 +60,7 @@ namespace PSEMO.UI
             IsOpen = true;
 
             gameObject.SetActive(true);
+            StopAllCoroutines();
             setInteraction(true);
             canvasGroup.alpha = 1f;
         }
@@ -68,6 +69,7 @@ namespace PSEMO.UI
         {
             IsOpen = false;
         
+            StopAllCoroutines();
             canvasGroup.alpha = 0f;
             setInteraction(false);
             gameObject.SetActive(false);

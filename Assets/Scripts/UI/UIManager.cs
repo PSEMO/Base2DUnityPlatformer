@@ -7,6 +7,7 @@ using PSEMO.Core.Predicate;
 using PSEMO.Core.StateMachine;
 using PSEMO.Events;
 using PSEMO.Core.Persistence;
+using System.Collections;
 
 namespace PSEMO.UI
 {
@@ -20,10 +21,14 @@ namespace PSEMO.UI
         public SignalPredicate CreditsSignal { get; private set; } = new();
         public SignalPredicate BackSignal { get; private set; } = new();
         public SignalPredicate InputBackSignal { get; private set; } = new();
-        public SignalPredicate MainMenuStateSignal { get; private set; } = new();
-        public SignalPredicate InGameStateSignal { get; private set; } = new();
-        public SignalPredicate EndMenuStateSignal { get; private set; } = new();
         public SignalPredicate InputNextSignal { get; private set; } = new();
+
+        private IState previousUIState;
+
+        private MainMenuUIState mainMenuUIState;
+        private InGameUIState inGameUIState;
+        private EndGameUIState endGameUIState;
+        private LoadingUIState loadingUIState;
 
         [SerializeField] private List<Panel> panels; 
         private Dictionary<PanelType, Panel> panelDict;
@@ -32,6 +37,8 @@ namespace PSEMO.UI
 
         [SerializeField] private SceneState initialSceneState = SceneState.MainMenuScene;
         public SceneState CurrentSceneState { get; private set; }
+
+        private Coroutine LoadEndCoroutine = null;
 
         [Space]
         public Button ContinueBtnObj;
@@ -77,6 +84,8 @@ namespace PSEMO.UI
             inputActions.UI.Back.performed += OnInputBack;
             inputActions.UI.Next.performed += OnInputNext;
             UIEvents.OnEndGame += HandleEndGameSignal;
+            UIEvents.OnLoadingStart += HandleLoadingStart;
+            UIEvents.OnLoadingEnd += HandleLoadingEnd;
         }
 
         private void OnDisable()
@@ -89,21 +98,73 @@ namespace PSEMO.UI
             }
 
             UIEvents.OnEndGame -= HandleEndGameSignal;
+            UIEvents.OnLoadingStart -= HandleLoadingStart;
+            UIEvents.OnLoadingEnd -= HandleLoadingEnd;
+        }
+
+        private void ForceSetState(UIBaseState state)
+        {
+            var previous = UIStateMachine.CurrentState as UIBaseState;
+            UIStateMachine.SetState(state);
+            
+            if (previous?.GetActivePanels() != null)
+            {
+                foreach (var panelType in previous.GetActivePanels())
+                {
+                    GetPanel(panelType).HideInstant();
+                }
+            }
+
+            if (state?.GetActivePanels() != null)
+            {
+                foreach (var panelType in state.GetActivePanels())
+                {
+                    GetPanel(panelType).ShowInstant();
+                }
+            }
+        }
+
+        private void HandleLoadingStart()
+        {
+            if (previousUIState != null) return;
+
+            Time.timeScale = 0;
+            previousUIState = UIStateMachine.CurrentState;
+            ForceSetState(loadingUIState);
+        }
+
+        private void HandleLoadingEnd()
+        {
+            if (LoadEndCoroutine != null)
+                StopCoroutine(LoadEndCoroutine);
+
+            LoadEndCoroutine = StartCoroutine(LoadingEnd(Data.extraDelayForLoading));
+        }
+
+        IEnumerator LoadingEnd(float delay)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+            
+            if (previousUIState == null) yield break;
+
+            Time.timeScale = 1;
+            UIStateMachine.SetState(previousUIState as UIBaseState);
+            previousUIState = null;
         }
 
         private void HandleEndGameSignal()
         {
-            EndMenuStateSignal.Fire();
+            UIStateMachine.SetState(endGameUIState);
         }
 
         private void HandleSceneStateChanged(SceneState state)
         {
             if (state == SceneState.MainMenuScene)
-                MainMenuStateSignal.Fire();
+                ForceSetState(mainMenuUIState);
             else if (state == SceneState.GameScene)
-                InGameStateSignal.Fire();
+                ForceSetState(inGameUIState);
             else if (state == SceneState.EndMenuScene)
-                EndMenuStateSignal.Fire();
+                ForceSetState(endGameUIState);
         }
 
         private bool TryUpdateSceneState(SceneState to)
@@ -130,26 +191,23 @@ namespace PSEMO.UI
         {
             UIStateMachine = new StateMachine();
 
-            var mainMenuUIState = new MainMenuUIState(this);
-            var inGameUIState = new InGameUIState(this);
+            mainMenuUIState = new MainMenuUIState(this);
+            inGameUIState = new InGameUIState(this);
             var mainSettingsUIState = new MainSettingsUIState(this);
             var inGameSettingsUIState = new InGameSettingsUIState(this);
             var creditsUIState = new CreditsUIState(this);
             var inGameUnPausingUIState = new InGameUnPausingUIState(this);
-            var endGameUIState = new EndGameUIState(this);
+            endGameUIState = new EndGameUIState(this);
+            loadingUIState = new LoadingUIState(this);
 
             void At(IState from, IState to, IPredicate condition) =>
                 UIStateMachine.AddTransition(from, to, condition);
 
-            void Any(IState to, IPredicate condition) =>
-                UIStateMachine.AddAnyTransition(to, condition);
+            //void Any(IState to, IPredicate condition) =>
+                //UIStateMachine.AddAnyTransition(to, condition);
 
             IPredicate Or(params IPredicate[] predicates) =>
                 new OrPredicate(predicates);
-
-            Any(mainMenuUIState, MainMenuStateSignal);
-            Any(inGameUIState, InGameStateSignal);
-            Any(endGameUIState, EndMenuStateSignal);
 
             At(mainMenuUIState, mainSettingsUIState, Or(SettingsSignal, InputBackSignal));
             At(mainMenuUIState, creditsUIState, CreditsSignal);

@@ -8,12 +8,14 @@ using PSEMO.Core.StateMachine;
 using PSEMO.Events;
 using PSEMO.Core.Persistence;
 using System.Collections;
+using PSEMO.Core.Management;
 
 namespace PSEMO.UI
 {
     public class UIManager : MonoBehaviour, IStateMachineUser
     {
         public UISO Data;
+        public TimeScaleSO TimeScaleData;
 
         public StateMachine UIStateMachine { get; private set; }
 
@@ -128,7 +130,7 @@ namespace PSEMO.UI
         {
             if (previousUIState != null) return;
 
-            Time.timeScale = 0;
+            Time.timeScale = TimeScaleData.pauseTimeScale;
             previousUIState = UIStateMachine.CurrentState;
             ForceSetState(loadingUIState);
         }
@@ -147,7 +149,7 @@ namespace PSEMO.UI
             
             if (previousUIState == null) yield break;
 
-            Time.timeScale = 1;
+            Time.timeScale = TimeScaleData.playTimeScale;
             UIStateMachine.SetState(previousUIState as UIBaseState);
             previousUIState = null;
         }
@@ -269,14 +271,14 @@ namespace PSEMO.UI
         public void QuitBtn()
         {
             TryUpdateSceneState(SceneState.MainMenuScene);
-            Time.timeScale = 1;
+            Time.timeScale = TimeScaleData.playTimeScale;
             SceneManager.LoadScene(Data.mainMenuSceneIndex);
         }
 
         public void QuitAndSaveBtn()
         {
             TryUpdateSceneState(SceneState.MainMenuScene);
-            Time.timeScale = 1;
+            Time.timeScale = TimeScaleData.playTimeScale;
             PersistenceEvents.InvokeGameSave();
             SceneManager.LoadScene(Data.mainMenuSceneIndex);
         }

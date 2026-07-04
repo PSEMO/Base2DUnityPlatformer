@@ -20,7 +20,7 @@ namespace PSEMO.UI
             if (timer > 0f)
             {
                 timer -= Time.unscaledDeltaTime;
-                if (timer < 0f) timer = 0f;
+                if (timer <= 0f) timer = 0f;
             
                 UpdateText();
             }
@@ -28,10 +28,7 @@ namespace PSEMO.UI
 
         private void UpdateText()
         {
-            if (countdownText != null)
-            {
-                countdownText.text = timer.ToString("F1");
-            }
+            countdownText.text = timer.ToString("F1");
         }
     }
 }

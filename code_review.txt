@@ -6,10 +6,6 @@ Needs a fix
 
 **AudioManager.cs**: Audio volume multiplication isn't scaled logarithmically, so linear UI slider changes won't sound natural to human ears.
 
-**InGameUnPausingUIState.cs**: `Time.timeScale` is arbitrarily forced back to `1f` on exit. This completely ignores scenarios where the game was intentionally meant to be running at a different timescale (like slow-motion).
-
-**UnpauseCountdownUI.cs**: Subtracts `Time.unscaledDeltaTime` directly from the float but fails to sync the display exactly to 0 when it finishes, leading to visual desyncs.
-
 **CollectibleUIUpdater.cs**: Performs string concatenation using `+=` inside a loop. This creates excessive garbage collection pressure on the heap every time the UI updates.
 
 WTF does that mean

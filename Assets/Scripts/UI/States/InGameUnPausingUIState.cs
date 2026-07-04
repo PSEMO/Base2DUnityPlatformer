@@ -31,7 +31,7 @@ namespace PSEMO.UI
         public override void OnExit()
         {
             base.OnExit();
-            Time.timeScale = 1f;
+            Time.timeScale = ctx.TimeScaleData.playTimeScale;
         }
 
         public bool IsTimerComplete => timer >= ctx.Data.returningFromPauseCooldown;

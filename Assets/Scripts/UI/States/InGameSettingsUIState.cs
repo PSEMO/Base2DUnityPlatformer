@@ -17,7 +17,7 @@ namespace PSEMO.UI
         public override void OnEnter()
         {
             base.OnEnter();
-            Time.timeScale = 0f;
+            Time.timeScale = ctx.TimeScaleData.pauseTimeScale;
         }
     }
 }

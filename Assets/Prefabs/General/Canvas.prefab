@@ -4762,6 +4762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   Data: {fileID: 11400000, guid: a671485ae0e7d386eb110b42a77e6326, type: 2}
+  TimeScaleData: {fileID: 11400000, guid: 6d14d91364e8412f3b2dba1afb4d2199, type: 2}
   panels:
   - {fileID: 4071901483403920496}
   - {fileID: 2799165307578194608}

@@ -6,7 +6,7 @@ namespace PSEMO.GizmosAsAComp
     [RequireComponent(typeof(BoxCollider2D))]
     public class BoxGizmos : MonoBehaviour
     {
-        [SerializeField] private Color boxColor = new Color(0, 0, 0, 0.3f);
+        [SerializeField] private Color boxColor = new(0, 0, 0, 0.3f);
 
         BoxCollider2D boxCollider;
 

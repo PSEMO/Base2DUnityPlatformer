@@ -65,12 +65,15 @@ namespace PSEMO.Core.Management
         {
             if (string.IsNullOrEmpty(jsonData)) return;
 
-            CollectibleTrackerSaveData data = JsonUtility.FromJson<CollectibleTrackerSaveData>(jsonData);
+            SerializableDictionary data = JsonUtility.FromJson<SerializableDictionary>(jsonData);
             
             CollectedCounts.Clear();
             for (int i = 0; i < data.keys.Count; i++)
             {
-                CollectedCounts[data.keys[i]] = data.values[i];
+                if (int.TryParse(data.values[i], out int val))
+                {
+                    CollectedCounts[data.keys[i]] = val;
+                }
             }
             
             CollectibleEvents.InvokeCollectibleCountsUpdated(CollectedCounts, GroupData);
@@ -78,11 +81,11 @@ namespace PSEMO.Core.Management
 
         public string SaveData()
         {
-            CollectibleTrackerSaveData data = new();
+            SerializableDictionary data = new();
             foreach (var kvp in CollectedCounts)
             {
                 data.keys.Add(kvp.Key);
-                data.values.Add(kvp.Value);
+                data.values.Add(kvp.Value.ToString());
             }
             return JsonUtility.ToJson(data);
         }

@@ -1,100 +1,16 @@
-**CollectibleTrackerSaveData.cs**: Uses parallel lists `keys` and `values` instead of a dictionary for serialization, which is standard in Unity but a custom `SerializableDictionary` wrapper already exists in the project which could be used instead. This causes duplicate implementations of list-based dictionaries.
+Needs a fix
 
-**PlayerSaveData.cs**: Variables are publicly exposed and mutable, meaning save data could be inadvertently modified by other scripts during runtime without validation. 
-
-**GeneralPersister.cs**: Uses `ctx.GetType().FullName` to generate a unique name, which will break persistence if class namespaces or names are ever changed or refactored. Additionally, manually incrementing `typeCounts` is unnecessary and complex compared to simply generating a unique GUID for each component.
-
-**SignalPredicate.cs**: If `Fire()` is called multiple times before `Evaluate()` is run, the signal is only processed once. This means rapid consecutive events might be missed entirely.
-
-**FuncPredicate.cs**: The constructor stores a `Func<bool>` but performs no null checks on the delegate. Passing a null function will cause a runtime crash when `Evaluate()` is eventually called.
-
-**OrPredicate.cs**: It evaluates all predicates in the array even if `anyTrue` becomes true early. This completely misses out on the performance gains of short-circuit evaluation.
-
-**PlayerBaseState.cs**: Hardcoding `StringToHash` indices assumes specific animator parameter strings. This couples the state logic directly to the animator layout, meaning any animation name change will silently break the code.
-
-**FallState.cs**: It plays an audio clip on exit regardless of whether the audio system is initialized. Also, the logic to reduce `jumpsLeft` here might accidentally skip a jump if the player rapidly presses the jump button on the exact frame they begin falling.
-
-**IdleState.cs**: Directly overrides the x-velocity to 0f instead of smoothly decelerating. This leads to abrupt, unnatural stops when the player lets go of the movement keys.
-
-**RunState.cs**: It relies entirely on `ctx.Run()` inside `FixedUpdate()`, which obscures transition bugs and makes it difficult to test the state independently.
-
-**JumpState.cs**: Multiplies `rb.linearVelocityY` directly. This could severely fight with Unity's internal gravity calculations if applied on the same frame.
-
-**DashState.cs**: Modifies `rb.gravityScale` to 0f, but if an external script forces an exit early without calling `OnExit()`, the gravity scale will remain 0f and the player will float forever.
-
-**PlayerController.cs**: A massive "God class" handling input, movement, persistence, and state management, completely violating the Single Responsibility Principle. Furthermore, `BoxCast` allocations and using string arrays for physics layers every frame creates heavy performance overhead.
-
-**PlayerSO.cs**: Hardcoded `LayerMask` defaults (1152 and 128) are extremely fragile. They won't match dynamically if Unity's project layer orders are changed by the developer.
-
-**PlayGivenAudioAtStart.cs**: Relies on an un-validated string name for the audio file. This can easily cause a missing audio bug if the string is misspelled in the inspector.
+**PlayerController.cs**: A massive "God class" handling input, movement, persistence, and state management, completely violating the Single Responsibility Principle.
 
 **AudioConstants.cs**: Using hardcoded magic strings for audio lookups makes refactoring sound names tedious and error-prone.
 
-**AllAudioSOs.cs**: `GetAudioData` uses standard dictionary access which will throw an unhandled `KeyNotFoundException` if an invalid ID is requested. There is no fallback or safe handling in place.
-
-**AudioSO.cs**: The ID must manually be kept unique across instances by the developer. This is highly prone to human error compared to using an automatically generated GUID.
-
-**ApplyVolume.cs**: Relies directly on setting the `AudioManager` instance properties from sliders, tightly coupling the UI layer directly to the audio backend.
-
-**AudioManager.cs**: The Singleton pattern is used improperly and will not destroy itself correctly if an instance already exists while trying to assign `Instance`. Additionally, audio volume multiplication isn't scaled logarithmically, so linear UI slider changes won't sound natural to human ears.
-
-**PersistenceEvents.cs**: Exposes a lot of low-level persistence hooks globally as static events. This can make debugging the exact save/load order execution extremely difficult.
+**AudioManager.cs**: Audio volume multiplication isn't scaled logarithmically, so linear UI slider changes won't sound natural to human ears.
 
 **PoolingEvents.cs**: Exposing `OnSpawnObject` as a global event that returns a `GameObject` using a `Func` implies only one listener should ever handle object spawning, which is bad practice for a globally scoped event.
 
-**CircleGizmos.cs**: Uses `#if UNITY_EDITOR` but relies on `UnityEditor.Handles` in the main script without assembly definitions. This will cause compilation errors if the script is accidentally placed outside an Editor folder.
-
-**BoxGizmos.cs**: Creating `new Color()` in the `SerializeField` initializer is evaluated repeatedly. It shares the same Editor compilation issues as CircleGizmos.
-
-**CameraManager.cs**: Target accumulation scales poorly and could cause jittering if the `targets` dictionary gets modified by another script mid-`LateUpdate()`.
-
-**CollectibleSO.cs**: String properties for IDs and group names are very prone to typos when manually configured by designers in the inspector.
-
-**Collectible.cs**: Contacts will trigger twice if an object entering the trigger has two colliders. It completely lacks a check to see if it was already collected before executing the collection logic.
-
-**LoadSceneOnContact.cs**: Doesn't verify if the target scene string is actually valid in the build settings before loading, which will cause a hard crash if the scene is missing.
-
-**EndGameOnContact.cs**: Does not check if the colliding object is actually the player. This means enemies, items, or arbitrary physics objects could accidentally trigger the end game menu.
-
-**Spawner.cs**: Does not limit the total number of spawned objects on the field. An infinite number could be spawned over time if the player stays in one area, eventually crashing the game.
-
-**EnableOnContact.cs**: The Coroutine stops and restarts abruptly on contact, which might leave the enabled object in a weird, corrupted visual state if triggered sequentially very quickly.
-
-**EnableOnInteract.cs**: Similar to `EnableOnContact`, the coroutine logic fails to properly reset or handle edge cases where multiple rapid interactions occur.
-
-**EnableAbilityOnContact.cs**: Uses `GameObject.SetActive(false)` immediately upon pickup. This instantly destroys the object, preventing any visual particle effects or audio cues from playing on collection.
-
-**EnableWhileContact.cs**: Relying on `OnTriggerExit2D` to disable the object is inherently buggy. Physics exit events don't always fire consistently in Unity if colliders are deactivated or move too fast.
-
-**SetMaxJumpOnContact.cs**: Completely missing validation to ensure the new max jump count isn't accidentally set to a negative value by a designer.
-
-**KillSelf.cs**: `StartCoroutine` is used to kill the object, but if the script is disabled early, the coroutine stops. This leaves the object alive indefinitely.
-
-**KillBox.cs**: Triggers death on contact with *any* collider. This means items, particles, or non-player entities passing through the box could arbitrarily cause a "player death" event.
-
-**CheckPoint.cs**: Does not provide visual or audio feedback when activated. Furthermore, it does not check if the player was the one entering the trigger, meaning an enemy could hit the checkpoint.
-
-**Faller.cs**: Gravity modification does not scale correctly with the global `Physics2D.gravity` settings. This creates disjointed physical behaviors compared to standard rigidbodies.
-
-**VelocityOffsetReceiver.cs**: Adding multiple velocities together without clamping them might cause the object to glitch through walls if the combined velocities exceed maximum collision thresholds.
-
-**RotateTowardsDirection.cs**: Relies on a `minVelocityThreshold` but does not correctly normalize the direction vector before using it to calculate rotation angles.
-
-**VelocityOffsetter.cs**: Fails to verify that the collider entering the trigger actually belongs to a valid target.
-
 **Rotater.cs**: Modifying `transform.rotation` directly instead of using `Rigidbody2D.MoveRotation` breaks proper physics simulation and ruins collision interpolation.
 
-**PathFollower.cs**: Uses `SqrMagnitude` to check tolerance, but if the follower moves too fast in one frame, it might overshoot the waypoint entirely and orbit it infinitely.
-
-**PersisterEditor.cs**: Calling `EditorUtility.SetDirty` inside an `OnInspectorGUI` loop without properly checking if the GUI values actually changed triggers excessive serialization and lag in the editor.
-
-**UIBaseState.cs**: Does not handle null entries in the `ActivePanels` array safely. It will easily throw a `NullReferenceException` if a designer leaves an array element blank.
-
 **InGameUnPausingUIState.cs**: `Time.timeScale` is arbitrarily forced back to `1f` on exit. This completely ignores scenarios where the game was intentionally meant to be running at a different timescale (like slow-motion).
-
-**InGameSettingsUIState.cs**: Similar to the unpausing state, it forces `Time.timeScale` to `0f` without caching the previous time scale to restore it later.
-
-**Panel.cs**: Uses `Time.unscaledDeltaTime` for fading but hardcodes `canvasGroup.alpha`. This abruptly interrupts fading transitions and looks glitchy if the user clicks a button rapidly multiple times.
 
 **UIManager.cs**: Heavily intertwined with the `SceneManager` logic and hardcodes specific build indexes (e.g., `SceneManager.LoadScene(1)`), which will easily break if scenes are reordered in the build settings.
 
@@ -102,6 +18,14 @@
 
 **CollectibleUIUpdater.cs**: Performs string concatenation using `+=` inside a loop. This creates excessive garbage collection pressure on the heap every time the UI updates.
 
-**RebindManager.cs**: Directly modifies and calls `PlayerPrefs.Save()` constantly. This causes synchronous disk I/O freezes on slower hard drives during gameplay.
+WTF does that mean
 
-**Instantiator.cs**: Iterates through a queue to pop items but doesn't instantiate new items if the pool is empty. This means the spawn request just fails silently when the pool is exhausted.
+**RotateTowardsDirection.cs**: Relies on a `minVelocityThreshold` but does not correctly normalize the direction vector before using it to calculate rotation angles.
+
+**PersisterEditor.cs**: Calling `EditorUtility.SetDirty` inside an `OnInspectorGUI` loop without properly checking if the GUI values actually changed triggers excessive serialization and lag in the editor.
+
+**CircleGizmos.cs**: Uses `#if UNITY_EDITOR` but relies on `UnityEditor.Handles` in the main script without assembly definitions. This will cause compilation errors if the script is accidentally placed outside an Editor folder.
+
+**BoxGizmos.cs**: Creating `new Color()` in the `SerializeField` initializer is evaluated repeatedly. It shares the same Editor compilation issues as CircleGizmos.
+
+**Panel.cs**: Uses `Time.unscaledDeltaTime` for fading but hardcodes `canvasGroup.alpha`. This abruptly interrupts fading transitions and looks glitchy if the user clicks a button rapidly multiple times.

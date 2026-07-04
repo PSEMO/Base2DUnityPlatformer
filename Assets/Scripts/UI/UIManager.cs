@@ -254,21 +254,21 @@ namespace PSEMO.UI
         public void ContinueBtn()
         {
             TryUpdateSceneState(SceneState.GameScene);
-            SceneManager.LoadScene(PersistenceManager.FurthestAvailableSceneIndex());
+            SceneManager.LoadSceneAsync(PersistenceManager.FurthestAvailableSceneIndex());
         }
 
         public void NewGameBtn()
         {
             PersistenceEvents.InvokeGameSaveDelete();
             TryUpdateSceneState(SceneState.GameScene);
-            SceneManager.LoadScene(Data.firstGameSceneIndex);
+            SceneManager.LoadSceneAsync(Data.firstGameSceneIndex);
         }
 
         public void QuitBtn()
         {
             TryUpdateSceneState(SceneState.MainMenuScene);
             Time.timeScale = TimeScaleData.playTimeScale;
-            SceneManager.LoadScene(Data.mainMenuSceneIndex);
+            SceneManager.LoadSceneAsync(Data.mainMenuSceneIndex);
         }
 
         public void QuitAndSaveBtn()
@@ -276,7 +276,7 @@ namespace PSEMO.UI
             TryUpdateSceneState(SceneState.MainMenuScene);
             Time.timeScale = TimeScaleData.playTimeScale;
             PersistenceEvents.InvokeGameSave();
-            SceneManager.LoadScene(Data.mainMenuSceneIndex);
+            SceneManager.LoadSceneAsync(Data.mainMenuSceneIndex);
         }
 
         public void SettingsBtn()

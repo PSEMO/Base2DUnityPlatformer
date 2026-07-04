@@ -21,7 +21,7 @@ namespace PSEMO.Environment.Functionality
         {
             PersistenceEvents.InvokeCreateEmptySceneFile(SceneToLoadName);
 
-            SceneManager.LoadScene(SceneToLoadName);
+            SceneManager.LoadSceneAsync(SceneToLoadName);
         }
     }
 }

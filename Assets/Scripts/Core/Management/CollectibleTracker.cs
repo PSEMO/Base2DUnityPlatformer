@@ -4,13 +4,13 @@ using UnityEngine;
 using PSEMO.Environment.Functionality.Collectible;
 using PSEMO.Events;
 using PSEMO.Core.Persistence;
+using UnityEngine.AI;
 
 namespace PSEMO.Core.Management
 {
     public class CollectibleTracker : MonoBehaviour, IPersistable
     {
         [SerializeField] private AllCollectibleSOs allCollectibles;
-        public AllCollectibleSOs AllCollectibles => allCollectibles;
 
         public Dictionary<string, int> CollectedCounts { get; private set; } = new();
         public Dictionary<string, CollectibleSO> GroupData { get; private set; } = new();

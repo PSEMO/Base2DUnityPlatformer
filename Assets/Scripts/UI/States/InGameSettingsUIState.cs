@@ -1,4 +1,4 @@
-using UnityEngine;
+using PSEMO.Events;
 
 namespace PSEMO.UI
 {
@@ -17,7 +17,7 @@ namespace PSEMO.UI
         public override void OnEnter()
         {
             base.OnEnter();
-            Time.timeScale = ctx.TimeScaleData.pauseTimeScale;
+            UIEvents.InvokeGamePause();
         }
     }
 }

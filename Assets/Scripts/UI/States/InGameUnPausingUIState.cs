@@ -1,3 +1,4 @@
+using PSEMO.Events;
 using UnityEngine;
 
 namespace PSEMO.UI
@@ -31,9 +32,9 @@ namespace PSEMO.UI
         public override void OnExit()
         {
             base.OnExit();
-            Time.timeScale = ctx.TimeScaleData.playTimeScale;
+            UIEvents.InvokeGameUnpause();
         }
 
-        public bool IsTimerComplete => timer >= ctx.Data.returningFromPauseCooldown;
+        public bool IsTimerComplete => timer >= ctx.UIData.returningFromPauseCooldown;
     }
 }

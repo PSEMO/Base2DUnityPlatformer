@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8149e039c69409e2280beab27753c383, type: 3}
-  m_Name: UIData
-  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UISO
-  returningFromPauseCooldown: 1
-  extraDelayForLoading: 0.1
+  m_Script: {fileID: 11500000, guid: b1e896b01371a642385d1546030e3c3d, type: 3}
+  m_Name: Empty
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Functionality.Collectible.AllCollectibleSOs
+  collectibles: []

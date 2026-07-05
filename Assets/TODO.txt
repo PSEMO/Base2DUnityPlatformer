@@ -1,3 +1,5 @@
 Decouple PlayerController(?)
 Decouple UIManager
 Make UI better with sub-panels
+Canvas prefab varients for in-game and main-menu (rename the canvas to FullCanvas)
+Make LoadSceneAsync an option, not a must-have. Add a Header that states the Async one does use more RAM but works smoother

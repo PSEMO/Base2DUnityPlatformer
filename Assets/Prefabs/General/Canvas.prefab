@@ -57,7 +57,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -146,7 +146,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1794,7 +1794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15564df223d9c59f3aa78c2f4365504c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnpauseCountdownUI
-  Data: {fileID: 11400000, guid: a671485ae0e7d386eb110b42a77e6326, type: 2}
+  Data: {fileID: 11400000, guid: c7ff45f13086782e2841889b38c2a513, type: 2}
   countdownText: {fileID: 529387957904478249}
 --- !u!222 &30992323403838442
 CanvasRenderer:
@@ -1906,8 +1906,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6017078283481409353}
   - component: {fileID: 615234877640316115}
-  - component: {fileID: 6619411413182800262}
   - component: {fileID: 882768235924237354}
+  - component: {fileID: 6619411413182800262}
   - component: {fileID: 7160744864862439392}
   m_Layer: 5
   m_Name: MainSettings
@@ -1945,6 +1945,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564335041154067819}
   m_CullTransparentMesh: 1
+--- !u!114 &882768235924237354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564335041154067819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
+  Type: 2
+  fadeDuration: 0.15
 --- !u!114 &6619411413182800262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1960,20 +1974,6 @@ MonoBehaviour:
   masterSlider: {fileID: 2899297200401212014}
   musicSlider: {fileID: 815594916161636469}
   sfxSlider: {fileID: 7857681058721170125}
---- !u!114 &882768235924237354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 564335041154067819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
-  Type: 2
-  fadeDuration: 0.15
 --- !u!225 &7160744864862439392
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3481,7 +3481,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -4709,6 +4709,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4438310716639549597}
   - component: {fileID: 6524770374977723066}
+  - component: {fileID: 2188454389747222672}
+  - component: {fileID: 4654177792162825894}
   - component: {fileID: 8360599649452096504}
   - component: {fileID: 5430700804531128477}
   - component: {fileID: 958534454412528491}
@@ -4761,10 +4763,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4830c6b5d54d37d6b25901aaf8349a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  Data: {fileID: 11400000, guid: a671485ae0e7d386eb110b42a77e6326, type: 2}
-  TimeScaleData: {fileID: 11400000, guid: 6d14d91364e8412f3b2dba1afb4d2199, type: 2}
+  UIData: {fileID: 11400000, guid: c7ff45f13086782e2841889b38c2a513, type: 2}
+  initialSceneState: 0
+--- !u!114 &2188454389747222672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689130597422633045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b732df1c4317214a78088d08cf20a674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIGameActionHandler
+  SceneData: {fileID: 11400000, guid: f3ff0be4daf73a93ab7dd2130cb388d4, type: 2}
+  ContinueBtnObj: {fileID: 8951604596679527633}
+--- !u!114 &4654177792162825894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689130597422633045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19714af608058085eb9369c12f5acfb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIPanelRegistry
   panels:
+  - {fileID: 3556704591613573086}
   - {fileID: 4071901483403920496}
+  - {fileID: 6986006251938080973}
   - {fileID: 2799165307578194608}
   - {fileID: 3565832804084969075}
   - {fileID: 882768235924237354}
@@ -4772,11 +4802,7 @@ MonoBehaviour:
   - {fileID: 8814926880932014167}
   - {fileID: 614893036221134810}
   - {fileID: 7291095470847745325}
-  - {fileID: 3556704591613573086}
-  - {fileID: 6986006251938080973}
   - {fileID: 4151486220263802472}
-  initialSceneState: 0
-  ContinueBtnObj: {fileID: 8951604596679527633}
 --- !u!223 &8360599649452096504
 Canvas:
   m_ObjectHideFlags: 0
@@ -6576,8 +6602,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: PSEMO.UI.UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: ContinueBtn
         m_Mode: 1
         m_Arguments:
@@ -9211,8 +9237,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: PSEMO.UI.UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: SelectSaveSlot3Btn
         m_Mode: 1
         m_Arguments:
@@ -9736,8 +9762,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: CreditsBtn
         m_Mode: 1
         m_Arguments:
@@ -10784,8 +10810,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: BackBtn
         m_Mode: 1
         m_Arguments:
@@ -12219,6 +12245,81 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &4850098719957847806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7434408298449016735}
+  - component: {fileID: 3153865323665843835}
+  - component: {fileID: 1673531273212510029}
+  m_Layer: 5
+  m_Name: LoadingBg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7434408298449016735
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850098719957847806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6255688601810829482}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3153865323665843835
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850098719957847806}
+  m_CullTransparentMesh: 1
+--- !u!114 &1673531273212510029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850098719957847806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4874875617635438247
 GameObject:
   m_ObjectHideFlags: 0
@@ -13745,8 +13846,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: PSEMO.UI.UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: SaveBtn
         m_Mode: 1
         m_Arguments:
@@ -13970,7 +14071,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -14011,8 +14112,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6255688601810829482}
-  - component: {fileID: 5258786893371115182}
   - component: {fileID: 4151486220263802472}
+  - component: {fileID: 5258786893371115182}
   m_Layer: 5
   m_Name: Loading
   m_TagString: Untagged
@@ -14032,6 +14133,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7434408298449016735}
   - {fileID: 1270121665806449638}
   m_Father: {fileID: 4438310716639549597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14040,18 +14142,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &5258786893371115182
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5773049514063613626}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &4151486220263802472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14066,6 +14156,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.Panel
   Type: 10
   fadeDuration: 0.15
+--- !u!225 &5258786893371115182
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5773049514063613626}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5835929362254154092
 GameObject:
   m_ObjectHideFlags: 0
@@ -15454,8 +15556,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1270121665806449638}
   - component: {fileID: 293039279633367437}
-  - component: {fileID: 395512580483029850}
   - component: {fileID: 8549602197784855950}
+  - component: {fileID: 395512580483029850}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -15490,6 +15592,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6468657315606799981}
   m_CullTransparentMesh: 1
+--- !u!114 &8549602197784855950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468657315606799981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a3d45c64b47cc4cb2c6e90c7fbd396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Movement.Rotater
+  rotationSpeed: 180
+  rotationAxis: {x: 0, y: 0, z: 1}
+  unscaledTime: 1
+  useGlobalTime: 1
 --- !u!114 &395512580483029850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15520,22 +15638,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8549602197784855950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6468657315606799981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49a3d45c64b47cc4cb2c6e90c7fbd396, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Environment.Movement.Rotater
-  rotationSpeed: 180
-  rotationAxis: {x: 0, y: 0, z: 1}
-  unscaledTime: 1
-  useGlobalTime: 1
 --- !u!1 &6469125774985386432
 GameObject:
   m_ObjectHideFlags: 0
@@ -16108,8 +16210,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: PSEMO.UI.UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: SelectSaveSlot2Btn
         m_Mode: 1
         m_Arguments:
@@ -16314,7 +16416,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -16467,8 +16569,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: PSEMO.UI.UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: NewGameBtn
         m_Mode: 1
         m_Arguments:
@@ -18568,8 +18670,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: QuitBtn
         m_Mode: 1
         m_Arguments:
@@ -18701,8 +18803,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: SettingsBtn
         m_Mode: 1
         m_Arguments:
@@ -18834,8 +18936,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: BackBtn
         m_Mode: 1
         m_Arguments:
@@ -19455,7 +19557,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -19822,8 +19924,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: PSEMO.UI.UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: SelectSaveSlot4Btn
         m_Mode: 1
         m_Arguments:
@@ -20977,8 +21079,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: BackBtn
         m_Mode: 1
         m_Arguments:
@@ -22170,8 +22272,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: PSEMO.UI.UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: QuitAndSaveBtn
         m_Mode: 1
         m_Arguments:
@@ -22650,8 +22752,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6524770374977723066}
-        m_TargetAssemblyTypeName: PSEMO.UI.UIManager, Assembly-CSharp
+      - m_Target: {fileID: 2188454389747222672}
+        m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
         m_MethodName: SelectSaveSlot1Btn
         m_Mode: 1
         m_Arguments:
@@ -22883,8 +22985,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7769140399201817067}
   - component: {fileID: 7794356103312119012}
-  - component: {fileID: 83098381749317775}
   - component: {fileID: 7668818702458170354}
+  - component: {fileID: 83098381749317775}
   m_Layer: 5
   m_Name: CoinCount
   m_TagString: Untagged
@@ -22919,6 +23021,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8857399021075229841}
   m_CullTransparentMesh: 1
+--- !u!114 &7668818702458170354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8857399021075229841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25838c59b526cc10b660c40f81d4b80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectibleUIUpdater
 --- !u!114 &83098381749317775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23011,18 +23125,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7668818702458170354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8857399021075229841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d25838c59b526cc10b660c40f81d4b80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollectibleUIUpdater
 --- !u!1 &8930244538339533501
 GameObject:
   m_ObjectHideFlags: 0

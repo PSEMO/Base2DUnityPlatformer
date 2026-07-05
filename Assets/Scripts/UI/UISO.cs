@@ -6,11 +6,6 @@ namespace PSEMO.UI
     public class UISO : ScriptableObject
     {
         public float returningFromPauseCooldown = 1.0f;
-        public float extraDelayForLoading = 0.3f;
-
-        [Space]
-
-        public int firstGameSceneIndex = 1;
-        public int mainMenuSceneIndex = 0;
+        public float extraDelayForLoading = 0.1f;
     }
 }

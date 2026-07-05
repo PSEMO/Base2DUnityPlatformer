@@ -59,4 +59,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd2961c74af9d7d184b5b1360554401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectibleTracker
-  allCollectibles: {fileID: 11400000, guid: 6bb08549df72d807c96fa1449f5292a3, type: 2}
+  allCollectibles: {fileID: 11400000, guid: 9c4d0398dd357f37da79bea4d74296b7, type: 2}

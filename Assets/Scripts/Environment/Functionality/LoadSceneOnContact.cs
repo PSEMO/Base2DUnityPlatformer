@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using PSEMO.Events;
+using PSEMO.Core.Management;
 
 namespace PSEMO.Environment.Functionality
 {
@@ -21,9 +21,7 @@ namespace PSEMO.Environment.Functionality
         {
             PersistenceEvents.InvokeCreateEmptySceneFile(SceneToLoadName);
 
-            UIEvents.InvokeLoadingStart();
-            var op = SceneManager.LoadSceneAsync(SceneToLoadName);
-            op.completed += _ => UIEvents.InvokeLoadingEnd();
+            SceneLoader.Load(SceneToLoadName);
         }
     }
 }

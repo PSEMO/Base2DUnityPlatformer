@@ -16,7 +16,7 @@ namespace PSEMO.UI
             {
                 foreach (var type in ActivePanels)
                 {
-                    ctx.GetPanel(type)?.Show();
+                    ctx.GetPanel(type).Show();
                 }
             }
         }
@@ -27,7 +27,7 @@ namespace PSEMO.UI
             {
                 foreach (var type in ActivePanels)
                 {
-                    ctx.GetPanel(type)?.Hide();
+                    ctx.GetPanel(type).Hide();
                 }
             }
         }

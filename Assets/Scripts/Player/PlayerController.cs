@@ -1,27 +1,22 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using PSEMO.Core.Predicate;
 using PSEMO.Core.StateMachine;
-using PSEMO.Environment.Functionality;
 using PSEMO.Events;
 using PSEMO.Core.Persistence;
 
 namespace PSEMO.Player
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(Collider2D))]
-    public class PlayerController : MonoBehaviour, IStateMachineUser, InputSystem_Actions.IPlayerActions, IPersistable
+    public class PlayerController : MonoBehaviour, IStateMachineUser, IPersistable
     {
         public PlayerSO data;
-
-        private InputSystem_Actions inputActions;
 
         [HideInInspector] public Rigidbody2D rb;
         [HideInInspector] public Collider2D col;
         [HideInInspector] public Animator animator;
 
-        private StateMachine stateMachine;
+        private PlayerInputHandler inputHandler;
+        private PlayerSurfaceDetector surfaceDetector;
+        private PlayerStateMachineController stateController;
 
         [HideInInspector] public Vector3 respawnPos;
 
@@ -51,30 +46,21 @@ namespace PSEMO.Player
         [HideInInspector] public bool ableToInteract;
         [HideInInspector] public int maxJumpCount;
 
-        private Vector2 groundCheckBoxSize;
-        [HideInInspector] public Vector2 wallCheckBoxSize;
-        private RaycastHit2D[] physicsHits = new RaycastHit2D[5];
-    
         void Awake()
         {
-            inputActions = new InputSystem_Actions();
-            InputSettings.RebindManager.LoadOverrides(inputActions.asset);
-            inputActions.Player.AddCallbacks(this);
-
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
             col = GetComponent<Collider2D>();
 
-            InitializeStateMachine();
+            surfaceDetector = new PlayerSurfaceDetector(col, data);
+            inputHandler = new PlayerInputHandler(this);
+            stateController = new PlayerStateMachineController(this, animator);
 
             ableToRun = data.ableToRun;
             ableToJump = data.ableToJump;
             ableToDash = data.ableToDash;
             ableToInteract = data.ableToInteract;
             maxJumpCount = data.maxJumpCount;
-
-            groundCheckBoxSize = new Vector2(col.bounds.size.x * 0.9f, col.bounds.size.y);
-            wallCheckBoxSize = new Vector2(col.bounds.size.x, col.bounds.size.y * 0.9f);
         }
 
         void Start()
@@ -88,36 +74,35 @@ namespace PSEMO.Player
 
         void OnEnable()
         {
-            inputActions.Player.Enable();
+            inputHandler.OnEnable();
             PlayerEvents.OnPlayerDeath += Die;
             PlayerEvents.OnCheckPointReached += SetRespawnPos;
         }
 
         void OnDisable()
         {
-            inputActions.Player.Disable();
+            inputHandler.OnDisable();
             PlayerEvents.OnPlayerDeath -= Die;
             PlayerEvents.OnCheckPointReached -= SetRespawnPos;
         }
 
         void OnDestroy()
         {
-            inputActions.Player.RemoveCallbacks(this);
-            inputActions.Dispose();
+            inputHandler.OnDestroy();
             CameraEvents.InvokeCameraTargetRemoved(transform);
         }
 
         void Update()
         {
-            isGrounded = IsOnGround();
+            isGrounded = surfaceDetector.IsOnGround(col.bounds.center);
             UpdateTimers();
 
-            stateMachine.Update();
+            stateController.Update();
         }
 
         void FixedUpdate()
         {
-            stateMachine.FixedUpdate();
+            stateController.FixedUpdate();
         }
 
         private void UpdateTimers()
@@ -148,47 +133,7 @@ namespace PSEMO.Player
             }
         }
 
-        private bool IsOnGround()
-        {
-            ContactFilter2D filter = new()
-            {
-                useTriggers = false,
-                useLayerMask = true,
-                layerMask = data.groundLayer
-            };
-
-            int hitCount = Physics2D.BoxCast(
-                col.bounds.center,
-                groundCheckBoxSize,
-                0f,
-                Vector2.down,
-                filter,
-                physicsHits,
-                data.groundCheckDistance);
-
-            return hitCount > 0;
-        }
-
-        public bool IsFacingWall()
-        {
-            ContactFilter2D filter = new()
-            {
-                useTriggers = false,
-                useLayerMask = true,
-                layerMask = data.wallLayer
-            };
-
-            int hitCount = Physics2D.BoxCast(
-                col.bounds.center,
-                wallCheckBoxSize,
-                0f,
-                Vector2.right * facing,
-                filter,
-                physicsHits,
-                data.wallCheckDistance);
-
-            return hitCount > 0;
-        }
+        public bool IsFacingWall() => surfaceDetector.IsFacingWall(col.bounds.center, facing);
 
         public virtual void Run()
         {
@@ -220,13 +165,11 @@ namespace PSEMO.Player
             dashInput = false;
             upInput = false;
         
-            stateMachine.SetState(new IdleState(this, animator)); 
+            stateController.SetState(new IdleState(this, animator)); 
         }
 
-        private void SetRespawnPos(Vector3 pos)
-        {
-            respawnPos = pos;
-        }
+        private void SetRespawnPos(Vector3 pos) => respawnPos = pos;
+        public void SetMaxJumpCount(int newCount) => maxJumpCount = newCount;
 
         public void EnableAbility(AbilityType type)
         {
@@ -246,7 +189,7 @@ namespace PSEMO.Player
                     break;
             }
         }
-        public void SetMaxJumpCount(int newCount) => maxJumpCount = newCount;
+
 
         //====== PERSISTENCE ======
         public void LoadData(string jsonData)
@@ -277,92 +220,6 @@ namespace PSEMO.Player
                 maxJumpCount = maxJumpCount
             };
             return JsonUtility.ToJson(data);
-        }
-        //=========================
-
-        //===== STATE MACHINE =====
-        void InitializeStateMachine()
-        {
-            stateMachine = new StateMachine();
-
-            var idleState = new IdleState(this, animator);
-            var runState = new RunState(this, animator);
-            var jumpState = new JumpState(this, animator);
-            var fallState = new FallState(this, animator);
-            var dashState = new DashState(this, animator);
-
-            void At(IState from, IState to, Func<bool> condition) =>
-                stateMachine.AddTransition(from, to, new FuncPredicate(condition));
-
-            void Any(IState to, Func<bool> condition) =>
-                stateMachine.AddAnyTransition(to, new FuncPredicate(condition));
-
-            At(idleState, runState, () => Mathf.Abs(moveInput) >= 0.1f);
-
-            At(runState, idleState, () => Mathf.Abs(moveInput) < 0.1f);
-
-            At(fallState, idleState, () => isGrounded && Mathf.Abs(moveInput) < 0.1f);
-            At(fallState, runState, () => isGrounded && Mathf.Abs(moveInput) >= 0.1f);
-        
-            At(dashState, idleState, () => !dashState.IsDashing() && isGrounded && Mathf.Abs(moveInput) < 0.1f);
-            At(dashState, runState, () => !dashState.IsDashing() && isGrounded && Mathf.Abs(moveInput) >= 0.1f);
-            At(dashState, fallState, () => !dashState.IsDashing() && !isGrounded);
-
-            Any(jumpState, () => jumpBufferCounter > 0f && (coyoteTimeCounter > 0f || jumpsLeft > 0));
-
-            Any(dashState, () => dashInput && canDash);
-
-            Any(fallState, () => rb.linearVelocityY < -0.1f);
-
-            stateMachine.SetState(idleState);
-        }
-        //=========================
-
-        //======== INPUTS =========
-        public void OnMove(InputAction.CallbackContext context)
-        {
-            if (ableToRun)
-            {
-                moveInput = context.ReadValue<float>();
-            }
-        }
-
-        public void OnUp(InputAction.CallbackContext context)
-        {
-            if (context.performed && ableToJump)
-            {
-                upInput = true;
-                jumpBufferCounter = data.jumpBufferTime;
-            }
-            else if (context.canceled)
-            {
-                upInput = false;
-            }
-        }
-
-        public void OnDash(InputAction.CallbackContext context)
-        {
-            if (context.performed && ableToDash)
-            {
-                dashInput = true;
-            }
-            else if (context.canceled)
-            {
-                dashInput = false;
-            }
-        }
-
-        public void OnInteract(InputAction.CallbackContext context)
-        {
-            if (context.performed && ableToInteract)
-            {
-                Collider2D hit = Physics2D.OverlapCircle(transform.position, data.interactionRadius, data.interactionLayer);
-
-                if (hit != null && hit.TryGetComponent(out IInteractable interactable))
-                {
-                    interactable.OnInteracted();
-                }
-            }
         }
         //=========================
     }

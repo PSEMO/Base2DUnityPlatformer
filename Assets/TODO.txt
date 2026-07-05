@@ -1,1 +1,3 @@
-use Mathf.Log10(value) * 20 to convert percentage of audio into actual volume?
+Decouple PlayerController(?)
+Decouple UIManager
+Make UI better with sub-panels

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Audio.AudioSO
   ID: Fall
   clip: {fileID: 8300000, guid: ecf4f72a65c6887a7817cf5bc632bdb9, type: 3}
-  volume: 0.8
+  volume: 1
   loop: 0

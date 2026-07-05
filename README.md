@@ -36,7 +36,7 @@ The user interface is treated as a first-class citizen. A state-machine-driven `
 The project utilizes `UNITY_EDITOR` preprocessor directives to create custom development-only tools, such as `BoxGizmos` for visualizing colliders and `PersisterEditor` for debugging persistence logic directly in the Unity Editor, ensuring the production build remains lightweight.
 
 ### 9. Advanced Audio System
-Features a dedicated, Singleton-based audio manager that utilizes scriptable data containers for sound definitions. It fully supports dynamic crossfading between music tracks and manages spatial/impact sound effects effortlessly.
+Features a dedicated, Singleton-based audio manager that utilizes scriptable data containers for sound definitions. It fully supports dynamic crossfading between music tracks and manages spatial/impact sound effects effortlessly with proper logarithmic volume scaling.
 
 ### 10. Runtime Input Rebinding
 Leveraging Unity's new Input System, the project includes a complete `RebindManager`. This allows for seamless, JSON-backed runtime key rebinding that automatically saves and loads player control preferences.

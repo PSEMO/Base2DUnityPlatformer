@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Audio.AudioSO
   ID: Coin
   clip: {fileID: 8300000, guid: 3880a9052155a57df871cd2f91581222, type: 3}
-  volume: 1
+  volume: 0.9
   loop: 0

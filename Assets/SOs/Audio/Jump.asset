@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Audio.AudioSO
   ID: Jump
   clip: {fileID: 8300000, guid: fa8f69f31ded479b2a0415517d31b796, type: 3}
-  volume: 0.8
+  volume: 1
   loop: 0

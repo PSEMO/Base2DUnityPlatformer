@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Audio.AudioSO
   ID: GameMusic
   clip: {fileID: 8300000, guid: 6ee0283cc102c8723ad1aa1793098233, type: 3}
-  volume: 0.7
+  volume: 0.9
   loop: 1

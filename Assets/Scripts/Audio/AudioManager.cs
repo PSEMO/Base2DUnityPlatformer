@@ -162,8 +162,13 @@ namespace PSEMO.Audio
             ResetCrossfadeMusic(newData);
         }
 
+        private float LinearToLog(float value)
+        {
+            return Mathf.Clamp01(value * value);
+        }
+
         private float GetVolumeOfData(AudioSO data, bool isMusic = false) =>
-            (isMusic? musicVolume : sfxVolume) * data.volume * masterVolume;
+            LinearToLog(isMusic? musicVolume : sfxVolume) * data.volume * LinearToLog(masterVolume);
 
         private void ResetCrossfadeMusic(AudioSO currentData)
         {
@@ -246,7 +251,7 @@ namespace PSEMO.Audio
 
             if (musicTransitionCoroutine == null)
             {
-                musicSource.volume = raw * musicVolume * masterVolume;
+                musicSource.volume = raw * LinearToLog(musicVolume) * LinearToLog(masterVolume);
             }
         }
 
@@ -260,7 +265,7 @@ namespace PSEMO.Audio
                     ? sourceToData[source].volume
                     : 1f;
 
-                source.volume = raw * sfxVolume * masterVolume;
+                source.volume = raw * LinearToLog(sfxVolume) * LinearToLog(masterVolume);
             }
         }
     }

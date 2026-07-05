@@ -1,4 +1,5 @@
 using UnityEngine;
+using PSEMO.Events;
 
 namespace PSEMO.UI
 {
@@ -13,5 +14,15 @@ namespace PSEMO.UI
         };
 
         protected override PanelType[] ActivePanels => _activePanels;
+
+        public override void OnBackRequested()
+        {
+            UIEvents.InvokeQuit();
+        }
+
+        public override void OnNextRequested()
+        {
+            UIEvents.InvokeQuit();
+        }
     }
 }

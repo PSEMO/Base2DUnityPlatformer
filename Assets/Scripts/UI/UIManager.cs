@@ -12,8 +12,7 @@ namespace PSEMO.UI
     {
         public UISO UIData;
 
-        [SerializeField] private SceneState initialSceneState = SceneState.MainMenuScene;
-        [HideInInspector] public SceneState CurrentSceneState { get; private set; }
+        [SerializeField] private InitialPanel initialPanel = InitialPanel.MainMenu;
 
         private InputSystem_Actions inputActions;
 
@@ -27,12 +26,11 @@ namespace PSEMO.UI
             InputSettings.RebindManager.LoadOverrides(inputActions.asset);
 
             InitializeStateMachine();
-            CurrentSceneState = initialSceneState;
         }
 
         private void Start()
         {
-            HandleSceneStateChanged(CurrentSceneState);
+            SceneTypeToPanelState(initialPanel);
         }
 
         private void Update()
@@ -80,24 +78,18 @@ namespace PSEMO.UI
 
         private void OnInputBack(InputAction.CallbackContext context)
         {
-            if (UIStateMachine.CurrentState is EndGameUIState)
+            if (UIStateMachine.CurrentState is UIBaseState uiState)
             {
-                UIEvents.InvokeQuit();
-                return;
+                uiState.OnBackRequested();
             }
-            
-            InputBackSignal.Fire();
         }
 
         private void OnInputNext(InputAction.CallbackContext context)
         {
-            if (UIStateMachine.CurrentState is EndGameUIState)
+            if (UIStateMachine.CurrentState is UIBaseState uiState)
             {
-                UIEvents.InvokeQuit();
-                return;
+                uiState.OnNextRequested();
             }
-
-            InputNextSignal.Fire();
         }
 
         private void HandleBackClicked() => BackSignal.Fire();
@@ -149,13 +141,13 @@ namespace PSEMO.UI
             UIStateMachine.SetState(endGameUIState);
         }
 
-        private void HandleSceneStateChanged(SceneState state)
+        private void SceneTypeToPanelState(InitialPanel state)
         {
-            if (state == SceneState.MainMenuScene)
+            if (state == InitialPanel.MainMenu)
                 ForceSetState(mainMenuUIState);
-            else if (state == SceneState.GameScene)
+            else if (state == InitialPanel.InGame)
                 ForceSetState(inGameUIState);
-            else if (state == SceneState.EndMenuScene)
+            else if (state == InitialPanel.EndMenu)
                 ForceSetState(endGameUIState);
         }
     
@@ -207,7 +199,7 @@ namespace PSEMO.UI
             At(inGameUIState, inGameSettingsUIState, Or(SettingsSignal, InputBackSignal));
         
             At(inGameSettingsUIState, inGameUnPausingUIState, Or(BackSignal, InputBackSignal));
-            
+
             At(inGameUnPausingUIState, inGameUIState, new FuncPredicate(() => inGameUnPausingUIState.IsTimerComplete));
         }
         //=========================

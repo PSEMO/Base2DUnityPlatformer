@@ -31,5 +31,15 @@ namespace PSEMO.UI
                 }
             }
         }
+
+        public virtual void OnBackRequested()
+        {
+            ctx.InputBackSignal.Fire();
+        }
+
+        public virtual void OnNextRequested()
+        {
+            ctx.InputNextSignal.Fire();
+        }
     }
 }

@@ -15,12 +15,14 @@ namespace PSEMO.Camera
         {
             CameraEvents.OnCameraTargetAdded += AddTarget;
             CameraEvents.OnCameraTargetRemoved += RemoveTarget;
+            UIEvents.OnLoadingEnd += ResetToTarget;
         }
 
         private void OnDisable()
         {
             CameraEvents.OnCameraTargetAdded -= AddTarget;
             CameraEvents.OnCameraTargetRemoved -= RemoveTarget;
+            UIEvents.OnLoadingEnd -= ResetToTarget;
         }
 
         [SerializeField] CameraSO data;
@@ -77,6 +79,12 @@ namespace PSEMO.Camera
         public void RemoveTarget(Transform _tranform)
         {
             targets.Remove(_tranform);
+        }
+
+        private void ResetToTarget()
+        {
+            velocity = Vector3.zero;
+            transform.position = GetTargetPos();
         }
     }
 }

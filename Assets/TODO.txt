@@ -1,3 +1,2 @@
 Decouple PlayerController(?)
 Make UI better with sub-panels
-Make LoadSceneAsync an option, not a must-have. Add a Header that states the Async one does use more RAM but works smoother

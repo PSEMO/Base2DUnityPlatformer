@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PSEMO.GizmosAsAComp
 {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [RequireComponent(typeof(BoxCollider2D))]
     public class BoxGizmos : MonoBehaviour
     {
@@ -31,5 +31,5 @@ namespace PSEMO.GizmosAsAComp
             }
         }
     }
-    #endif
+#endif
 }

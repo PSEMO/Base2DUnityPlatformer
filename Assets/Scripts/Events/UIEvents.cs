@@ -14,6 +14,10 @@ namespace PSEMO.Events
         private static int activeLoadingCount = 0;
 
         public static bool IsLoading => activeLoadingCount > 0;
+    
+#if UNITY_EDITOR
+        private static int extraLoadingEndCount = 0;
+#endif
 
         public static void InvokeLoadingStart() 
         {
@@ -36,7 +40,11 @@ namespace PSEMO.Events
             }
             else
             {
-                Debug.LogWarning("InvokeLoadingEnd called when activeLoadingCount is already 0.");
+#if UNITY_EDITOR
+                extraLoadingEndCount++;
+                Debug.LogError($"InvokeLoadingEnd called when activeLoadingCount was already at: {activeLoadingCount}");
+                Debug.LogError($"Loading was ended {extraLoadingEndCount} times more than it should have! ");
+#endif
             }
         }
     }

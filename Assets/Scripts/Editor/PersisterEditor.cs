@@ -4,7 +4,7 @@ using PSEMO.Core.Persistence;
 
 namespace PSEMO.Editor
 {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [CustomEditor(typeof(Persister), true)]
     [CanEditMultipleObjects]
     public class PersisterEditor : UnityEditor.Editor
@@ -29,5 +29,5 @@ namespace PSEMO.Editor
             }
         }
     }
-    #endif
+#endif
 }

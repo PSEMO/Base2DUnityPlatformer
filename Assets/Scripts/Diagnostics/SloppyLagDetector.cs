@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace PSEMO.Diagnostic
 {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     
     /*
     OnSceneLoaded measures from:
@@ -72,5 +72,5 @@ namespace PSEMO.Diagnostic
             }
         }
     }
-    #endif
+#endif
 }

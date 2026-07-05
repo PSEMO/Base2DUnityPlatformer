@@ -13,7 +13,6 @@ namespace PSEMO.Core.Persistence
             ctxes = GetComponents<IPersistable>();
         }
 
-        //====== PERSISTENCE ======
         public override void LoadData(string jsonData)
         {
             if (string.IsNullOrEmpty(jsonData)) return;
@@ -26,12 +25,7 @@ namespace PSEMO.Core.Persistence
             foreach (IPersistable ctx in ctxes)
             {
                 //naming for the dict keys
-                string typeName = ctx.GetType().FullName;
-                if (typeCounts.ContainsKey(typeName))
-                    typeCounts[typeName]++;
-                else
-                    typeCounts[typeName] = 0;
-                string uniqueName = $"{typeName}_{typeCounts[typeName]}";
+                string uniqueName = GetUniqueName(ctx, typeCounts);
 
                 int index = dict.keys.IndexOf(uniqueName);
                 if (index >= 0)
@@ -49,12 +43,7 @@ namespace PSEMO.Core.Persistence
             foreach (IPersistable ctx in ctxes)
             {
                 //naming for the dict keys
-                string typeName = ctx.GetType().FullName;
-                if (typeCounts.ContainsKey(typeName))
-                    typeCounts[typeName]++;
-                else
-                    typeCounts[typeName] = 0;
-                string uniqueName = $"{typeName}_{typeCounts[typeName]}";
+                string uniqueName = GetUniqueName(ctx, typeCounts);
 
                 dict.keys.Add(uniqueName);
                 dict.values.Add(ctx.SaveData());
@@ -62,6 +51,15 @@ namespace PSEMO.Core.Persistence
 
             return JsonUtility.ToJson(dict);
         }
-        //=========================
+
+        private string GetUniqueName(IPersistable ctx, Dictionary<string, int> typeCounts)
+        {
+            string typeName = ctx.GetType().FullName;
+            if (typeCounts.ContainsKey(typeName))
+                typeCounts[typeName]++;
+            else
+                typeCounts[typeName] = 0;
+            return $"{typeName}_{typeCounts[typeName]}";
+        }
     }
 }

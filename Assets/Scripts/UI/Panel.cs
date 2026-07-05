@@ -50,7 +50,7 @@ namespace PSEMO.UI
             else
             {
                 canvasGroup.alpha = 0f;
-                setInteraction(false);
+                SetInteraction(false);
                 gameObject.SetActive(false);
             }
         }
@@ -61,7 +61,7 @@ namespace PSEMO.UI
 
             gameObject.SetActive(true);
             StopAllCoroutines();
-            setInteraction(true);
+            SetInteraction(true);
             canvasGroup.alpha = 1f;
         }
 
@@ -71,13 +71,13 @@ namespace PSEMO.UI
         
             StopAllCoroutines();
             canvasGroup.alpha = 0f;
-            setInteraction(false);
+            SetInteraction(false);
             gameObject.SetActive(false);
         }
 
         private IEnumerator Fade(float targetAlpha, System.Action onComplete = null)
         {
-            setInteraction(false);
+            SetInteraction(false);
 
             float startAlpha = canvasGroup.alpha;
             float elapsedTime = 0f;
@@ -92,12 +92,12 @@ namespace PSEMO.UI
             canvasGroup.alpha = targetAlpha;
 
             if (targetAlpha > 0f)
-                setInteraction(true);
+                SetInteraction(true);
 
             onComplete?.Invoke();
         }
 
-        private void setInteraction(bool setTo)
+        private void SetInteraction(bool setTo)
         {
             canvasGroup.interactable = setTo;
             canvasGroup.blocksRaycasts = setTo;

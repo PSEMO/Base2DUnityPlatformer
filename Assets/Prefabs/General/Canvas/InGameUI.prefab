@@ -129,6 +129,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6524770374977723066, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
+      propertyPath: initialPanel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524770374977723066, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
       propertyPath: initialSceneState
       value: 1
       objectReference: {fileID: 0}

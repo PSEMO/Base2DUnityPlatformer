@@ -86,12 +86,14 @@ namespace PSEMO.UI
 
                 if (i == targetIdx)
                 {
+                    int tempI = i;
+
                     //play anim till it dissappears then reset its position to other side and
                     //play an anim again to show it 
                     player.Play(false, () => 
                     {
-                        UpdateTextBoxText(box, i);
-                        player.UpdateShowPos(positions[i]); 
+                        UpdateTextBoxText(box, tempI);
+                        player.UpdateShowPos(positions[tempI]); 
                         player.ApplyInstant(false, showDir);
                         player.Play(true, null, showDir, 2); 
                     }, hideDir, 2);

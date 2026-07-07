@@ -15,15 +15,9 @@ namespace PSEMO.UI
 
         protected override PanelType[] ActivePanels => _activePanels;
 
-        public override void OnEnter()
-        {
-            base.OnEnter();
-            UIEvents.InvokeGamePause();
-        }
-
         public override void OnEnter(IState nextState)
         {
-            base.OnEnter();
+            base.OnEnter(nextState);
             UIEvents.InvokeGamePause();
         }
     }

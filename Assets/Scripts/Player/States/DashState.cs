@@ -1,3 +1,4 @@
+using PSEMO.Core.StateMachine;
 using UnityEngine;
 
 namespace PSEMO.Player
@@ -10,7 +11,7 @@ namespace PSEMO.Player
 
         public DashState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
 
-        public override void OnEnter()
+        public override void OnEnter(IState previousState)
         {
             animator.Play(DashAnimHash);
         
@@ -49,7 +50,7 @@ namespace PSEMO.Player
             }
         }
 
-        public override void OnExit()
+        public override void OnExit(IState nextState)
         {
             ctx.rb.gravityScale = originalGravity;
             ctx.rb.linearVelocity = new Vector2(0, 0); 

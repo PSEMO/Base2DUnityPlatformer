@@ -19,14 +19,9 @@ namespace PSEMO.Core.StateMachine
             animator = null;
         }
 
-        public virtual void OnEnter()
-        {
-            // noop
-        }
-
         public virtual void OnEnter(IState previousState)
         {
-            OnEnter();
+            // noop
         }
 
         public virtual void Update()
@@ -39,14 +34,9 @@ namespace PSEMO.Core.StateMachine
             // noop
         }
 
-        public virtual void OnExit()
-        {
-            // noop
-        }
-
         public virtual void OnExit(IState nextState)
         {
-            OnExit();
+            // noop
         }
     }
 }

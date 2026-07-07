@@ -8,7 +8,7 @@ namespace PSEMO.Player
     {
         public FallState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
 
-        public override void OnEnter()
+        public override void OnEnter(IState previousState)
         {
             animator.Play(FallAnimHash);
         }

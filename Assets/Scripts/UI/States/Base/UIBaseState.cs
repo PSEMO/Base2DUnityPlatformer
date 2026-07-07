@@ -13,23 +13,24 @@ namespace PSEMO.UI
 
         public override void OnEnter(IState previousState)
         {
-            UIBaseState prevUIState = previousState as UIBaseState;
-            var prevPanels = prevUIState.GetActivePanels();
-
-            foreach (var type in ActivePanels)
+            if (previousState is UIBaseState prevUIState)
             {
-                if (prevPanels.Contains(type))
-                    continue;
+                var prevPanels = prevUIState.GetActivePanels();
 
-                ctx.GetPanel(type).Show();
+                foreach (var type in ActivePanels)
+                {
+                    if (prevPanels.Contains(type))
+                        continue;
+
+                    ctx.GetPanel(type).Show();
+                }
             }
-        }
-
-        public override void OnEnter()
-        {
-            foreach (var type in ActivePanels)
+            else
             {
-                ctx.GetPanel(type).Show();
+                foreach (var type in ActivePanels)
+                {
+                    ctx.GetPanel(type).Show();
+                }
             }
         }
 
@@ -43,14 +44,6 @@ namespace PSEMO.UI
                 if (nextPanels.Contains(type))
                     continue;
 
-                ctx.GetPanel(type).Hide();
-            }
-        }
-
-        public override void OnExit()
-        {
-            foreach (var type in ActivePanels)
-            {
                 ctx.GetPanel(type).Hide();
             }
         }

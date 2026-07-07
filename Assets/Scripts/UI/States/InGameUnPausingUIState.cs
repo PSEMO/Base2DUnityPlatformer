@@ -18,15 +18,9 @@ namespace PSEMO.UI
 
         protected override PanelType[] ActivePanels => _activePanels;
 
-        public override void OnEnter()
-        {
-            base.OnEnter();
-            timer = 0f;
-        }
-
         public override void OnEnter(IState nextState)
         {
-            base.OnEnter();
+            base.OnEnter(nextState);
             timer = 0f;
         }
 
@@ -36,15 +30,9 @@ namespace PSEMO.UI
             timer += Time.unscaledDeltaTime;
         }
 
-        public override void OnExit()
-        {
-            base.OnExit();
-            UIEvents.InvokeGameUnpause();
-        }
-
         public override void OnExit(IState nextState)
         {
-            base.OnExit();
+            base.OnExit(nextState);
             UIEvents.InvokeGameUnpause();
         }
 

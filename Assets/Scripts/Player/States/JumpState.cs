@@ -1,4 +1,5 @@
 using PSEMO.Audio;
+using PSEMO.Core.StateMachine;
 using UnityEngine;
 
 namespace PSEMO.Player
@@ -9,7 +10,7 @@ namespace PSEMO.Player
 
         public JumpState(PlayerController _ctx, Animator _animator) : base(_ctx, _animator) { }
 
-        public override void OnEnter()
+        public override void OnEnter(IState previousState)
         {
             animator.Play(JumpAnimHash);
             isVariableJumpApplied = false;

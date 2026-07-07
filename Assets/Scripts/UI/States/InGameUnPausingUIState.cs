@@ -1,3 +1,4 @@
+using PSEMO.Core.StateMachine;
 using PSEMO.Events;
 using UnityEngine;
 
@@ -23,6 +24,12 @@ namespace PSEMO.UI
             timer = 0f;
         }
 
+        public override void OnEnter(IState nextState)
+        {
+            base.OnEnter();
+            timer = 0f;
+        }
+
         public override void Update()
         {
             base.Update();
@@ -30,6 +37,12 @@ namespace PSEMO.UI
         }
 
         public override void OnExit()
+        {
+            base.OnExit();
+            UIEvents.InvokeGameUnpause();
+        }
+
+        public override void OnExit(IState nextState)
         {
             base.OnExit();
             UIEvents.InvokeGameUnpause();

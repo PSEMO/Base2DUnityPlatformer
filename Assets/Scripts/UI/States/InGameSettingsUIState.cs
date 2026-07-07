@@ -1,3 +1,4 @@
+using PSEMO.Core.StateMachine;
 using PSEMO.Events;
 
 namespace PSEMO.UI
@@ -15,6 +16,12 @@ namespace PSEMO.UI
         protected override PanelType[] ActivePanels => _activePanels;
 
         public override void OnEnter()
+        {
+            base.OnEnter();
+            UIEvents.InvokeGamePause();
+        }
+
+        public override void OnEnter(IState nextState)
         {
             base.OnEnter();
             UIEvents.InvokeGamePause();

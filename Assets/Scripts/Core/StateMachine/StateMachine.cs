@@ -30,26 +30,48 @@ namespace PSEMO.Core.StateMachine
 
         public void SetState(IState state)
         {
+            if (state == current?.State) return;
+
             GetOrAddNode(state);
+            
             var previousState = current?.State;
-            previousState?.OnExit(Nodes[state.GetType()].State);
+            var nextNode = Nodes[state.GetType()];
+            var nextState = nextNode.State;
             
-            current = Nodes[state.GetType()];
-            current.State.OnEnter(previousState);
+            if (previousState == null)
+            {
+                nextState.OnEnter();
+            }
+            else
+            {
+                previousState.OnExit(nextState);
+                nextState.OnEnter(previousState);
+            }
+
+            current = nextNode;
             
-            OnStateChanged?.Invoke(previousState, current.State);
+            OnStateChanged?.Invoke(previousState, nextState);
         }
 
         private void ChangeState(IState state)
         {
             if (state == current?.State) return;
-
+            
             var previousState = current?.State;
-            var nextState = Nodes[state.GetType()].State;
+            var nextNode = Nodes[state.GetType()];
+            var nextState = nextNode.State;
 
-            previousState?.OnExit(nextState);
-            nextState.OnEnter(previousState);
-            current = Nodes[state.GetType()];
+            if (previousState == null)
+            {
+                nextState.OnEnter();
+            }
+            else
+            {
+                previousState.OnExit(nextState);
+                nextState.OnEnter(previousState);
+            }
+
+            current = nextNode;
             
             OnStateChanged?.Invoke(previousState, nextState);
         }

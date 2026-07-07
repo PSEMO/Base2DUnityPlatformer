@@ -10,10 +10,11 @@ namespace PSEMO.UI
 
         private void Awake()
         {
-            panelDict = new Dictionary<PanelType, Panel>();
+            panelDict = new();
 
             foreach (var panel in panels)
             {
+                panel.Init();
                 panel.HideInstant();
                 panelDict.Add(panel.Type, panel);
             }

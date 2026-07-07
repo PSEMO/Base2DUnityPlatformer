@@ -25,6 +25,12 @@ namespace PSEMO.Events
 
         public static event Action OnCreditsClicked;
         public static void InvokeCredits() => OnCreditsClicked?.Invoke();
+
+        public static event Action OnInputRight;
+        public static void InvokeInputRight() => OnInputRight?.Invoke();
+
+        public static event Action OnInputLeft;
+        public static void InvokeInputLeft() => OnInputLeft?.Invoke();
         
         private static int activeLoadingCount = 0;
         private static int extraLoadingEndCount = 0;

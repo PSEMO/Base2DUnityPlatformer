@@ -1,3 +1,4 @@
+using System.Linq;
 using PSEMO.Core.StateMachine;
 
 namespace PSEMO.UI
@@ -10,25 +11,47 @@ namespace PSEMO.UI
 
         public PanelType[] GetActivePanels() => ActivePanels;
 
+        public override void OnEnter(IState previousState)
+        {
+            UIBaseState prevUIState = previousState as UIBaseState;
+            var prevPanels = prevUIState.GetActivePanels();
+
+            foreach (var type in ActivePanels)
+            {
+                if (prevPanels.Contains(type))
+                    continue;
+
+                ctx.GetPanel(type).Show();
+            }
+        }
+
         public override void OnEnter()
         {
-            if (ActivePanels != null)
+            foreach (var type in ActivePanels)
             {
-                foreach (var type in ActivePanels)
-                {
-                    ctx.GetPanel(type).Show();
-                }
+                ctx.GetPanel(type).Show();
+            }
+        }
+
+        public override void OnExit(IState nextState)
+        {
+            UIBaseState nextUIState = nextState as UIBaseState;
+            var nextPanels = nextUIState.GetActivePanels();
+
+            foreach (var type in ActivePanels)
+            {
+                if (nextPanels.Contains(type))
+                    continue;
+
+                ctx.GetPanel(type).Hide();
             }
         }
 
         public override void OnExit()
         {
-            if (ActivePanels != null)
+            foreach (var type in ActivePanels)
             {
-                foreach (var type in ActivePanels)
-                {
-                    ctx.GetPanel(type).Hide();
-                }
+                ctx.GetPanel(type).Hide();
             }
         }
 

@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
-using System.Linq;
 
 namespace PSEMO.InputSettings
 {
@@ -92,7 +91,7 @@ namespace PSEMO.InputSettings
             startRebindObject.SetActive(true);
             waitingForInputObject.SetActive(false);
 
-            if (rebindButton != null) rebindButton.interactable = true;
+            rebindButton.interactable = true;
 
             inputActionReference.action.Enable();
         }

@@ -28,13 +28,11 @@ namespace PSEMO.Core.Management
         private void PauseGameTime()
         {
             Time.timeScale = timeScaleData.pauseTimeScale;
-            Debug.Log("Pausing the game");
         }
 
         private void UnpauseGameTime()
         {
             Time.timeScale = timeScaleData.playTimeScale;
-            Debug.Log("Unpausing the game");
         }
     }
 }

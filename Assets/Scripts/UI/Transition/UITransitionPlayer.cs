@@ -148,5 +148,35 @@ namespace PSEMO.UI
         public void PlayShow() => Play(true, null);
 
         public void PlayHide() => Play(false, null);
+
+        public void PlayCustom(Vector2 targetPos, Vector3 targetScale, float targetAlpha, Action onComplete = null)
+        {
+            StopAllCoroutines();
+
+            Vector2 startPos = rectTransform.anchoredPosition;
+            Vector3 startScale = rectTransform.localScale;
+            float startAlpha = canvasGroup.alpha;
+
+            StartCoroutine(TransitionRoutine(onComplete, startPos, targetPos, startScale, targetScale, startAlpha, targetAlpha));
+        }
+
+        public void PlayToPos(Vector2 targetPos, Action onComplete = null)
+        {
+            float targetAlpha = canvasGroup.alpha;
+            Vector3 targetScale = rectTransform.localScale;
+            PlayCustom(targetPos, targetScale, targetAlpha, onComplete);
+        }
+
+        public void PlayToTransform(RectTransform target)
+        {
+            PlayToPos(target.anchoredPosition);
+        }
+
+        public void UpdateShowState()
+        {
+            showPos = rectTransform.anchoredPosition;
+            showScale = rectTransform.localScale;
+            showAlpha = canvasGroup.alpha;
+        }
     }
 }

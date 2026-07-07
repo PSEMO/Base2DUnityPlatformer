@@ -9,6 +9,8 @@ namespace PSEMO.UI
     {
         [SerializeField] protected TransitionSO data;
 
+        private bool isInit = false;
+
         protected CanvasGroup canvasGroup;
         protected RectTransform rectTransform;
 
@@ -34,6 +36,11 @@ namespace PSEMO.UI
 
         public virtual void Init()
         {
+            if (isInit)
+                return;
+
+            isInit = true;
+
             canvasGroup = GetComponent<CanvasGroup>();
             rectTransform = GetComponent<RectTransform>();
 

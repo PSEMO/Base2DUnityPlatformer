@@ -20,9 +20,9 @@ namespace PSEMO.UI
         private Vector2 hiddenScale;
         private float hiddenAlpha;
         
-        private readonly Vector2 showPos = Vector2.zero;
-        private readonly Vector2 showScale = Vector2.one;
-        private readonly float showAlpha = 1.0f;
+        private Vector2 showPos;
+        private Vector3 showScale;
+        private float showAlpha;
 
         public void Init(TransitionSO transitionData, RectTransform rect, CanvasGroup cg)
         {
@@ -39,6 +39,10 @@ namespace PSEMO.UI
 
             hiddenScale = new Vector2(data.hiddenScale, data.hiddenScale);
             hiddenAlpha = data.hiddenAlpha;
+
+            showPos = rectTransform.anchoredPosition;
+            showScale = rectTransform.localScale;
+            showAlpha = canvasGroup.alpha;
         }
 
         public void Play(bool show, Action onComplete, SlideDirection overrideDirection = SlideDirection.Auto)
@@ -140,5 +144,9 @@ namespace PSEMO.UI
 
             return hiddenPos;
         }
+
+        public void PlayShow() => Play(true, null);
+
+        public void PlayHide() => Play(false, null);
     }
 }

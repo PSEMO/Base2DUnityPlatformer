@@ -10,6 +10,8 @@ namespace PSEMO.UI
         [SerializeField] private List<BasePanel> subPanels;
         [SerializeField] private List<TransitionTextCouple> textBoxes;
         [SerializeField] private int currentIndex = 0;
+        
+        private Vector2[] positions;
 
         void Awake()
         {
@@ -17,6 +19,16 @@ namespace PSEMO.UI
             {
                 Debug.LogError("There has to be an odd number of text boxes!");
                 Destroy(this);
+                return;
+            }
+
+            positions = new Vector2[textBoxes.Count];
+            for (int i = 0; i < textBoxes.Count; i++)
+            {
+                positions[i] = textBoxes[i].rectTransform.anchoredPosition;
+                textBoxes[i].transitionPlayer.Init(textBoxes[i].transitionData, textBoxes[i].rectTransform, textBoxes[i].canvasGroup);
+                textBoxes[i].transitionPlayer.UpdateShowPos();
+                textBoxes[i].transitionPlayer.ApplyInstant(true);
             }
         }
 
@@ -48,43 +60,61 @@ namespace PSEMO.UI
             UIEvents.OnInputLeft -= PreviousPanel;
         }
 
-        private void NextPanel()
+        private void NextPanel() => Navigate(true);
+        private void PreviousPanel() => Navigate(false);
+
+        private void Navigate(bool isNext)
         {
-            subPanels[currentIndex].Hide(SlideDirection.Left);
+            SlideDirection hideDir = isNext ? SlideDirection.Left : SlideDirection.Right;
+            SlideDirection showDir = isNext ? SlideDirection.Right : SlideDirection.Left;
 
-            currentIndex = (currentIndex + 1) % subPanels.Count;
+            subPanels[currentIndex].Hide(hideDir);
+            currentIndex = (currentIndex + (isNext ? 1 : -1) + subPanels.Count) % subPanels.Count;
+            subPanels[currentIndex].Show(showDir);
 
-            subPanels[currentIndex].Show(SlideDirection.Right);
-            
-            UpdateUI();
+            //wrap around the last object within the list
+            int targetIdx = isNext ? textBoxes.Count - 1 : 0;
+            int removeIdx = isNext ? 0 : textBoxes.Count - 1;
+            var wrappedBox = textBoxes[removeIdx];
+            textBoxes.RemoveAt(removeIdx);
+            textBoxes.Insert(targetIdx, wrappedBox);
+
+            for (int i = 0; i < textBoxes.Count; i++)
+            {
+                var box = textBoxes[i];
+                var player = box.transitionPlayer;
+
+                if (i == targetIdx)
+                {
+                    //play anim till it dissappears then reset its position to other side and
+                    //play an anim again to show it 
+                    player.Play(false, () => 
+                    {
+                        UpdateTextBoxText(box, i);
+                        player.UpdateShowPos(positions[i]); 
+                        player.ApplyInstant(false, showDir);
+                        player.Play(true, null, showDir, 2); 
+                    }, hideDir, 2);
+                }
+                else
+                {
+                    player.PlayToPosAndShow(positions[i], () => player.UpdateShowPos());
+                }
+            }
         }
 
-        private void PreviousPanel()
+        private void UpdateTextBoxText(TransitionTextCouple box, int index)
         {
-            subPanels[currentIndex].Hide(SlideDirection.Right);
-
-            currentIndex = (currentIndex - 1 + subPanels.Count) % subPanels.Count;
-
-            subPanels[currentIndex].Show(SlideDirection.Left);
-
-            UpdateUI();
+            int panelIndex = (currentIndex + index - textBoxes.Count / 2) % subPanels.Count;
+            if (panelIndex < 0) panelIndex += subPanels.Count;
+            box.tmp.text = subPanels[panelIndex].DisplayName;
         }
 
         private void UpdateUI()
         {
-            int middleIndex = textBoxes.Count / 2;
-
             for (int i = 0; i < textBoxes.Count; i++)
             {
-                int offset = i - middleIndex;
-                int panelIndex = (currentIndex + offset) % subPanels.Count;
-                
-                if (panelIndex < 0)
-                {
-                    panelIndex += subPanels.Count;
-                }
-
-                textBoxes[i].text.text = subPanels[panelIndex].DisplayName;
+                UpdateTextBoxText(textBoxes[i], i);
             }
         }
     }

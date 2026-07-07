@@ -2030,7 +2030,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -15788,7 +15788,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -21282,18 +21282,18 @@ MonoBehaviour:
   - {fileID: 1073148547432741150}
   textBoxes:
   - transitionPlayer: {fileID: 7929645270907268562}
-    text: {fileID: 7388294663870727917}
-    transitionData: {fileID: 11400000, guid: f6761a867ba95cad4ad3c02c1e534397, type: 2}
+    tmp: {fileID: 7388294663870727917}
+    transitionData: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
     canvasGroup: {fileID: 596545495070756815}
     rectTransform: {fileID: 1616079466567729366}
   - transitionPlayer: {fileID: 5614306513305186672}
-    text: {fileID: 1736445026609248674}
-    transitionData: {fileID: 11400000, guid: f6761a867ba95cad4ad3c02c1e534397, type: 2}
+    tmp: {fileID: 1736445026609248674}
+    transitionData: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
     canvasGroup: {fileID: 6012721061833415776}
     rectTransform: {fileID: 8700796590575215294}
   - transitionPlayer: {fileID: 1810041573130536948}
-    text: {fileID: 3361600307783733833}
-    transitionData: {fileID: 11400000, guid: f6761a867ba95cad4ad3c02c1e534397, type: 2}
+    tmp: {fileID: 3361600307783733833}
+    transitionData: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
     canvasGroup: {fileID: 4770843039872203977}
     rectTransform: {fileID: 1953128343161720689}
   currentIndex: 1

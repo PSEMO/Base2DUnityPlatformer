@@ -8,7 +8,7 @@ namespace PSEMO.UI
     public struct TransitionTextCouple
     {
         public UITransitionPlayer transitionPlayer;
-        public TextMeshProUGUI text;
+        public TextMeshProUGUI tmp;
         public TransitionSO transitionData;
         public CanvasGroup canvasGroup;
         public RectTransform rectTransform;

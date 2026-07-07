@@ -45,7 +45,7 @@ namespace PSEMO.UI
             showAlpha = canvasGroup.alpha;
         }
 
-        public void Play(bool show, Action onComplete, SlideDirection overrideDirection = SlideDirection.Auto)
+        public void Play(bool show, Action onComplete, SlideDirection overrideDirection = SlideDirection.Auto, float timeDivider = 1)
         {
             StopAllCoroutines();
 
@@ -55,7 +55,8 @@ namespace PSEMO.UI
                     TransitionRoutine(onComplete,
                     GetHiddenPos(overrideDirection), showPos,
                     hiddenScale, showScale,
-                    hiddenAlpha, showAlpha));
+                    hiddenAlpha, showAlpha,
+                    duration / timeDivider));
             }
             else
             {
@@ -63,7 +64,8 @@ namespace PSEMO.UI
                     TransitionRoutine(onComplete,
                     showPos, GetHiddenPos(overrideDirection),
                     showScale, hiddenScale,
-                    showAlpha, hiddenAlpha));
+                    showAlpha, hiddenAlpha,
+                    duration / timeDivider));
             }
         }
 
@@ -88,7 +90,8 @@ namespace PSEMO.UI
         private IEnumerator TransitionRoutine(Action onComplete,
             Vector2 startPos, Vector2 endPos,
             Vector3 startScale, Vector3 endScale,
-            float startAlpha, float endAlpha)
+            float startAlpha, float endAlpha,
+            float duration)
         {
             float elapsed = 0f;
 
@@ -149,7 +152,7 @@ namespace PSEMO.UI
 
         public void PlayHide() => Play(false, null);
 
-        public void PlayCustom(Vector2 targetPos, Vector3 targetScale, float targetAlpha, Action onComplete = null)
+        public void PlayCustom(Vector2 targetPos, Vector3 targetScale, float targetAlpha, Action onComplete = null, float timeDivider = 1)
         {
             StopAllCoroutines();
 
@@ -157,19 +160,24 @@ namespace PSEMO.UI
             Vector3 startScale = rectTransform.localScale;
             float startAlpha = canvasGroup.alpha;
 
-            StartCoroutine(TransitionRoutine(onComplete, startPos, targetPos, startScale, targetScale, startAlpha, targetAlpha));
+            StartCoroutine(TransitionRoutine(onComplete, startPos, targetPos, startScale, targetScale, startAlpha, targetAlpha, duration / timeDivider));
         }
 
-        public void PlayToPos(Vector2 targetPos, Action onComplete = null)
+        public void PlayToPos(Vector2 targetPos, Action onComplete = null, float timeDivider = 1)
         {
             float targetAlpha = canvasGroup.alpha;
             Vector3 targetScale = rectTransform.localScale;
-            PlayCustom(targetPos, targetScale, targetAlpha, onComplete);
+            PlayCustom(targetPos, targetScale, targetAlpha, onComplete, timeDivider);
         }
 
-        public void PlayToTransform(RectTransform target)
+        public void PlayToTransform(RectTransform target, float timeDivider = 1)
         {
-            PlayToPos(target.anchoredPosition);
+            PlayToPos(target.anchoredPosition, null, timeDivider);
+        }
+
+        public void PlayToPosAndShow(Vector2 targetPos, Action onComplete = null, float timeDivider = 1)
+        {
+            PlayCustom(targetPos, showScale, showAlpha, onComplete, timeDivider);
         }
 
         public void UpdateShowState()
@@ -177,6 +185,16 @@ namespace PSEMO.UI
             showPos = rectTransform.anchoredPosition;
             showScale = rectTransform.localScale;
             showAlpha = canvasGroup.alpha;
+        }
+
+        public void UpdateShowPos()
+        {
+            showPos = rectTransform.anchoredPosition;
+        }
+
+        public void UpdateShowPos(Vector2 newShowPosition)
+        {
+            showPos = newShowPosition;
         }
     }
 }

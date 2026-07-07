@@ -34,23 +34,7 @@ namespace PSEMO.Core.StateMachine
 
             GetOrAddNode(state);
             
-            var previousState = current?.State;
-            var nextNode = Nodes[state.GetType()];
-            var nextState = nextNode.State;
-            
-            if (previousState == null)
-            {
-                nextState.OnEnter();
-            }
-            else
-            {
-                previousState.OnExit(nextState);
-                nextState.OnEnter(previousState);
-            }
-
-            current = nextNode;
-            
-            OnStateChanged?.Invoke(previousState, nextState);
+            ChangeState(state);
         }
 
         private void ChangeState(IState state)

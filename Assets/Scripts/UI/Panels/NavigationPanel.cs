@@ -8,12 +8,17 @@ namespace PSEMO.UI
     public class NavigationPanel : MonoBehaviour
     {
         [SerializeField] private List<BasePanel> subPanels;
-
-        [SerializeField] private TextMeshProUGUI leftText;
-        [SerializeField] private TextMeshProUGUI middleText;
-        [SerializeField] private TextMeshProUGUI rightText;
-
+        [SerializeField] private List<TransitionTextCouple> textBoxes;
         [SerializeField] private int currentIndex = 0;
+
+        void Awake()
+        {
+            if (textBoxes.Count % 2 == 0)
+            {
+                Debug.LogError("There has to be an odd number of text boxes!");
+                Destroy(this);
+            }
+        }
 
         private void OnEnable()
         {
@@ -67,12 +72,20 @@ namespace PSEMO.UI
 
         private void UpdateUI()
         {
-            int leftIndex = (currentIndex - 1 + subPanels.Count) % subPanels.Count;
-            int rightIndex = (currentIndex + 1) % subPanels.Count;
+            int middleIndex = textBoxes.Count / 2;
 
-            leftText.text = subPanels[leftIndex].DisplayName;
-            middleText.text = subPanels[currentIndex].DisplayName;
-            rightText.text = subPanels[rightIndex].DisplayName;
+            for (int i = 0; i < textBoxes.Count; i++)
+            {
+                int offset = i - middleIndex;
+                int panelIndex = (currentIndex + offset) % subPanels.Count;
+                
+                if (panelIndex < 0)
+                {
+                    panelIndex += subPanels.Count;
+                }
+
+                textBoxes[i].text.text = subPanels[panelIndex].DisplayName;
+            }
         }
     }
 }

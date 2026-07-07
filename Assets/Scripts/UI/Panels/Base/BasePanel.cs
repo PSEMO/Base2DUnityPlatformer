@@ -54,8 +54,28 @@ namespace PSEMO.UI
             SetInteraction(false);
         }
 
-        public abstract void Show(SlideDirection overrideDirection = SlideDirection.Auto);
-        public abstract void Hide(SlideDirection overrideDirection = SlideDirection.Auto);
+        public virtual void Show(SlideDirection overrideDirection = SlideDirection.Auto)
+        {
+            isOpen = true;
+
+            gameObject.SetActive(true);
+
+            StartTransition(true, () => SetInteraction(true), overrideDirection);
+        }
+
+        public virtual void Hide(SlideDirection overrideDirection = SlideDirection.Auto)
+        {
+            isOpen = false;
+
+            if (gameObject.activeInHierarchy)
+            {
+                StartTransition(false, () => gameObject.SetActive(false), overrideDirection);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
 
         protected void StartTransition(bool show, Action onComplete, SlideDirection overrideDirection = SlideDirection.Auto)
         {

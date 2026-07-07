@@ -6,6 +6,6 @@ namespace PSEMO.UI
     {
         [SerializeField] string subPanelDisplayName;
 
-        public string DisplayName => subPanelDisplayName;
+        public override string DisplayName => subPanelDisplayName;
     }
 }

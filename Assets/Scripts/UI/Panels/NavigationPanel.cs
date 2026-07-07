@@ -7,7 +7,7 @@ namespace PSEMO.UI
 {
     public class NavigationPanel : MonoBehaviour
     {
-        [SerializeField] private List<SubPanel> subPanels;
+        [SerializeField] private List<BasePanel> subPanels;
 
         [SerializeField] private TextMeshProUGUI leftText;
         [SerializeField] private TextMeshProUGUI middleText;

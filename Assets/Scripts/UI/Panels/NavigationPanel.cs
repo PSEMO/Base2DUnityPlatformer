@@ -97,8 +97,8 @@ namespace PSEMO.UI
                 {
                     int tempI = i;
 
-                    //play anim till it dissappears then reset its position to other side and
-                    //play an anim again to show it 
+                    //play anim till it dissappears to side then reset its position to other side and
+                    //play an anim again to show it and move it towards the new right position
                     player.Play(false, () => 
                     {
                         UpdateTextBoxText(box, tempI);

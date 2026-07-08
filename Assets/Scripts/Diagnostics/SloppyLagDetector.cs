@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 namespace PSEMO.Diagnostic
 {
-#if UNITY_EDITOR
-    
     /*
     OnSceneLoaded measures from:
         Very begining of the last scenes death (before OnDestroy and stuff)
@@ -17,6 +15,7 @@ namespace PSEMO.Diagnostic
 
     public class SloppyLagDetector : MonoBehaviour
     {
+#if UNITY_EDITOR
         public static SloppyLagDetector Instance { get; private set; }
 
         private float loadStartTime;
@@ -71,6 +70,6 @@ namespace PSEMO.Diagnostic
                 Debug.LogWarning($"[SloppyLagDetector] LAG SPIKE DETECTED: Frame took {Time.deltaTime * 1000f:F2} ms!");
             }
         }
-    }
 #endif
+    }
 }

@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace PSEMO.GizmosAsAComp
 {
-#if UNITY_EDITOR
     public class CircleGizmos : MonoBehaviour
     {
+#if UNITY_EDITOR
         [SerializeField] string label = "";
         [SerializeField] float circleRadius = 0.1f;
 
@@ -18,6 +18,6 @@ namespace PSEMO.GizmosAsAComp
         {
             UnityEditor.Handles.Label(transform.position + Vector3.up * 0.2f, text);
         }
-    }
 #endif
+    }
 }

@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace PSEMO.GizmosAsAComp
 {
-#if UNITY_EDITOR
     [RequireComponent(typeof(BoxCollider2D))]
     public class BoxGizmos : MonoBehaviour
     {
+#if UNITY_EDITOR
         [SerializeField] private Color boxColor = new(0, 0, 0, 0.3f);
 
         BoxCollider2D boxCollider;
@@ -30,6 +30,6 @@ namespace PSEMO.GizmosAsAComp
                 Gizmos.color = oldColor;
             }
         }
-    }
 #endif
+    }
 }

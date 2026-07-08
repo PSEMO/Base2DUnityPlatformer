@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9bceb5b2d2e3ff92ae97a1041712fe2, type: 3}
-  m_Name: Trans
+  m_Name: SubTrans
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.TransitionSO
   transitionType: -1
   duration: 0.25
   useSmoothing: 1
   slideDirection: 4
   slideDistance: 1
-  hiddenScale: 0.15
-  hiddenAlpha: 0.2
+  hiddenScale: 0.45
+  hiddenAlpha: 0.6

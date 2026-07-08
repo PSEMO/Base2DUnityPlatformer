@@ -17,5 +17,5 @@ MonoBehaviour:
   useSmoothing: 1
   slideDirection: 4
   slideDistance: 1
-  hiddenScale: 0.15
-  hiddenAlpha: 0.2
+  hiddenScale: 0.6
+  hiddenAlpha: 0.75

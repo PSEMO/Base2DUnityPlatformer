@@ -3061,7 +3061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
-  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
+  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
   Type: 3
 --- !u!114 &1261525166997244894
 MonoBehaviour:
@@ -8210,7 +8210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
-  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
+  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
   Type: 1
 --- !u!114 &5638581305573305501
 MonoBehaviour:
@@ -14506,7 +14506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.Panel
-  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
+  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
   Type: 10
 --- !u!114 &4038166860354673828
 MonoBehaviour:

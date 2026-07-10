@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using PSEMO.Core.Management;
 using PSEMO.Core.Persistence;
 using PSEMO.Events;
+using System;
 
 namespace PSEMO.UI
 {
@@ -13,9 +14,20 @@ namespace PSEMO.UI
         [Header("UI References")]
         [SerializeField] private Button ContinueBtnObj;
 
+        [Serializable]
+        public struct LevelButton
+        {
+            public Button button;
+            public int sceneIndex;
+        }
+
+        [Header("Level Selection")]
+        [SerializeField] private LevelButton[] levelButtons;
+
         private void Start()
         {
             UpdateContinueButton();
+            UpdateLevelButtons();
         }
 
         void OnEnable()
@@ -34,11 +46,26 @@ namespace PSEMO.UI
                 ContinueBtnObj.interactable = PersistenceManager.HasSceneData();
         }
 
+        private void UpdateLevelButtons()
+        {
+            if (levelButtons.Length == 0)
+                return;
+                
+            int furthestIndex = PersistenceManager.FurthestAvailableSceneIndex();
+            int maxUnlockedIndex = Mathf.Max(furthestIndex, SceneData.firstGameSceneIndex);
+
+            foreach (var lb in levelButtons)
+            {
+                lb.button.interactable = lb.sceneIndex <= maxUnlockedIndex;
+            }
+        }
+
         public void SelectSaveSlotBtn(string slotName)
         {
             PersistenceEvents.InvokeSaveSlotChanged(slotName);
 
             UpdateContinueButton();
+            UpdateLevelButtons();
         }
 
         private void Quit()
@@ -58,6 +85,13 @@ namespace PSEMO.UI
             PersistenceEvents.InvokeGameSaveDelete();
 
             SceneLoader.Load(SceneData.firstGameSceneIndex);
+        }
+
+        public void SelectLevelBtn(int sceneIndex)
+        {
+            PersistenceEvents.InvokeSceneSaveDelete(sceneIndex);
+
+            SceneLoader.Load(sceneIndex);
         }
 
         public void QuitBtn()

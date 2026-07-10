@@ -16,6 +16,14 @@ PrefabInstance:
       propertyPath: ContinueBtnObj
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2188454389747222672, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
+      propertyPath: levelButtons.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188454389747222672, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
+      propertyPath: levelButtons.Array.data[0].sceneIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4438310716639549597, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
       propertyPath: m_Pivot.x
       value: 0

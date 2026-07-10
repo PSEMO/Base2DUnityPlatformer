@@ -11,6 +11,9 @@ namespace PSEMO.Events
         public static event Action OnGameSaveDelete;
         public static void InvokeGameSaveDelete() => OnGameSaveDelete?.Invoke();
 
+        public static event Action<int> OnSceneSaveDelete;
+        public static void InvokeSceneSaveDelete(int sceneIndex) => OnSceneSaveDelete?.Invoke(sceneIndex);
+
         public static event Action<string> OnCreateEmptySceneFile;
         public static void InvokeCreateEmptySceneFile(string sceneName) => OnCreateEmptySceneFile?.Invoke(sceneName);
 

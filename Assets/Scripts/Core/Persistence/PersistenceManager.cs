@@ -60,6 +60,7 @@ namespace PSEMO.Core.Persistence
         {
             PersistenceEvents.OnGameSave += SaveTheGame;
             PersistenceEvents.OnGameSaveDelete += DeleteGameData;
+            PersistenceEvents.OnSceneSaveDelete += DeleteSceneData;
             PersistenceEvents.OnCreateEmptySceneFile += CreateEmptySceneFile;
             PersistenceEvents.OnPersistsObjectAdded += AddPersistentObj;
             PersistenceEvents.OnPersistsObjectRemoved += RemovePersistentObj;
@@ -70,6 +71,7 @@ namespace PSEMO.Core.Persistence
         {
             PersistenceEvents.OnGameSave -= SaveTheGame;
             PersistenceEvents.OnGameSaveDelete -= DeleteGameData;
+            PersistenceEvents.OnSceneSaveDelete -= DeleteSceneData;
             PersistenceEvents.OnCreateEmptySceneFile -= CreateEmptySceneFile;
             PersistenceEvents.OnPersistsObjectAdded -= AddPersistentObj;
             PersistenceEvents.OnPersistsObjectRemoved -= RemovePersistentObj;
@@ -166,6 +168,30 @@ namespace PSEMO.Core.Persistence
                     {
                         File.Delete(file);
                         Debug.Log($"Scene game data deleted: {file}");
+                    }
+                });
+            }
+            finally
+            {
+                UIEvents.InvokeLoadingEnd();
+            }
+        }
+
+        async void DeleteSceneData(int sceneIndex)
+        {
+            UIEvents.InvokeLoadingStart();
+            try
+            {
+                string scenePathName = SceneUtility.GetScenePathByBuildIndex(sceneIndex);
+                string sceneName = Path.GetFileNameWithoutExtension(scenePathName);
+                string scenePath = GetSceneFilePath(sceneName);
+
+                await RunTask(() => 
+                {
+                    if (File.Exists(scenePath))
+                    {
+                        File.Delete(scenePath);
+                        Debug.Log($"Scene game data deleted: {scenePath}");
                     }
                 });
             }

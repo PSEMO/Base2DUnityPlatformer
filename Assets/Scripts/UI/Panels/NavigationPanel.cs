@@ -25,8 +25,8 @@ namespace PSEMO.UI
             positions = new Vector2[Players.Count];
             for (int i = 0; i < Players.Count; i++)
             {
-                positions[i] = Players[i].rectTransform.anchoredPosition;
                 Players[i].Init();
+                positions[i] = Players[i].rectTransform.anchoredPosition;
                 Players[i].UpdateShowPos();
                 if (i == Players.Count / 2)
                 {

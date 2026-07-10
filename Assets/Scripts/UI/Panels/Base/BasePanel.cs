@@ -39,17 +39,13 @@ namespace PSEMO.UI
 
             transitionPlayer.Init();
             transitionPlayer.ApplyInstant(false);
-            
-            SetInteraction(false);
         }
 
         public virtual void Show(SlideDirection overrideDirection = SlideDirection.Auto)
         {
             isOpen = true;
 
-            gameObject.SetActive(true);
-
-            StartTransition(true, () => SetInteraction(true), overrideDirection);
+            StartTransition(true, null, overrideDirection);
         }
 
         public virtual void Hide(SlideDirection overrideDirection = SlideDirection.Auto)
@@ -58,17 +54,16 @@ namespace PSEMO.UI
 
             if (gameObject.activeInHierarchy)
             {
-                StartTransition(false, () => gameObject.SetActive(false), overrideDirection);
+                StartTransition(false, null, overrideDirection);
             }
             else
             {
-                gameObject.SetActive(false);
+                transitionPlayer.ApplyInstant(false, overrideDirection);
             }
         }
 
         protected void StartTransition(bool show, Action onComplete, SlideDirection overrideDirection = SlideDirection.Auto)
         {
-            SetInteraction(false);
             transitionPlayer.Play(show, onComplete, overrideDirection);
         }
 
@@ -76,9 +71,6 @@ namespace PSEMO.UI
         {
             isOpen = true;
 
-            gameObject.SetActive(true);
-            SetInteraction(true);
-            
             transitionPlayer.ApplyInstant(true);
         }
 
@@ -86,16 +78,7 @@ namespace PSEMO.UI
         {
             isOpen = false;
         
-            gameObject.SetActive(false);
-            SetInteraction(false);
-            
             transitionPlayer.ApplyInstant(false, overrideDirection);
-        }
-
-        protected void SetInteraction(bool setTo)
-        {
-            canvasGroup.interactable = setTo;
-            canvasGroup.blocksRaycasts = setTo;
         }
     }
 }

@@ -37,6 +37,9 @@ namespace PSEMO.UI
             if (animateSlide) rectTransform.anchoredPosition = endPos;
             if (animateScale) rectTransform.localScale = endScale;
             if (animateFade) canvasGroup.alpha = endAlpha;
+
+            gameObject.SetActive(show);
+            SetInteraction(show);
         }
 
         public void PlayAnim(Action onComplete,
@@ -47,10 +50,15 @@ namespace PSEMO.UI
             bool useSmoothing, bool animateSlide, bool animateScale, bool animateFade,
             bool show)
         {
-            StartCoroutine(TransitionRoutine(onComplete, startPos, endPos, startScale, endScale, startAlpha, endAlpha, duration, useSmoothing, animateSlide, animateScale, animateFade));
+            StopAllCoroutines();
+            
+            gameObject.SetActive(true);
+            SetInteraction(false);
+
+            StartCoroutine(TransitionRoutine(onComplete, startPos, endPos, startScale, endScale, startAlpha, endAlpha, duration, useSmoothing, animateSlide, animateScale, animateFade, show));
         }
 
-        private IEnumerator TransitionRoutine(Action onComplete, Vector2 startPos, Vector2 endPos, Vector3 startScale, Vector3 endScale, float startAlpha, float endAlpha, float duration, bool useSmoothing, bool animateSlide, bool animateScale, bool animateFade)
+        private IEnumerator TransitionRoutine(Action onComplete, Vector2 startPos, Vector2 endPos, Vector3 startScale, Vector3 endScale, float startAlpha, float endAlpha, float duration, bool useSmoothing, bool animateSlide, bool animateScale, bool animateFade, bool show)
         {
             float elapsed = 0f;
 
@@ -78,7 +86,22 @@ namespace PSEMO.UI
             if (animateScale) rectTransform.localScale = endScale;
             if (animateFade) canvasGroup.alpha = endAlpha;
 
+            if (show)
+            {
+                SetInteraction(true);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+
             onComplete?.Invoke();
+        }
+
+        public void SetInteraction(bool setTo)
+        {
+            canvasGroup.interactable = setTo;
+            canvasGroup.blocksRaycasts = setTo;
         }
     }
 }

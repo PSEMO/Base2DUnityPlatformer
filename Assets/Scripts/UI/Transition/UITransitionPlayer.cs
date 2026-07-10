@@ -65,8 +65,6 @@ namespace PSEMO.UI
 
         public void Play(bool show, Action onComplete, SlideDirection overrideDirection = SlideDirection.Auto, float timeDivider = 1)
         {
-            StopAllCoroutines();
-
             if (show)
             {
                 animator.PlayAnim(onComplete,

@@ -1,19 +1,13 @@
-using System.Collections;
 using UnityEngine;
-using System;
 
 namespace PSEMO.UI
 {
-    [RequireComponent(typeof(CanvasGroup), typeof(RectTransform), typeof(UITransitionPlayer))]
+    [RequireComponent(typeof(PanelTransitionPlayer))]
     public abstract class BasePanel : MonoBehaviour
     {
-        [SerializeField] protected TransitionSO data;
-
         private bool isInit = false;
 
-        protected CanvasGroup canvasGroup;
-        protected RectTransform rectTransform;
-        protected UITransitionPlayer transitionPlayer;
+        protected PanelTransitionPlayer transitionPlayer;
 
         protected bool isOpen;
         [HideInInspector] public bool IsOpen
@@ -27,72 +21,41 @@ namespace PSEMO.UI
         {
             if (isInit)
                 return;
-
-            isInit = true;
-
-            canvasGroup = GetComponent<CanvasGroup>();
-            rectTransform = GetComponent<RectTransform>();
-            transitionPlayer = GetComponent<UITransitionPlayer>();
-
-            transitionPlayer.Init(data, rectTransform, canvasGroup);
-            transitionPlayer.ApplyInstant(false);
+            else
+                isInit = true;
             
-            SetInteraction(false);
+            transitionPlayer = GetComponent<PanelTransitionPlayer>();
+
+            transitionPlayer.Init();
+            transitionPlayer.PlayInstant(false);
         }
 
         public virtual void Show(SlideDirection overrideDirection = SlideDirection.Auto)
         {
             isOpen = true;
 
-            gameObject.SetActive(true);
-
-            StartTransition(true, () => SetInteraction(true), overrideDirection);
+            transitionPlayer.Play(true, null, overrideDirection);
         }
 
         public virtual void Hide(SlideDirection overrideDirection = SlideDirection.Auto)
         {
             isOpen = false;
 
-            if (gameObject.activeInHierarchy)
-            {
-                StartTransition(false, () => gameObject.SetActive(false), overrideDirection);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
-        }
-
-        protected void StartTransition(bool show, Action onComplete, SlideDirection overrideDirection = SlideDirection.Auto)
-        {
-            SetInteraction(false);
-            transitionPlayer.Play(show, onComplete, overrideDirection);
+            transitionPlayer.Play(false, null, overrideDirection);
         }
 
         public void ShowInstant()
         {
             isOpen = true;
-
-            gameObject.SetActive(true);
-            SetInteraction(true);
             
-            transitionPlayer.ApplyInstant(true);
+            transitionPlayer.PlayInstant(true);
         }
 
-        public void HideInstant(SlideDirection overrideDirection = SlideDirection.Auto)
+        public void HideInstant()
         {
             isOpen = false;
-        
-            gameObject.SetActive(false);
-            SetInteraction(false);
             
-            transitionPlayer.ApplyInstant(false, overrideDirection);
-        }
-
-        protected void SetInteraction(bool setTo)
-        {
-            canvasGroup.interactable = setTo;
-            canvasGroup.blocksRaycasts = setTo;
+            transitionPlayer.PlayInstant(false);
         }
     }
 }

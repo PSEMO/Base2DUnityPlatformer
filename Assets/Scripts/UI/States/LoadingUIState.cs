@@ -6,7 +6,8 @@ namespace PSEMO.UI
 
         private static readonly PanelType[] _activePanels = new[]
         {
-            PanelType.Loading
+            PanelType.Loading,
+            PanelType.LoadingBg
         };
 
         protected override PanelType[] ActivePanels => _activePanels;

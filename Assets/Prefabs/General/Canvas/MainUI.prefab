@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4654177792162825894, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
       propertyPath: panels.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4654177792162825894, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
       propertyPath: 'panels.Array.data[2]'
@@ -116,6 +116,10 @@ PrefabInstance:
       propertyPath: 'panels.Array.data[6]'
       value: 
       objectReference: {fileID: 762418561465641709}
+    - target: {fileID: 4654177792162825894, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
+      propertyPath: 'panels.Array.data[7]'
+      value: 
+      objectReference: {fileID: 3424485580660336708}
     - target: {fileID: 4654177792162825894, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
       propertyPath: 'panels.Array.data[8]'
       value: 
@@ -145,6 +149,17 @@ MonoBehaviour:
 --- !u!114 &1572054344698279477 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2799165307578194608, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
+  m_PrefabInstance: {fileID: 3677660909424225413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
+--- !u!114 &3424485580660336708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2058033297260725441, guid: 4a10b9edf6507cb4dba01a5464d291e8, type: 3}
   m_PrefabInstance: {fileID: 3677660909424225413}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

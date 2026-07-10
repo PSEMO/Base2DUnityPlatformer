@@ -1,14 +1,18 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace PSEMO.UI
 {
+    [RequireComponent(typeof(RectTransform), typeof(CanvasGroup), typeof(UIAnimator))]
     public class UITransitionPlayer : MonoBehaviour
     {
-        private TransitionSO data;
+        [SerializeField] private TransitionSO data;
         private RectTransform rectTransform;
         private CanvasGroup canvasGroup;
+
+        private UIAnimator animator;
 
         private bool hasFade;
         private bool hasSlide;
@@ -24,11 +28,25 @@ namespace PSEMO.UI
         private Vector3 showScale;
         private float showAlpha;
 
-        public void Init(TransitionSO transitionData, RectTransform rect, CanvasGroup cg)
+        private bool isInit = false;
+
+        void Awake()
         {
-            data = transitionData;
-            rectTransform = rect;
-            canvasGroup = cg;
+            Init();
+        }
+
+        public void Init()
+        {
+            if(isInit)
+                return;
+            else
+                isInit = true;
+
+            rectTransform = GetComponent<RectTransform>();
+            canvasGroup = GetComponent<CanvasGroup>();
+
+            animator = GetComponent<UIAnimator>();
+            animator.Init();
 
             hasFade = (data.transitionType & TransitionType.Fade) != 0;
             hasSlide = (data.transitionType & TransitionType.Slide) != 0;
@@ -51,75 +69,36 @@ namespace PSEMO.UI
 
             if (show)
             {
-                StartCoroutine(
-                    TransitionRoutine(onComplete,
+                animator.PlayAnim(onComplete,
                     GetHiddenPos(overrideDirection), showPos,
                     hiddenScale, showScale,
                     hiddenAlpha, showAlpha,
-                    duration / timeDivider));
+                    duration / timeDivider,
+                    useSmoothing, hasSlide, hasScale, hasFade,
+                    true);
             }
             else
             {
-                StartCoroutine(
-                    TransitionRoutine(onComplete,
+                animator.PlayAnim(onComplete,
                     showPos, GetHiddenPos(overrideDirection),
                     showScale, hiddenScale,
                     showAlpha, hiddenAlpha,
-                    duration / timeDivider));
+                    duration / timeDivider,
+                    useSmoothing, hasSlide, hasScale, hasFade,
+                    false);
             }
         }
 
         public void ApplyInstant(bool show, SlideDirection overrideDirection = SlideDirection.Auto)
         {
-            StopAllCoroutines();
-
             if (show)
             {
-                if (hasSlide) rectTransform.anchoredPosition = showPos;
-                if (hasScale) rectTransform.localScale = showScale;
-                if (hasFade) canvasGroup.alpha = showAlpha;
+                animator.PlayInstant(showPos, showScale, showAlpha, hasSlide, hasScale, hasFade, true);
             }
             else
             {
-                if (hasSlide) rectTransform.anchoredPosition = GetHiddenPos(overrideDirection);
-                if (hasScale) rectTransform.localScale = hiddenScale;
-                if (hasFade) canvasGroup.alpha = hiddenAlpha;
+                animator.PlayInstant(GetHiddenPos(overrideDirection), hiddenScale, hiddenAlpha, hasSlide, hasScale, hasFade, false);
             }
-        }
-
-        private IEnumerator TransitionRoutine(Action onComplete,
-            Vector2 startPos, Vector2 endPos,
-            Vector3 startScale, Vector3 endScale,
-            float startAlpha, float endAlpha,
-            float duration)
-        {
-            float elapsed = 0f;
-
-            if (duration > 0f)
-            {
-                while (elapsed < duration)
-                {
-                    elapsed += Time.unscaledDeltaTime;
-                    float t = Mathf.Clamp01(elapsed / duration);
-
-                    if (useSmoothing)
-                    {
-                        t = Mathf.SmoothStep(0, 1, t);
-                    }
-
-                    if (hasSlide) rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
-                    if (hasScale) rectTransform.localScale = Vector3.Lerp(startScale, endScale, t);
-                    if (hasFade) canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
-
-                    yield return null;
-                }
-            }
-
-            if (hasSlide) rectTransform.anchoredPosition = endPos;
-            if (hasScale) rectTransform.localScale = endScale;
-            if (hasFade) canvasGroup.alpha = endAlpha;
-
-            onComplete?.Invoke();
         }
 
         private Vector2 GetHiddenPos(SlideDirection overrideDirection = SlideDirection.Auto)
@@ -154,13 +133,11 @@ namespace PSEMO.UI
 
         public void PlayCustom(Vector2 targetPos, Vector3 targetScale, float targetAlpha, Action onComplete = null, float timeDivider = 1)
         {
-            StopAllCoroutines();
-
             Vector2 startPos = rectTransform.anchoredPosition;
             Vector3 startScale = rectTransform.localScale;
             float startAlpha = canvasGroup.alpha;
 
-            StartCoroutine(TransitionRoutine(onComplete, startPos, targetPos, startScale, targetScale, startAlpha, targetAlpha, duration / timeDivider));
+            animator.PlayAnim(onComplete, startPos, targetPos, startScale, targetScale, startAlpha, targetAlpha, duration / timeDivider, useSmoothing, hasSlide, hasScale, hasFade, true);
         }
 
         public void PlayToPos(Vector2 targetPos, Action onComplete = null, float timeDivider = 1)

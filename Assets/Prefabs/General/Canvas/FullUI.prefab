@@ -1673,6 +1673,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3905286100450158622}
+  - component: {fileID: 981721700314881608}
   - component: {fileID: 1304003743722345877}
   - component: {fileID: 2799165307578194608}
   - component: {fileID: 113293641519140721}
@@ -1707,6 +1708,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &981721700314881608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490881972321607366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &1304003743722345877
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1741,6 +1754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
 --- !u!225 &3983687958309765325
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1914,6 +1928,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1616079466567729366}
+  - component: {fileID: 4612345935013165146}
   - component: {fileID: 313444480342911711}
   - component: {fileID: 7929645270907268562}
   - component: {fileID: 596545495070756815}
@@ -1944,6 +1959,18 @@ RectTransform:
   m_AnchoredPosition: {x: -450, y: 0}
   m_SizeDelta: {x: 450, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4612345935013165146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557534645303481681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &313444480342911711
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1964,6 +1991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
 --- !u!225 &596545495070756815
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2077,6 +2105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6017078283481409353}
+  - component: {fileID: 7217683469008430028}
   - component: {fileID: 615234877640316115}
   - component: {fileID: 882768235924237354}
   - component: {fileID: 6619411413182800262}
@@ -2112,6 +2141,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7217683469008430028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564335041154067819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &615234877640316115
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2161,6 +2202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
 --- !u!225 &7160744864862439392
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3003,6 +3045,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4093200931416672168}
+  - component: {fileID: 438483434367289329}
   - component: {fileID: 1802367692085412067}
   - component: {fileID: 4863148976856176336}
   - component: {fileID: 1261525166997244894}
@@ -3041,6 +3084,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &438483434367289329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949243937998645169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &1802367692085412067
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3075,6 +3130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
 --- !u!114 &1025363591098751592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3357,6 +3413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5285878689843786252}
+  - component: {fileID: 3757723570392294223}
   - component: {fileID: 8222386205478592709}
   - component: {fileID: 4071901483403920496}
   - component: {fileID: 8602796313007326754}
@@ -3388,6 +3445,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3757723570392294223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159787225133125425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &8222386205478592709
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3422,6 +3491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
 --- !u!114 &567773378722861635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8161,6 +8231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1407347085577279659}
+  - component: {fileID: 2117626685019081248}
   - component: {fileID: 2316464803365388858}
   - component: {fileID: 3565832804084969075}
   - component: {fileID: 5638581305573305501}
@@ -8192,6 +8263,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2117626685019081248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092201706072598167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &2316464803365388858
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8226,6 +8309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
 --- !u!225 &4467197205793204346
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10877,6 +10961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7788669317000479105}
+  - component: {fileID: 8526050480223991983}
   - component: {fileID: 3243994216863396049}
   - component: {fileID: 1777725976049237965}
   - component: {fileID: 4247987286444132217}
@@ -10920,6 +11005,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8526050480223991983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3856312281037068163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!114 &3243994216863396049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10946,6 +11043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: f6761a867ba95cad4ad3c02c1e534397, type: 2}
 --- !u!225 &4247987286444132217
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -12390,6 +12488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7434408298449016735}
+  - component: {fileID: 7282010687810145221}
   - component: {fileID: 3153865323665843835}
   - component: {fileID: 3915924313383656346}
   - component: {fileID: 8233642628679331728}
@@ -12421,6 +12520,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7282010687810145221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850098719957847806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &3153865323665843835
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12441,6 +12552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
 --- !u!114 &8233642628679331728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13790,6 +13902,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6417164651687564361}
+  - component: {fileID: 7234088202314188813}
   - component: {fileID: 1073148547432741150}
   - component: {fileID: 4625978824955162058}
   - component: {fileID: 2362433893513485683}
@@ -13823,6 +13936,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7234088202314188813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5325237022022501227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!114 &1073148547432741150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13849,6 +13974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: f6761a867ba95cad4ad3c02c1e534397, type: 2}
 --- !u!225 &2362433893513485683
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -14506,6 +14632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6255688601810829482}
+  - component: {fileID: 677665496051989143}
   - component: {fileID: 4151486220263802472}
   - component: {fileID: 4038166860354673828}
   - component: {fileID: 5258786893371115182}
@@ -14536,6 +14663,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &677665496051989143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5773049514063613626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!114 &4151486220263802472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14562,6 +14701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
 --- !u!225 &5258786893371115182
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -15592,6 +15732,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8268911583089615861}
+  - component: {fileID: 917165529553668057}
   - component: {fileID: 294274039150145493}
   - component: {fileID: 614893036221134810}
   - component: {fileID: 8305466028941659156}
@@ -15623,6 +15764,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &917165529553668057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6259135346444039479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &294274039150145493
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15657,6 +15810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
 --- !u!225 &5273077163250655754
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -15714,6 +15868,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1953128343161720689}
+  - component: {fileID: 5281797892360059305}
   - component: {fileID: 4784985671990189036}
   - component: {fileID: 1810041573130536948}
   - component: {fileID: 4770843039872203977}
@@ -15744,6 +15899,18 @@ RectTransform:
   m_AnchoredPosition: {x: 450, y: 0}
   m_SizeDelta: {x: 450, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5281797892360059305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353318885238271001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &4784985671990189036
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15764,6 +15931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
 --- !u!225 &4770843039872203977
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -17759,6 +17927,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4910436522021022446}
+  - component: {fileID: 2229235853602572449}
   - component: {fileID: 9079355592199549532}
   - component: {fileID: 3556704591613573086}
   - component: {fileID: 2401316498673136934}
@@ -17790,6 +17959,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2229235853602572449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6931793716205307444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &9079355592199549532
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17824,6 +18005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
 --- !u!114 &1281547787789999521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18907,6 +19089,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8700796590575215294}
+  - component: {fileID: 8923682087129427873}
   - component: {fileID: 8488960869104249039}
   - component: {fileID: 5614306513305186672}
   - component: {fileID: 6012721061833415776}
@@ -18937,6 +19120,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 450, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8923682087129427873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7254656940050423857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &8488960869104249039
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18957,6 +19152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
 --- !u!225 &6012721061833415776
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -20947,6 +21143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6684728595722293157}
+  - component: {fileID: 8171334091507005789}
   - component: {fileID: 76088809260989169}
   - component: {fileID: 6986006251938080973}
   - component: {fileID: 9203502053227313614}
@@ -20978,6 +21175,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8171334091507005789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705539655828327140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &76088809260989169
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21012,6 +21221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
 --- !u!114 &1455963562442783585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22902,6 +23112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7316290383297225965}
+  - component: {fileID: 3232835098685166841}
   - component: {fileID: 1130416133106483790}
   - component: {fileID: 8629228318115465486}
   - component: {fileID: 8444848968841310947}
@@ -22934,6 +23145,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3232835098685166841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8581031614270481510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!114 &1130416133106483790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22960,6 +23183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: f6761a867ba95cad4ad3c02c1e534397, type: 2}
 --- !u!225 &8444848968841310947
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -23483,6 +23707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3646349031110020488}
+  - component: {fileID: 6599200430514481469}
   - component: {fileID: 7291095470847745325}
   - component: {fileID: 5593085102225000873}
   - component: {fileID: 744683623294235200}
@@ -23514,6 +23739,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6599200430514481469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8700812100813328929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!114 &7291095470847745325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23540,6 +23777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
 --- !u!225 &744683623294235200
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -23839,6 +24077,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1242281873400161252}
+  - component: {fileID: 61300773894828236}
   - component: {fileID: 5321204982251659964}
   - component: {fileID: 8814926880932014167}
   - component: {fileID: 5209270832616941766}
@@ -23871,6 +24110,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &61300773894828236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846109834054462233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31080e7379e61f2efbf459ab7e5c31dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UIAnimator
 --- !u!222 &5321204982251659964
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23905,6 +24156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
 --- !u!225 &3813979027249868007
 CanvasGroup:
   m_ObjectHideFlags: 0

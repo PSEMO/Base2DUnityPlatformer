@@ -34,7 +34,7 @@ namespace PSEMO.UI
             rectTransform = GetComponent<RectTransform>();
             transitionPlayer = GetComponent<UITransitionPlayer>();
 
-            transitionPlayer.Init(data, rectTransform, canvasGroup);
+            transitionPlayer.Init();
             transitionPlayer.ApplyInstant(false);
             
             SetInteraction(false);

@@ -26,7 +26,7 @@ namespace PSEMO.UI
             for (int i = 0; i < textBoxes.Count; i++)
             {
                 positions[i] = textBoxes[i].rectTransform.anchoredPosition;
-                textBoxes[i].transitionPlayer.Init(textBoxes[i].transitionData, textBoxes[i].rectTransform, textBoxes[i].canvasGroup);
+                textBoxes[i].transitionPlayer.Init();
                 textBoxes[i].transitionPlayer.UpdateShowPos();
                 textBoxes[i].transitionPlayer.ApplyInstant(true);
             }

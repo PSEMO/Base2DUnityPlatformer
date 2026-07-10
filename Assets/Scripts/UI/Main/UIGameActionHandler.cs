@@ -34,7 +34,7 @@ namespace PSEMO.UI
                 ContinueBtnObj.interactable = PersistenceManager.HasSceneData();
         }
 
-        private void SelectSaveSlotBtn(string slotName)
+        public void SelectSaveSlotBtn(string slotName)
         {
             PersistenceEvents.InvokeSaveSlotChanged(slotName);
 
@@ -90,10 +90,5 @@ namespace PSEMO.UI
         {
             PersistenceEvents.InvokeGameSave();
         }
-
-        public void SelectSaveSlot1Btn() => SelectSaveSlotBtn("SaveSlot1");
-        public void SelectSaveSlot2Btn() => SelectSaveSlotBtn("SaveSlot2");
-        public void SelectSaveSlot3Btn() => SelectSaveSlotBtn("SaveSlot3");
-        public void SelectSaveSlot4Btn() => SelectSaveSlotBtn("SaveSlot4");
     }
 }

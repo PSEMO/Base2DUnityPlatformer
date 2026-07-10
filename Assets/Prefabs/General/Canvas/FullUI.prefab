@@ -1986,6 +1986,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
   rectTransform: {fileID: 0}
   tmp: {fileID: 0}
+  halfScale: {x: 0, y: 0, z: 0}
+  halfAlpha: 0
 --- !u!222 &313444480342911711
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9553,14 +9555,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2188454389747222672}
         m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
-        m_MethodName: SelectSaveSlot3Btn
-        m_Mode: 1
+        m_MethodName: SelectSaveSlotBtn
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SaveSlot3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &3285245724124114021
@@ -15928,6 +15930,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
   rectTransform: {fileID: 0}
   tmp: {fileID: 0}
+  halfScale: {x: 0, y: 0, z: 0}
+  halfAlpha: 0
 --- !u!222 &4784985671990189036
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17099,14 +17103,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2188454389747222672}
         m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
-        m_MethodName: SelectSaveSlot2Btn
-        m_Mode: 1
+        m_MethodName: SelectSaveSlotBtn
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SaveSlot2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &6729748885921834914
@@ -19151,6 +19155,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: efcb903bce7e1c460a5414d878192bdf, type: 2}
   rectTransform: {fileID: 0}
   tmp: {fileID: 0}
+  halfScale: {x: 0, y: 0, z: 0}
+  halfAlpha: 0
 --- !u!222 &8488960869104249039
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21019,14 +21025,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2188454389747222672}
         m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
-        m_MethodName: SelectSaveSlot4Btn
-        m_Mode: 1
+        m_MethodName: SelectSaveSlotBtn
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SaveSlot4
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &7652550065618947235
@@ -24052,14 +24058,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2188454389747222672}
         m_TargetAssemblyTypeName: PSEMO.UI.UIGameActionHandler, Assembly-CSharp
-        m_MethodName: SelectSaveSlot1Btn
-        m_Mode: 1
+        m_MethodName: SelectSaveSlotBtn
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SaveSlot1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8846109834054462233

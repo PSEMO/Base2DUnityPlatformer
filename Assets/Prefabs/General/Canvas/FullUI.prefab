@@ -3061,7 +3061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
-  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
   Type: 3
 --- !u!114 &1261525166997244894
 MonoBehaviour:
@@ -4946,6 +4946,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7434408298449016735}
   - {fileID: 4910436522021022446}
   - {fileID: 5285878689843786252}
   - {fileID: 6684728595722293157}
@@ -5016,6 +5017,7 @@ MonoBehaviour:
   - {fileID: 614893036221134810}
   - {fileID: 7291095470847745325}
   - {fileID: 4151486220263802472}
+  - {fileID: 8233642628679331728}
 --- !u!223 &8360599649452096504
 Canvas:
   m_ObjectHideFlags: 0
@@ -8210,7 +8212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreen
-  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
   Type: 1
 --- !u!114 &5638581305573305501
 MonoBehaviour:
@@ -12389,7 +12391,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7434408298449016735}
   - component: {fileID: 3153865323665843835}
+  - component: {fileID: 3915924313383656346}
+  - component: {fileID: 8233642628679331728}
   - component: {fileID: 1673531273212510029}
+  - component: {fileID: 6767123386665324222}
   m_Layer: 5
   m_Name: LoadingBg
   m_TagString: Untagged
@@ -12404,12 +12409,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4850098719957847806}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6255688601810829482}
+  m_Father: {fileID: 4438310716639549597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12424,6 +12429,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4850098719957847806}
   m_CullTransparentMesh: 1
+--- !u!114 &3915924313383656346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850098719957847806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cddb2de9bf4073612b1bd4f16c057cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.UITransitionPlayer
+--- !u!114 &8233642628679331728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850098719957847806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.Panel
+  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
+  Type: 11
 --- !u!114 &1673531273212510029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12454,6 +12485,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &6767123386665324222
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850098719957847806}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4874875617635438247
 GameObject:
   m_ObjectHideFlags: 0
@@ -14485,7 +14528,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7434408298449016735}
   - {fileID: 1270121665806449638}
   m_Father: {fileID: 4438310716639549597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14506,7 +14548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a732dc5d62a9f0cb3d2b12d932a9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.Panel
-  data: {fileID: 11400000, guid: e4ce6e5f1053380f49c135ef76b53469, type: 2}
+  data: {fileID: 11400000, guid: 2d3ea3c664ffcca87a12654c683bb5a7, type: 2}
   Type: 10
 --- !u!114 &4038166860354673828
 MonoBehaviour:

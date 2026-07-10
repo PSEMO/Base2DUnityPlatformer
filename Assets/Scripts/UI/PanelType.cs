@@ -12,6 +12,7 @@ namespace PSEMO.UI
         EndGameMenu,
         GameEndBg,
         InGameBg,
-        Loading
+        Loading,
+        LoadingBg
     }
 }

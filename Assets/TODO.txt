@@ -9,3 +9,4 @@ infinite save slots
 make the UI animations more modular
 decouple background object of the laoding screen from the loading screen object
 make a BaseTransitionPlayer and use it for PanelTransitionPlayer and ElementTransitionPlayer
+make an UIAnimator.cs

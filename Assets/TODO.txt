@@ -1,5 +1,3 @@
-Small saving animation
 Section saving
 Update the websiteUpdate your website
 level selection
-infinite save slots

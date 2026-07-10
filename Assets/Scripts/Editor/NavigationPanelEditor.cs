@@ -11,7 +11,7 @@ namespace PSEMO.Editor
         {
             DrawDefaultInspector();
 
-            SerializedProperty textBoxesProp = serializedObject.FindProperty("textBoxes");
+            SerializedProperty textBoxesProp = serializedObject.FindProperty("Players");
 
             if (textBoxesProp != null)
             {

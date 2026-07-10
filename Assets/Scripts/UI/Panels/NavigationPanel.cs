@@ -28,7 +28,14 @@ namespace PSEMO.UI
                 positions[i] = Players[i].rectTransform.anchoredPosition;
                 Players[i].Init();
                 Players[i].UpdateShowPos();
-                Players[i].ApplyInstant(true);
+                if (i == Players.Count / 2)
+                {
+                    Players[i].ApplyInstant(true);
+                }
+                else
+                {
+                    Players[i].ApplyHalfInstant();
+                }
             }
         }
 
@@ -71,7 +78,14 @@ namespace PSEMO.UI
                 var box = Players[i];
                 UpdateTextBoxText(box, i);
                 box.UpdateShowPos(positions[i]);
-                box.ApplyInstant(true);
+                if (i == Players.Count / 2)
+                {
+                    box.ApplyInstant(true);
+                }
+                else
+                {
+                    box.ApplyHalfInstant();
+                }
             }
 
             SlideDirection hideDir = isNext ? SlideDirection.Left : SlideDirection.Right;
@@ -104,12 +118,13 @@ namespace PSEMO.UI
                         UpdateTextBoxText(box, tempI);
                         player.UpdateShowPos(positions[tempI]); 
                         player.ApplyInstant(false, showDir);
-                        player.Play(true, null, showDir, 2); 
+                        player.PlayCustom(positions[tempI], player.halfScale, player.halfAlpha, null, 2); 
                     }, hideDir, 2);
                 }
                 else
                 {
-                    player.PlayToPosAndShow(positions[i], () => player.UpdateShowPos());
+                    bool isCenter = i == Players.Count / 2;
+                    player.PlayToPosAndShow(positions[i], isCenter, () => player.UpdateShowPos());
                 }
             }
         }

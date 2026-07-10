@@ -7,10 +7,6 @@ namespace PSEMO.UI
     [RequireComponent(typeof(CanvasGroup), typeof(RectTransform), typeof(UITransitionPlayer))]
     public abstract class BasePanel : MonoBehaviour
     {
-        [SerializeField] protected TransitionSO data;
-
-        private bool isInit = false;
-
         protected CanvasGroup canvasGroup;
         protected RectTransform rectTransform;
         protected UITransitionPlayer transitionPlayer;
@@ -23,12 +19,19 @@ namespace PSEMO.UI
 
         public virtual string DisplayName => gameObject.name;
 
+        private bool isInit = false;
+
+        void Awake()
+        {
+            Init();
+        }
+
         public virtual void Init()
         {
             if (isInit)
                 return;
-
-            isInit = true;
+            else
+                isInit = true;
 
             canvasGroup = GetComponent<CanvasGroup>();
             rectTransform = GetComponent<RectTransform>();

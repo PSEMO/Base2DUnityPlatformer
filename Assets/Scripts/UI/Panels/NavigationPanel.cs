@@ -8,27 +8,27 @@ namespace PSEMO.UI
     public class NavigationPanel : MonoBehaviour
     {
         [SerializeField] private List<BasePanel> subPanels;
-        [SerializeField] private List<TransitionTextCouple> textBoxes;
+        [SerializeField] private List<ElementTransitionPlayer> Players;
         [SerializeField] private int currentIndex = 0;
         
         private Vector2[] positions;
 
         void Awake()
         {
-            if (textBoxes.Count % 2 == 0)
+            if (Players.Count % 2 == 0)
             {
                 Debug.LogError("There has to be an odd number of text boxes!");
                 Destroy(this);
                 return;
             }
 
-            positions = new Vector2[textBoxes.Count];
-            for (int i = 0; i < textBoxes.Count; i++)
+            positions = new Vector2[Players.Count];
+            for (int i = 0; i < Players.Count; i++)
             {
-                positions[i] = textBoxes[i].rectTransform.anchoredPosition;
-                textBoxes[i].transitionPlayer.Init();
-                textBoxes[i].transitionPlayer.UpdateShowPos();
-                textBoxes[i].transitionPlayer.ApplyInstant(true);
+                positions[i] = Players[i].rectTransform.anchoredPosition;
+                Players[i].Init();
+                Players[i].UpdateShowPos();
+                Players[i].ApplyInstant(true);
             }
         }
 
@@ -66,12 +66,12 @@ namespace PSEMO.UI
         private void Navigate(bool isNext)
         {
             //reset half-done animations before start.
-            for (int i = 0; i < textBoxes.Count; i++)
+            for (int i = 0; i < Players.Count; i++)
             {
-                var box = textBoxes[i];
+                var box = Players[i];
                 UpdateTextBoxText(box, i);
-                box.transitionPlayer.UpdateShowPos(positions[i]);
-                box.transitionPlayer.ApplyInstant(true);
+                box.UpdateShowPos(positions[i]);
+                box.ApplyInstant(true);
             }
 
             SlideDirection hideDir = isNext ? SlideDirection.Left : SlideDirection.Right;
@@ -82,16 +82,16 @@ namespace PSEMO.UI
             subPanels[currentIndex].Show(showDir);
 
             //wrap around the last object within the list
-            int targetIdx = isNext ? textBoxes.Count - 1 : 0;
-            int removeIdx = isNext ? 0 : textBoxes.Count - 1;
-            var wrappedBox = textBoxes[removeIdx];
-            textBoxes.RemoveAt(removeIdx);
-            textBoxes.Insert(targetIdx, wrappedBox);
+            int targetIdx = isNext ? Players.Count - 1 : 0;
+            int removeIdx = isNext ? 0 : Players.Count - 1;
+            var wrappedBox = Players[removeIdx];
+            Players.RemoveAt(removeIdx);
+            Players.Insert(targetIdx, wrappedBox);
 
-            for (int i = 0; i < textBoxes.Count; i++)
+            for (int i = 0; i < Players.Count; i++)
             {
-                var box = textBoxes[i];
-                var player = box.transitionPlayer;
+                var box = Players[i];
+                var player = box;
 
                 if (i == targetIdx)
                 {
@@ -114,18 +114,18 @@ namespace PSEMO.UI
             }
         }
 
-        private void UpdateTextBoxText(TransitionTextCouple box, int index)
+        private void UpdateTextBoxText(ElementTransitionPlayer box, int index)
         {
-            int panelIndex = (currentIndex + index - textBoxes.Count / 2) % subPanels.Count;
+            int panelIndex = (currentIndex + index - Players.Count / 2) % subPanels.Count;
             if (panelIndex < 0) panelIndex += subPanels.Count;
             box.tmp.text = subPanels[panelIndex].DisplayName;
         }
 
         private void UpdateUI()
         {
-            for (int i = 0; i < textBoxes.Count; i++)
+            for (int i = 0; i < Players.Count; i++)
             {
-                UpdateTextBoxText(textBoxes[i], i);
+                UpdateTextBoxText(Players[i], i);
             }
         }
     }

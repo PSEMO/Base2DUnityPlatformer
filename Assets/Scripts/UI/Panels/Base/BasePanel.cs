@@ -4,12 +4,12 @@ using System;
 
 namespace PSEMO.UI
 {
-    [RequireComponent(typeof(CanvasGroup), typeof(RectTransform), typeof(UITransitionPlayer))]
+    [RequireComponent(typeof(CanvasGroup), typeof(RectTransform), typeof(BaseTransitionPlayer))]
     public abstract class BasePanel : MonoBehaviour
     {
         protected CanvasGroup canvasGroup;
         protected RectTransform rectTransform;
-        protected UITransitionPlayer transitionPlayer;
+        protected BaseTransitionPlayer transitionPlayer;
 
         protected bool isOpen;
         [HideInInspector] public bool IsOpen
@@ -35,7 +35,7 @@ namespace PSEMO.UI
 
             canvasGroup = GetComponent<CanvasGroup>();
             rectTransform = GetComponent<RectTransform>();
-            transitionPlayer = GetComponent<UITransitionPlayer>();
+            transitionPlayer = GetComponent<BaseTransitionPlayer>();
 
             transitionPlayer.Init();
             transitionPlayer.ApplyInstant(false);

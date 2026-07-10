@@ -1,32 +1,31 @@
 using System;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace PSEMO.UI
 {
     [RequireComponent(typeof(RectTransform), typeof(CanvasGroup), typeof(UIAnimator))]
-    public class UITransitionPlayer : MonoBehaviour
+    public class BaseTransitionPlayer : MonoBehaviour
     {
         [SerializeField] private TransitionSO data;
-        private RectTransform rectTransform;
-        private CanvasGroup canvasGroup;
+        
+        [HideInInspector] public RectTransform rectTransform;
+        protected CanvasGroup canvasGroup;
 
-        private UIAnimator animator;
+        protected UIAnimator animator;
 
-        private bool hasFade;
-        private bool hasSlide;
-        private bool hasScale;
-        private bool useSmoothing;
+        protected bool hasFade;
+        protected bool hasSlide;
+        protected bool hasScale;
+        protected bool useSmoothing;
         
-        private float duration;
+        protected float duration;
         
-        private Vector2 hiddenScale;
-        private float hiddenAlpha;
+        protected Vector2 hiddenScale;
+        protected float hiddenAlpha;
         
-        private Vector2 showPos;
-        private Vector3 showScale;
-        private float showAlpha;
+        protected Vector2 showPos;
+        protected Vector3 showScale;
+        protected float showAlpha;
 
         private bool isInit = false;
 
@@ -35,7 +34,7 @@ namespace PSEMO.UI
             Init();
         }
 
-        public void Init()
+        public virtual void Init()
         {
             if(isInit)
                 return;
@@ -123,53 +122,6 @@ namespace PSEMO.UI
             };
 
             return hiddenPos;
-        }
-
-        public void PlayShow() => Play(true, null);
-
-        public void PlayHide() => Play(false, null);
-
-        public void PlayCustom(Vector2 targetPos, Vector3 targetScale, float targetAlpha, Action onComplete = null, float timeDivider = 1)
-        {
-            Vector2 startPos = rectTransform.anchoredPosition;
-            Vector3 startScale = rectTransform.localScale;
-            float startAlpha = canvasGroup.alpha;
-
-            animator.PlayAnim(onComplete, startPos, targetPos, startScale, targetScale, startAlpha, targetAlpha, duration / timeDivider, useSmoothing, hasSlide, hasScale, hasFade, true);
-        }
-
-        public void PlayToPos(Vector2 targetPos, Action onComplete = null, float timeDivider = 1)
-        {
-            float targetAlpha = canvasGroup.alpha;
-            Vector3 targetScale = rectTransform.localScale;
-            PlayCustom(targetPos, targetScale, targetAlpha, onComplete, timeDivider);
-        }
-
-        public void PlayToTransform(RectTransform target, float timeDivider = 1)
-        {
-            PlayToPos(target.anchoredPosition, null, timeDivider);
-        }
-
-        public void PlayToPosAndShow(Vector2 targetPos, Action onComplete = null, float timeDivider = 1)
-        {
-            PlayCustom(targetPos, showScale, showAlpha, onComplete, timeDivider);
-        }
-
-        public void UpdateShowState()
-        {
-            showPos = rectTransform.anchoredPosition;
-            showScale = rectTransform.localScale;
-            showAlpha = canvasGroup.alpha;
-        }
-
-        public void UpdateShowPos()
-        {
-            showPos = rectTransform.anchoredPosition;
-        }
-
-        public void UpdateShowPos(Vector2 newShowPosition)
-        {
-            showPos = newShowPosition;
         }
     }
 }

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TxtTrans
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.UI.TransitionSO
   transitionType: -1
-  duration: 0.15
+  duration: 0.25
   useSmoothing: 1
   slideDirection: 4
-  slideDistance: 1
+  slideDistance: 0.3
   hiddenScale: 0.6
   hiddenAlpha: 0.75

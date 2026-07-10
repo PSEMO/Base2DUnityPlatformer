@@ -72,14 +72,6 @@ namespace PSEMO.UI
 
         private void Navigate(bool isNext)
         {
-            // reset half-done animations before start.
-            for (int i = 0; i < textPlayers.Count; i++)
-            {
-                var player = textPlayers[i];
-                UpdateTextBoxText(i);
-                player.PlayInstantTo(positions[i]);
-            }
-
             SlideDirection hideDir = isNext ? SlideDirection.Left : SlideDirection.Right;
             SlideDirection showDir = isNext ? SlideDirection.Right : SlideDirection.Left;
 

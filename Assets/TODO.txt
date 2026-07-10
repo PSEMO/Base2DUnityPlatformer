@@ -1,11 +1,10 @@
 Small saving animation
 Section saving
-Update the website
-Remove "Init()" from UITransitionPanel, add Require component and a seriealizeFied SO
-NavigationPanel.cs should not know half the stuff it knows
-Update your website
+Update the websiteUpdate your website
 level selection
 infinite save slots
 make the UI animations more modular
+Remove "Init()" from UITransitionPanel, add Require component and a seriealizeFied SO
+NavigationPanel.cs should not know half the stuff it knows
 make a BaseTransitionPlayer and use it for PanelTransitionPlayer and ElementTransitionPlayer
 make an UIAnimator.cs

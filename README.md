@@ -19,6 +19,8 @@ Character behaviors and game states are governed by a powerful, generic `StateMa
 ### 4. Robust Persistence System
 The save/load system is highly flexible, multi-threaded, and centered around the `PersistenceManager`.
 * **IPersistable**: Components implement this interface to easily hook into the save system.
+* **Infinite Save Slots**: The architecture seamlessly scales to support an infinite number of save slots, with UI logic appropriately adapted.
+* **Level Progression & Replayability**: Automatically calculates unlocked levels and allows scene-specific save deletion, ensuring players can replay fresh levels without losing their overarching global progression.
 * **Scene vs. Global Persistence**: Cleanly differentiates between **scene-based** data and **global** data, ensuring seamless loading across level transitions.
 * **Serialization**: Utilizes a custom `SerializableDictionary` (wrapper for dual lists) to handle complex data structures, serialized cleanly via `JsonUtility` (e.g., `PlayerSaveData`).
 * **Multi-Threaded Operations**: File I/O operations for saving and loading run asynchronously on separate threads, preventing frame drops during autosaves.
@@ -30,10 +32,10 @@ The save/load system is highly flexible, multi-threaded, and centered around the
 Performance is prioritized with a highly optimized object pooling system. An `Instantiator` manages pools based on `Pooler` component group names, minimizing garbage collection spikes and ensuring smooth runtime performance during heavy instantiation events.
 
 ### 7. Advanced State-Machine-Driven UI
-The user interface is treated as a first-class citizen. A state-machine-driven UI system seamlessly manages hierarchical views featuring both `NavigationPanel`s and `SubPanel`s. It includes a rich, SO-driven transition system (`UITransitionPlayer` / `TransitionSO`) to easily orchestrate complex UI animations such as directional sliding and fading without hardcoded UI logic.
+The user interface is treated as a first-class citizen. A state-machine-driven UI system seamlessly manages hierarchical views featuring both `NavigationPanel`s and `SubPanel`s, even integrating elements like loading backgrounds directly as panels. It includes a deeply decoupled, SO-driven transition system leveraging `UIAnimator`, `UITransitionPlayer`, and modular scripts like `BaseTransitionPlayer` and `ElementTransitionPlayer`. This allows orchestrating complex UI animations such as directional sliding, fading, and half-hidden elements without hardcoded UI logic.
 
 ### 8. Editor Tooling & Best Practices
-The project utilizes `UNITY_EDITOR` preprocessor directives to create custom development-only tools, such as `BoxGizmos` for visualizing colliders and `PersisterEditor` for debugging persistence logic directly in the Unity Editor, ensuring the production build remains lightweight.
+The project utilizes `UNITY_EDITOR` preprocessor directives to create custom development-only tools, such as `BoxGizmos` for visualizing colliders, `PersisterEditor` for debugging persistence logic, and `NavigationPanelEditor` for seamlessly managing UI navigation hierarchies directly in the Unity Editor, ensuring the production build remains lightweight.
 
 ### 9. Advanced Audio System
 Features a dedicated, Singleton-based audio manager that utilizes scriptable data containers for sound definitions. It fully supports dynamic crossfading between music tracks and manages spatial/impact sound effects effortlessly with proper logarithmic volume scaling.

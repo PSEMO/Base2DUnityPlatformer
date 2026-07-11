@@ -9,7 +9,7 @@ A production-ready, highly scalable, and decoupled 2D platformer template for Un
 The architecture is designed with a strict separation of concerns, heavily relying on **Interface-Driven Design** (`IPersistable`, `IState`, `IMover`, `IPoolable`, `IInteractable`). This allows for individual subsystems to operate independently, making the codebase highly testable and extensible. Core entities like the Player are decomposed into specialized, single-purpose components (e.g., `PlayerInputHandler`, `PlayerSurfaceDetector`, `PlayerStateMachineController`) rather than monolithic scripts.
 
 ### 2. Event-Driven Communication
-To maintain loose coupling, the project utilizes an extensive event-based communication system. Static C# `Action` and `Func` events (such as `PoolingEvents`, `PlayerEvents`, and `UIEvents`) ensure that systems can broadcast and listen to state changes without hard dependencies.
+To maintain loose coupling, the project utilizes an extensive event-based communication system. Static C# `Action` and `Func` events (such as `PlayerEvents`, and `UIEvents`) ensure that systems can broadcast and listen to state changes without hard dependencies.
 
 ### 3. Advanced State Machine System
 Character behaviors and game states are governed by a powerful, generic `StateMachine` graph. 

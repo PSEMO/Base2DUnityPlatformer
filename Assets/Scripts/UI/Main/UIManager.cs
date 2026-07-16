@@ -44,8 +44,8 @@ namespace PSEMO.UI
         private void OnEnable()
         {
             inputActions.Enable();
-            inputActions.UI.Back.performed += OnInputBack;
-            inputActions.UI.Accept.performed += OnInputAccept;
+            inputActions.UI.Cancel.performed += OnInputBack;
+            inputActions.UI.Submit.performed += OnInputAccept;
             inputActions.UI.Right.performed += OnInputRight;
             inputActions.UI.Left.performed += OnInputLeft;
 
@@ -57,8 +57,8 @@ namespace PSEMO.UI
             if (inputActions != null)
             {
                 inputActions.Disable();
-                inputActions.UI.Back.performed -= OnInputBack;
-                inputActions.UI.Accept.performed -= OnInputAccept;
+                inputActions.UI.Cancel.performed -= OnInputBack;
+                inputActions.UI.Submit.performed -= OnInputAccept;
                 inputActions.UI.Right.performed -= OnInputRight;
                 inputActions.UI.Left.performed -= OnInputLeft;
             }

@@ -15,6 +15,8 @@ namespace PSEMO.UI
 
         protected override PanelType[] ActivePanels => _activePanels;
 
+        public override bool IsMenuPanel => true;
+
         public override void OnEnter(IState nextState)
         {
             base.OnEnter(nextState);

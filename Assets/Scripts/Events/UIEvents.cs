@@ -64,5 +64,8 @@ namespace PSEMO.Events
                 Debug.LogError($"Loading was ended {extraLoadingEndCount} times more than it should have! ");
             }
         }
+        
+        public static event Action<bool> OnMenuVisibilityChanged;
+        public static void InvokeMenuVisibilityChanged(bool isVisible) => OnMenuVisibilityChanged?.Invoke(isVisible);
     }
 }

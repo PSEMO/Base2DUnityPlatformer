@@ -1,5 +1,6 @@
 using System.Linq;
 using PSEMO.Core.StateMachine;
+using PSEMO.Events;
 
 namespace PSEMO.UI
 {
@@ -11,8 +12,12 @@ namespace PSEMO.UI
 
         public PanelType[] GetActivePanels() => ActivePanels;
 
+        public virtual bool IsMenuPanel => false;
+
         public override void OnEnter(IState previousState)
         {
+            UIEvents.InvokeMenuVisibilityChanged(IsMenuPanel);
+            
             if (previousState is UIBaseState prevUIState)
             {
                 var prevPanels = prevUIState.GetActivePanels();

@@ -4923,7 +4923,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3096326092020641552}
+  m_Father: {fileID: 6639655071991320020}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10421,7 +10421,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3096326092020641552}
   - component: {fileID: 5803390833294801770}
-  - component: {fileID: 6382838834419546764}
+  - component: {fileID: 423832319542131873}
+  - component: {fileID: 7801053578025057317}
   m_Layer: 5
   m_Name: VirtualMouse
   m_TagString: Untagged
@@ -10441,7 +10442,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1525525795635975114}
+  - {fileID: 6639655071991320020}
   - {fileID: 1061173091967246972}
   m_Father: {fileID: 4438310716639549597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10464,7 +10465,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PSEMO.InputSettings.DeviceGameObjectToggle
   controllerObject: {fileID: 1595674361572343193}
   keyboardObject: {fileID: 88371836309128138}
---- !u!114 &6382838834419546764
+--- !u!114 &423832319542131873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3337144444996047550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe43d60addaa0b04dbca8c91d42a4ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Input.UIGameObjectToggle
+  targetObject: {fileID: 3736430370955197400}
+  startsWithUIOpen: 1
+--- !u!114 &7801053578025057317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10487,7 +10502,7 @@ MonoBehaviour:
       m_Name: Stick
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 1247e7ac-4a72-428b-9ed8-45aed9f712d3
+      m_Id: de69e276-3f6b-45e9-82d7-4704d824526c
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -10499,7 +10514,7 @@ MonoBehaviour:
       m_Name: Left Button
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: e899677b-8d2a-4f0d-a87a-0b3ab4e43ffe
+      m_Id: 67de23ed-eca7-40bf-9aca-558d9fe6281b
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -10511,7 +10526,7 @@ MonoBehaviour:
       m_Name: Middle Button
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: d0574e07-1bdb-4d8b-88f5-58c0fc3263a2
+      m_Id: e3cb08f2-b035-442b-bb45-4472fecd6016
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -10523,7 +10538,7 @@ MonoBehaviour:
       m_Name: Right Button
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: fcfbf6c7-ec3d-43a4-9fe0-2f70d759f359
+      m_Id: b0f3fa9c-9a0f-4f2b-a72d-83004eae6d03
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -10535,7 +10550,7 @@ MonoBehaviour:
       m_Name: Forward Button
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 43aa7e11-4b56-4c11-8352-72f5b521045b
+      m_Id: 2bf37d3b-d450-424c-8b07-03f63def4000
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -10547,7 +10562,7 @@ MonoBehaviour:
       m_Name: Back Button
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: aad9f367-39c3-415a-ab7b-a424c73756e8
+      m_Id: 1cc5e4b0-23b5-43de-918b-ad22f32bd2d2
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -10559,7 +10574,7 @@ MonoBehaviour:
       m_Name: Scroll Wheel
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: d1069892-aa54-4bc6-bbba-cb6ef3d93195
+      m_Id: 6e8229d2-2363-4205-80ac-1cd7779f573d
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -11593,6 +11608,42 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &3736430370955197400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6639655071991320020}
+  m_Layer: 5
+  m_Name: Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6639655071991320020
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3736430370955197400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1525525795635975114}
+  m_Father: {fileID: 3096326092020641552}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3746890935328474347
 GameObject:
   m_ObjectHideFlags: 0

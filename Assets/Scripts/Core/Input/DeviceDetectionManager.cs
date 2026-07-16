@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using PSEMO.Events;
 
-namespace PSEMO.InputSettings
+namespace PSEMO.Input
 {
     public static class DeviceDetectionManager
     {
@@ -61,6 +61,9 @@ namespace PSEMO.InputSettings
                     hasInputOccurred = true;
                     var device = control.device;
                     
+                    if (device.name.Contains("VirtualMouse"))
+                        return;
+
                     bool isGamepad = device is Gamepad || device is Joystick;
                     
                     if (isGamepad && !IsControllerActive)

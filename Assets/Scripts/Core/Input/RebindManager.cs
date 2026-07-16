@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PSEMO.InputSettings
+namespace PSEMO.Input
 {
     public static class RebindManager
     {

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
 
-namespace PSEMO.InputSettings
+namespace PSEMO.Input
 {
     public class RebindUI : MonoBehaviour
     {

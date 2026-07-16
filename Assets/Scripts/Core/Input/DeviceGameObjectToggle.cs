@@ -1,7 +1,7 @@
 using UnityEngine;
 using PSEMO.Events;
 
-namespace PSEMO.InputSettings
+namespace PSEMO.Input
 {
     public class DeviceGameObjectToggle : MonoBehaviour
     {

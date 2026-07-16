@@ -26,7 +26,7 @@ namespace PSEMO.UI
             panelRegistry = GetComponent<UIPanelRegistry>();
 
             inputActions = new InputSystem_Actions();
-            InputSettings.RebindManager.LoadOverrides(inputActions.asset);
+            Input.RebindManager.LoadOverrides(inputActions.asset);
 
             stateController = new UIStateMachineController(this, initialPanel);
         }

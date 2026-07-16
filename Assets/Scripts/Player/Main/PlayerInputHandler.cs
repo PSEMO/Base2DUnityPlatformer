@@ -13,7 +13,7 @@ namespace PSEMO.Player
         {
             this.player = player;
             inputActions = new InputSystem_Actions();
-            InputSettings.RebindManager.LoadOverrides(inputActions.asset);
+            Input.RebindManager.LoadOverrides(inputActions.asset);
             inputActions.Player.AddCallbacks(this);
         }
 

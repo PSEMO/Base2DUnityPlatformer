@@ -10,6 +10,7 @@ namespace PSEMO.Player
 
         [Header("Movement")]
         public float speed = 8f;
+        public float runAnimBaseSpeed = 8f;
 
         [Header("Jump")]
         public int maxJumpCount = 3;

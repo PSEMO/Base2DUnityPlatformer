@@ -46,6 +46,9 @@ namespace PSEMO.Player
         [HideInInspector] public bool ableToInteract;
         [HideInInspector] public int maxJumpCount;
 
+        //Anim variables
+        private static readonly int RunSpeedHash = Animator.StringToHash("RunSpeed");
+
         void Awake()
         {
             animator = GetComponent<Animator>();
@@ -149,6 +152,8 @@ namespace PSEMO.Player
                     initialScale.y,
                     initialScale.z);
             }
+            
+            animator.SetFloat(RunSpeedHash, targetSpeed / data.runAnimBaseSpeed);
         }
 
         private void Die()

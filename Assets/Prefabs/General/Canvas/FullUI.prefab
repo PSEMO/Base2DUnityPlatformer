@@ -4902,6 +4902,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1525525795635975114}
+  - component: {fileID: 2185620409345925279}
   - component: {fileID: 4895263716824560514}
   - component: {fileID: 5699634405400836480}
   m_Layer: 5
@@ -4930,6 +4931,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2185620409345925279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595674361572343193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87b6f750ce3b8febb61323c303bcb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PSEMO.Input.CenterVirtualMouseOnEnable
+  virtualMouseDIY: {fileID: 7801053578025057317}
 --- !u!222 &4895263716824560514
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10494,8 +10508,8 @@ MonoBehaviour:
   m_CursorMode: 0
   m_CursorGraphic: {fileID: 5699634405400836480}
   m_CursorTransform: {fileID: 1525525795635975114}
-  m_CursorSpeed: 400
-  m_ScrollSpeed: 45
+  m_CursorSpeed: 800
+  m_ScrollSpeed: 90
   m_StickAction:
     m_UseReference: 1
     m_Action:

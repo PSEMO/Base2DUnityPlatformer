@@ -17,8 +17,32 @@ namespace PSEMO.Player
             inputActions.Player.AddCallbacks(this);
         }
 
-        public void OnEnable() => inputActions.Player.Enable();
-        public void OnDisable() => inputActions.Player.Disable();
+        public void OnEnable()
+        {
+            inputActions.Player.Enable();
+            Events.UIEvents.OnGamePause += DisableInput;
+            Events.UIEvents.OnGameUnpause += EnableInput;
+        }
+        
+        public void OnDisable()
+        {
+            inputActions.Player.Disable();
+            Events.UIEvents.OnGamePause -= DisableInput;
+            Events.UIEvents.OnGameUnpause -= EnableInput;
+        }
+
+        private void DisableInput()
+        {
+            inputActions.Player.Disable();
+            player.moveInput = 0;
+            player.upInput = false;
+            player.dashInput = false;
+        }
+
+        private void EnableInput()
+        {
+            inputActions.Player.Enable();
+        }
 
         public void OnDestroy()
         {

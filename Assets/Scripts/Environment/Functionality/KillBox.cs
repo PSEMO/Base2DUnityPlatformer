@@ -10,7 +10,6 @@ namespace PSEMO.Environment.Functionality
         {
             OnContact();
         }
-
         void OnCollisionEnter2D(Collision2D _)
         {
             OnContact();

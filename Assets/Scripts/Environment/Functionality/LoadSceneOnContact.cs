@@ -8,16 +8,16 @@ namespace PSEMO.Environment.Functionality
     {
         [SerializeField] string SceneToLoadName;
 
-        void OnTriggerEnter2D(Collider2D col)
+        void OnTriggerEnter2D(Collider2D _)
         {
-            OnContact(col);
+            OnContact();
         }
-        void OnCollisionEnter2D(Collision2D col)
+        void OnCollisionEnter2D(Collision2D _)
         {
-            OnContact(col.collider);
+            OnContact();
         }
 
-        void OnContact(Collider2D _)
+        void OnContact()
         {
             PersistenceEvents.InvokeCreateEmptySceneFile(SceneToLoadName);
 

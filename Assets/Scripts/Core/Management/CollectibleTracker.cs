@@ -4,7 +4,6 @@ using UnityEngine;
 using PSEMO.Environment.Functionality.Collectible;
 using PSEMO.Events;
 using PSEMO.Core.Persistence;
-using UnityEngine.AI;
 
 namespace PSEMO.Core.Management
 {

@@ -6,6 +6,11 @@ namespace PSEMO.Camera
 {
     public class CameraManager : MonoBehaviour
     {
+        [SerializeField] CameraSO data;
+
+        private Dictionary<Transform, float> targets;
+        private Vector3 velocity = Vector3.zero;
+
         private void Awake()
         {
             targets = new Dictionary<Transform, float>();
@@ -24,11 +29,6 @@ namespace PSEMO.Camera
             CameraEvents.OnCameraTargetRemoved -= RemoveTarget;
             UIEvents.OnLoadingEnd -= ResetToTarget;
         }
-
-        [SerializeField] CameraSO data;
-
-        private Dictionary<Transform, float> targets;
-        private Vector3 velocity = Vector3.zero;
 
         void LateUpdate()
         {

@@ -19,7 +19,6 @@ namespace PSEMO.Environment.Movement
         {
             HandleEnter(col.collider);
         }
-
         private void OnTriggerEnter2D(Collider2D col)
         {
             HandleEnter(col);
@@ -29,7 +28,6 @@ namespace PSEMO.Environment.Movement
         {
             HandleExit(col.collider);
         }
-
         private void OnTriggerExit2D(Collider2D col)
         {
             HandleExit(col);

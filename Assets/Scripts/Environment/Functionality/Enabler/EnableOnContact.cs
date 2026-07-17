@@ -18,7 +18,6 @@ namespace PSEMO.Environment.Functionality.Enabler
         {
             HandleEnter();
         }
-
         void OnCollisionEnter2D(Collision2D _)
         {
             HandleEnter();

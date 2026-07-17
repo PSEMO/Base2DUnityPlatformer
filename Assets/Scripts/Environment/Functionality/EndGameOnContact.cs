@@ -6,17 +6,17 @@ namespace PSEMO.Environment.Functionality
     [RequireComponent(typeof(Collider2D))]
     public class EndGameOnContact : MonoBehaviour
     {
-        void OnTriggerEnter2D(Collider2D col)
+        void OnTriggerEnter2D(Collider2D _)
         {
-            OnContact(col);
+            OnContact();
         }
 
-        void OnCollisionEnter2D(Collision2D col)
+        void OnCollisionEnter2D(Collision2D _)
         {
-            OnContact(col.collider);
+            OnContact();
         }
 
-        void OnContact(Collider2D _)
+        void OnContact()
         {
             UIEvents.InvokeEndGame();
         }

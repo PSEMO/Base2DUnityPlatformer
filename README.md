@@ -55,6 +55,9 @@ Equipped with runtime diagnostic utilities, such as a built-in Lag Detector, all
 ### 14. Controller & Virtual Mouse Support
 Full support for gamepad controllers along with an intelligent virtual mouse system that seamlessly activates only when necessary, providing a smooth UI experience across different input devices. Includes quality-of-life improvements such as automatically centering the virtual cursor and a revamped EventSystem to handle new inputs efficiently.
 
+### 15. Dynamic Camera System
+A lightweight, event-driven custom camera system supporting smooth-damped multi-target tracking with weighted averaging and customizable bounds constraints.
+
 ## Practical Positive Aspects
 * **Developer Experience**: The clean architecture and clear separation of concerns make onboarding and expanding the codebase a breeze.
 * **Performance**: Built-in object pooling and efficient state management ensure high frame rates even on lower-end devices.
